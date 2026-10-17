@@ -4,30 +4,30 @@
 {% block title %}{{ P.title }}{% endblock %}
 {% block description %}{{ P.description }}{% endblock %}
 {% block main %}
-{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[1][1])], ['aero-2', 'haso-arch', 'merch-6']) }}
+{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[1][1])]) }}
 
-<section class="sec sec-top0" aria-label="{{ P.kicker }}">
+<section class="sec sec-top" aria-label="{{ P.kicker }}">
   <div class="wrap">
     <div class="filters" role="group" aria-label="Filtr">
       <button type="button" class="chip is-on" data-f="*">{{ 'Vše' if t.lang == 'cs' else 'All' }}</button>
       {% for d in ['Editorials', 'Campaigns', 'Media', 'Experiences', 'Built by'] %}<button type="button" class="chip" data-f="{{ d }}" lang="en">{{ d }}</button>{% endfor %}
     </div>
-    <div class="wgrid wgrid-all">
-      {% for w in t.work %}<div class="fi" data-d="{{ w.disc }}">{{ m.work_card(w, loop.index0) }}</div>{% endfor %}
-      {% for v in t.ventures[:2] %}<div class="fi fi-v" data-d="Built by">{{ m.venture_card(v, loop.index0) }}</div>{% endfor %}
+    <div class="wgrid">
+      {% for w in t.work %}<div class="fi" data-d="{{ w.disc }}">{{ m.work_tile(w) }}</div>{% endfor %}
+      {% for v in t.ventures[:2] %}<div class="fi" data-d="Built by">{{ m.venture_tile(v) }}</div>{% endfor %}
     </div>
   </div>
 </section>
 
-<section class="sec sec-tight" aria-labelledby="h-more">
+<section class="sec sec-cream" aria-labelledby="h-more">
   <div class="wrap split">
-    <div><p class="eyebrow" id="h-more">{{ P.more_kicker }}</p></div>
+    <div class="split-head"><p class="lbl">{{ P.more_kicker }}</p><h2 class="h3" id="h-more">{{ t.home.work_title }}</h2></div>
     <ul class="more" role="list">
       {% for name, what, tag in P.more %}
-      <li>{% if name == 'AKOM' %}<span class="more-thumb">{{ m.pic('akom', 'AKOM web', '12rem') }}</span>{% endif %}<span class="more-client">{{ name }}</span><span class="more-what">{{ what }}</span><span class="more-tag">{{ tag }}</span></li>
+      <li><span class="more-client">{{ name }}</span><span class="more-what">{{ what }}</span><span class="lbl">{{ tag }}</span></li>
       {% endfor %}
     </ul>
   </div>
 </section>
-{{ m.cta_band() }}
+{{ m.cta() }}
 {% endblock %}

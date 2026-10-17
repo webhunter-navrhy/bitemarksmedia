@@ -3,70 +3,66 @@
 {% block title %}{{ w.title }} — {{ w.client }} | Bite Marks Media{% endblock %}
 {% block description %}{{ w.lead[:155] }}{% endblock %}
 {% block main %}
-<section class="phero dark case-hero">
+<section class="phero">
   <div class="wrap">
-    <nav class="crumbs lbl" aria-label="Breadcrumb"><a href="{{ m.href() }}">{{ ui.home }}</a><span>/</span><a href="{{ m.href('prace/') }}">{{ ui.nav[1][1] }}</a><span>/</span><span aria-current="page">{{ w.client }}</span></nav>
+    {{ m.crumbs([('prace/', ui.nav[1][1]), ('', w.client)]) }}
     <div class="phero-grid">
       <div>
         <p class="lbl phero-k"><span lang="en">{{ w.disc }}</span> · {{ w.client }}</p>
-        <h1 class="phero-h1 cap">{{ w.title | acc }}</h1>
+        <h1 class="phero-h1">{{ w.title | acc }}</h1>
       </div>
-      <div class="phero-side">
-        <p class="phero-lead">{{ w.lead }}</p>
-        {{ m.meta_list([(ui.client, w.client), (ui.year, w.year), (ui.role, w.role | join(' · '))]) }}
+      <div class="phero-lead">
+        <p>{{ w.lead }}</p>
       </div>
     </div>
+    <div class="case-facts">{{ m.meta_list([(ui.client, w.client), (ui.year, w.year), (ui.role, w.role | join(' · '))]) }}</div>
   </div>
 </section>
 
 {% if w.slug == 'forbes' %}
-<section class="smedia wrap">
-  <div class="panel panel-blue panel-tall">{{ m.covers(reader=True, sizes='(min-width: 900px) 20vw, 44vw') }}</div>
-</section>
-<section class="sec sec-tight" aria-label="{{ ui.open_mag }}">
-  <div class="wrap">
-    <ul class="mags" role="list">
-      {% for k, name, d in w.mags %}
-      <li><button type="button" class="mag" data-mag="{{ k }}" data-title="{{ name }}">
-        <span class="mag-name">{{ name }}</span><span class="mag-d">{{ d }}</span><span class="mag-open">{{ ui.open_mag }} {{ m.arrow() }}</span>
-      </button></li>
-      {% endfor %}
-    </ul>
-  </div>
+<section class="wrap" aria-label="{{ ui.open_mag }}">
+  <div class="cover-stage">{{ m.covers(reader=True, sizes='(min-width: 900px) 20vw, 44vw') }}</div>
+  <ul class="mags" role="list">
+    {% for k, name, d in w.mags %}
+    <li><button type="button" class="mag" data-mag="{{ k }}" data-title="{{ name }}">
+      <span class="mag-name">{{ name }}</span><span class="mag-d">{{ d }}</span><span class="mag-open">{{ ui.open_mag }} {{ m.arrow() }}</span>
+    </button></li>
+    {% endfor %}
+  </ul>
 </section>
 {% elif w.slug == 'aero' %}
-<section class="smedia wrap">
+<section class="wrap">
   <div class="aero">
     <div class="aero-video">
       <video id="aeroVideo" muted loop playsinline preload="none" poster="{{ base }}img/aero-poster-{{ IMG['aero-poster'].w[-1] }}.webp?v={{ IMG['aero-poster'].v }}" width="{{ VIDEO.w }}" height="{{ VIDEO.h }}" data-src="{{ base }}media/aero.mp4?v={{ VIDEO.v }}" aria-label="To dá rozum"></video>
       <button class="sound" type="button" aria-pressed="false"><span class="sound-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="spk" d="M4 9v6h4l5 4V5L8 9z"/><path class="s-on" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/><path class="s-off" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg></span><span>{{ ui.sound }}</span></button>
     </div>
-    {% for k in w.gallery[:2] %}<figure class="aero-ph">{{ m.pic(k, w.alts[loop.index0], '(min-width: 900px) 28vw, 46vw') }}</figure>{% endfor %}
+    {% for k in w.gallery[:2] %}<figure class="aero-ph">{{ m.pic(k, w.alts[loop.index0], '(min-width: 900px) 28vw, 94vw') }}</figure>{% endfor %}
   </div>
 </section>
 {% elif w.slug == 'socialni-site' %}
-<section class="smedia wrap"><div class="panel panel-cream">{{ m.carousels(['car-skoda-1', 'car-gls-1', 'car-raynet-1', 'car-arf-1', 'car-brunch-1']) }}</div></section>
+<section class="wrap"><figure class="media media-cream">{{ m.pic('r-cars', w.title, '(min-width: 1400px) 1320px, 94vw') }}</figure></section>
 {% elif w.slug == 'merchandise' %}
-<section class="smedia wrap"><div class="panel panel-img">{{ m.pic('merch-2', w.title, '(min-width: 1400px) 1400px, 100vw') }}</div></section>
+<section class="wrap"><figure class="media">{{ m.pic('merch-1', w.title, '(min-width: 1400px) 1320px, 94vw') }}</figure></section>
 {% endif %}
 
 <section class="sec" aria-label="{{ w.title }}">
   <div class="wrap">
-    <div class="blocks" style="--n:{{ (w.blocks if w is defined else v.blocks) | length }}">
+    <div class="blocks">
       {% for title, text in w.blocks %}<div class="block"><p class="block-t">{{ title }}</p><p class="block-d">{{ text }}</p></div>{% endfor %}
     </div>
   </div>
 </section>
 
 {% if w.quote %}
-<section class="sec sec-tight"><div class="wrap">
-  <figure class="bigquote"><blockquote><p>{{ w.quote[0] }}</p></blockquote><figcaption><b>{{ w.quote[1] }}</b> · {{ w.quote[2] }}</figcaption></figure>
+<section class="sec sec-tight sec-cream"><div class="wrap">
+  <figure class="bigq"><blockquote><p>{{ w.quote[0] }}</p></blockquote><figcaption><span class="bigq-name">{{ w.quote[1] }}</span><span class="lbl">{{ w.quote[2] }}</span></figcaption></figure>
 </div></section>
 {% endif %}
 
 {% if w.slug == 'aero' %}
 <section class="sec sec-tight"><div class="wrap gal gal-4">
-  {% for k in w.gallery[2:] %}<figure>{{ m.pic(k, w.alts[loop.index0 + 2], '(min-width: 900px) 30vw, 92vw') }}</figure>{% endfor %}
+  {% for k in w.gallery[2:] %}<figure>{{ m.pic(k, w.alts[loop.index0 + 2], '(min-width: 900px) 24vw, 46vw') }}</figure>{% endfor %}
 </div></section>
 {% elif w.slug == 'socialni-site' %}
 <section class="sec sec-tight"><div class="wrap sets">
@@ -76,17 +72,11 @@
 </div></section>
 {% elif w.slug == 'merchandise' %}
 <section class="sec sec-tight"><div class="wrap gal gal-masonry">
-  {% for k in w.gallery %}<figure>{{ m.pic(k, w.title, '(min-width: 900px) 30vw, 46vw') }}</figure>{% endfor %}
+  {% for k in w.gallery[1:] %}<figure>{{ m.pic(k, w.title, '(min-width: 900px) 30vw, 46vw') }}</figure>{% endfor %}
 </div></section>
 {% endif %}
 
-<section class="nextl" aria-label="{{ ui.next_case }}">
-  <a class="wrap nextl-in" href="{{ m.href('prace/' ~ nxt.slug ~ '/') }}">
-    <span class="eyebrow">{{ ui.next_case }} · {{ nxt.client }}</span>
-    <span class="nextl-name nextl-sm">{{ nxt.title | acc }}</span>
-    <span class="nextl-go">{{ m.arrow() }}</span>
-  </a>
-</section>
-{{ m.cta_band() }}
+{{ m.next_link(ui.next_case ~ ' · ' ~ nxt.client, nxt.title, m.href('prace/' ~ nxt.slug ~ '/')) }}
+{{ m.cta() }}
 {% endblock %}
 {% block after %}{% if w.slug == 'forbes' %}{{ m.reader() }}{% endif %}{% endblock %}

@@ -4,29 +4,23 @@
 {% block title %}{{ P.title }}{% endblock %}
 {% block description %}{{ P.description }}{% endblock %}
 {% block main %}
-{{ m.page_hero(P.kicker, P.h1, P.lead, [('', 'Journal')], ['j-tos', 'j-asd', 'j-compas']) }}
-<section class="sec sec-top0" aria-label="Journal">
+{{ m.page_hero(P.kicker, P.h1, P.lead, [('', 'Journal')]) }}
+<section class="sec sec-top" aria-label="Journal">
   <div class="wrap">
     {% set f = t.posts[0] %}
     <article class="post post-feat"><a href="{{ f[4] }}" target="_blank" rel="noopener" lang="cs">
-      <span class="post-pol"><span class="bw-hover">{{ m.pic(f[0], '', '(min-width: 900px) 60vw, 92vw') }}</span></span>
-      <div class="post-feat-copy">
-        <p class="lbl post-meta">{{ f[2] }} · {{ f[1] }}</p>
-        <h2 class="post-title post-title-xl cap">{{ f[3] }}</h2>
-        <span class="link-line">{{ ui.read_article }} {{ m.ext() }}</span>
-      </div>
+      <span class="post-img bw">{{ m.pic(f[0], '', '(min-width: 900px) 58vw, 94vw') }}</span>
+      <span class="post-feat-copy">
+        <span class="lbl post-meta">{{ f[2] }} · {{ f[1] }}</span>
+        <span class="post-title">{{ f[3] }}</span>
+        <span class="tlink"><span>{{ ui.read_article }}</span>{{ m.ext() }}</span>
+      </span>
     </a></article>
-    <div class="posts posts-3 posts-more">
-      {% for p in t.posts[1:] %}
-      <article class="post"><a href="{{ p[4] }}" target="_blank" rel="noopener" lang="cs">
-        <span class="post-pol"><span class="bw-hover">{{ m.pic(p[0], '', '(min-width: 900px) 24vw, 92vw') }}</span></span>
-        <span class="lbl post-meta">{{ p[2] }} · {{ p[1] }}</span>
-        <h3 class="post-title cap">{{ p[3] }}</h3>
-      </a></article>
-      {% endfor %}
+    <div class="posts posts-more">
+      {% for p in t.posts[1:] %}{{ m.post(p) }}{% endfor %}
     </div>
-    <p class="center-cta"><a class="btn btn-maroon" href="{{ c.journal }}" target="_blank" rel="noopener"><span>{{ P.cta }}</span>{{ m.ext() }}</a></p>
+    <p class="center"><a class="btn btn-gloss" href="{{ c.journal }}" target="_blank" rel="noopener"><span>{{ P.cta }}</span>{{ m.ext() }}</a></p>
   </div>
 </section>
-{{ m.cta_band() }}
+{{ m.cta() }}
 {% endblock %}

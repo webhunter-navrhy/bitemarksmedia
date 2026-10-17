@@ -4,51 +4,24 @@
 {% block title %}{{ P.title }}{% endblock %}
 {% block description %}{{ P.description }}{% endblock %}
 {% block main %}
-{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[4][1])], ['j-manazer', 'haso-run', 'merch-4']) }}
+{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[4][1])]) }}
 
-<section class="sec sec-top0" aria-labelledby="h-story">
-  <div class="wrap story">
-    <figure class="story-photo">{{ m.pic('valerie-brand', 'Valérie Čížková', '(min-width: 900px) 34vw, 92vw') }}<figcaption>Valérie</figcaption></figure>
-    <div class="story-copy">
-      <p class="eyebrow">{{ P.story_kicker }}</p>
-      <h2 class="h2" id="h-story">{{ P.story_title | acc }}</h2>
-      {% for p in P.story %}<p class="story-p{% if loop.first %} story-lead{% endif %}">{{ p }}</p>{% endfor %}
-      <p class="story-sign">Valérie Čížková</p>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec-tight" aria-labelledby="h-team">
+<section class="sec sec-top" aria-labelledby="h-team">
   <div class="wrap">
-    <div class="head"><p class="eyebrow">{{ P.team_kicker }}</p><h2 class="sr" id="h-team">{{ P.team_kicker }}</h2></div>
-    <div class="persons">
+    <h2 class="sr" id="h-team">{{ P.team_kicker }}</h2>
+    <div class="team">
       {% for p in P.team %}
-      <article class="person" data-state="0" aria-label="{{ p.name }}">
-        <div class="person-card">
-          <div class="pst pst-0">
-            <div class="pst-photo">
-              <svg class="orbit" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="100" cy="100" rx="98" ry="84"/></svg>
-              {{ m.pic('p-' ~ p.key, p.name, '(min-width: 900px) 24vw, 70vw', 'pst-img') }}
-            </div>
-            <div class="pst-cap"><h3 class="pst-name">{{ p.name }}</h3><p class="pst-role" lang="en">{{ p.role }}</p><p class="pst-line">{{ p.line }}</p></div>
-          </div>
-          <div class="pst pst-1">
-            <div class="pst-mini" aria-hidden="true"><svg class="orbit" viewBox="0 0 200 200" preserveAspectRatio="none"><ellipse cx="100" cy="100" rx="98" ry="84"/></svg>{{ m.pic('p-' ~ p.key, '', '12rem', 'pst-mini-img') }}</div>
-            <p class="pst-off-title">{{ p.off_title }}</p>
-            <p class="pst-off">{{ p.off }}</p>
-          </div>
-          <div class="pst pst-2">
-            <span class="pst-logo" aria-hidden="true">{{ LOGO | safe }}</span>
-            <p class="pst-big">{{ p.title }} {{ p.name }}</p>
-            <ul class="pst-contacts" role="list">
-              <li><a href="tel:{{ p.phone | replace(' ', '') }}">{{ p.phone }}</a></li>
-              <li><a href="mailto:{{ p.email }}">{{ p.email }}</a></li>
-              <li><a href="{{ c.linkedin }}" target="_blank" rel="noopener">LinkedIn {{ m.ext() }}</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="ptabs" role="tablist" aria-label="{{ p.name }}">
-          {% for s in P.states %}<button type="button" role="tab" class="ptab{% if loop.first %} is-on{% endif %}" data-s="{{ loop.index0 }}" aria-selected="{{ 'true' if loop.first else 'false' }}">{{ s }}</button>{% endfor %}
+      <article class="member">
+        <div class="member-img person-img">{{ m.pic('p-' ~ p.key, p.name, '(min-width: 900px) 22vw, 94vw') }}<svg class="person-ring" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="100" cy="100" rx="98" ry="97"/></svg></div>
+        <div class="member-copy">
+          <h3 class="member-name">{{ p.name }}</h3>
+          <p class="lbl" lang="en">{{ p.role }}</p>
+          <p class="member-line">{{ p.line }}</p>
+          <p class="member-off"><b>{{ p.off_title }}</b> {{ p.off }}</p>
+          <ul class="member-contacts" role="list">
+            <li><a href="tel:{{ p.phone | replace(' ', '') }}">{{ p.phone }}</a></li>
+            <li><a href="mailto:{{ p.email }}">{{ p.email }}</a></li>
+          </ul>
         </div>
       </article>
       {% endfor %}
@@ -56,54 +29,57 @@
   </div>
 </section>
 
-<section class="phil sec" aria-labelledby="h-values">
-  <div class="wrap">
-    <div class="head"><p class="eyebrow">{{ P.values_kicker }}</p><h2 class="h2" id="h-values" lang="en">{{ t.v4.phil_title | acc }}</h2></div>
-    <ol class="values4" role="list">
-      {% for v, d in P['values'] %}<li><span class="v4-n">{{ '%02d' % loop.index }}</span><h3 class="v4-t">{{ v }}</h3><p>{{ d }}</p></li>{% endfor %}
-    </ol>
+<section class="sec sec-cream" aria-labelledby="h-story">
+  <div class="wrap story">
+    <figure class="story-photo">{{ m.pic('valerie-brand', 'Valérie Čížková', '(min-width: 900px) 36vw, 94vw') }}</figure>
+    <div class="story-copy">
+      <p class="lbl">{{ P.story_kicker }}</p>
+      <h2 class="h2" id="h-story">{{ P.story_title | acc }}</h2>
+      {% for p in P.story %}<p class="story-p{% if loop.first %} story-lead{% endif %}">{{ p }}</p>{% endfor %}
+      <p class="story-sign">{{ P.story_sign }}</p>
+    </div>
   </div>
 </section>
 
-<section class="sec" aria-labelledby="h-process">
+<section class="sec phil" aria-labelledby="h-values">
+  <div class="wrap phil-grid">
+    <figure class="phil-img">{{ m.pic('r-suede-p', '', '(min-width: 900px) 40vw, 94vw') }}</figure>
+    <div class="phil-copy">
+      <p class="lbl">{{ P.values_kicker }}</p>
+      <h2 class="h2" id="h-values" lang="en">{{ t.home.phil_title }}</h2>
+      <ul class="values" role="list">
+        {% for v, d in P['values'] %}<li><span class="values-t">{{ v }}</span><span class="values-d">{{ d }}</span></li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-cream" aria-labelledby="h-process">
   <div class="wrap split">
-    <div class="split-head"><p class="eyebrow">{{ P.process_kicker }}</p><h2 class="sr" id="h-process">{{ P.process_kicker }}</h2></div>
-    <ol class="items" role="list">
-      {% for tt, d in P.process %}<li><span class="items-n">{{ '%02d' % loop.index }}</span><h3 class="items-t">{{ tt }}</h3><p class="items-d">{{ d }}</p></li>{% endfor %}
-    </ol>
+    <div class="split-head"><p class="lbl">{{ P.process_kicker }}</p><h2 class="h3" id="h-process">{{ P.process_kicker }}</h2></div>
+    <ul class="items" role="list">
+      {% for tt, d in P.process %}<li><h3 class="items-t">{{ tt }}</h3><p class="items-d">{{ d }}</p></li>{% endfor %}
+    </ul>
   </div>
 </section>
 
-<section class="sec sec-tight" aria-labelledby="h-quotes">
+<section class="sec" aria-labelledby="h-quotes">
   <div class="wrap">
-    <div class="quotes">
-      <p class="eyebrow" id="h-quotes">{{ P.quotes_kicker }}</p>
-      <div class="quote-stage" aria-live="polite">
-        {% for q, who, org in P.quotes %}
-        <figure class="quote{% if loop.first %} is-on{% endif %}"{% if not loop.first %} hidden{% endif %}>
-          <blockquote><p>{{ q }}</p></blockquote>
-          <figcaption><b>{{ who }}</b>{% if org %} · {{ org }}{% endif %}</figcaption>
-        </figure>
-        {% endfor %}
-      </div>
-      <div class="quote-nav">
-        <button type="button" class="qbtn" data-d="-1" aria-label="{{ ui.back }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
-        <span class="qcount"><b>1</b> / {{ P.quotes | length }}</span>
-        <button type="button" class="qbtn" data-d="1" aria-label="{{ ui.next }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
-      </div>
+    {{ m.head(P.quotes_kicker, t.v4.quotes_title, 'h-quotes') }}
+    <div class="qlist">
+      {% for q, who, org in P.quotes %}
+      <figure><blockquote><p>{{ q }}</p></blockquote><figcaption><b>{{ who }}</b>{% if org %} · {{ org }}{% endif %}</figcaption></figure>
+      {% endfor %}
     </div>
   </div>
 </section>
 
 <section class="sec sec-tight" aria-labelledby="h-partners">
   <div class="wrap split">
-    <div><p class="eyebrow" id="h-partners">{{ P.partners_kicker }}</p></div>
+    <div class="split-head"><p class="lbl" id="h-partners">{{ P.partners_kicker }}</p></div>
     <ul class="areas" role="list">{% for n, d in P.partners %}<li><span class="areas-n">{{ n }}</span><span class="areas-d">{{ d }}</span></li>{% endfor %}</ul>
   </div>
-  <div class="wrap">
-    <p class="eyebrow logos-k">{{ P.clients_kicker }}</p>
-    <ul class="logos" role="list">{% for k in c.clients %}<li><img src="{{ base }}img/logo-{{ k }}.png?v={{ LOGOS[k].v }}" width="{{ LOGOS[k].w }}" height="{{ LOGOS[k].h }}" alt="{{ c.client_names[k] }}" loading="lazy" decoding="async"></li>{% endfor %}</ul>
-  </div>
+  <div class="wrap">{{ m.logos(P.clients_kicker) }}</div>
 </section>
-{{ m.cta_band() }}
+{{ m.cta() }}
 {% endblock %}

@@ -5,6 +5,7 @@
 CZ je v kořeni, EN pod /en/. Obrázky se převádí do WebP jen jednou (cache .cache/), vše s ?v=<hash>.
 """
 import hashlib
+import os
 import json
 import re
 import shutil
@@ -63,6 +64,20 @@ IMAGES = {
     "j-rohde": ("vimperk-25-years-promotional-image-rohde-schwarz_200_121303_1920_1080_4.webp", [640, 1200], None),
     "j-raben": ("EVAK5920-zm.webp", [640, 1200], None),
     "j-doosan": ("CR_STROJE_ENERGIE_FIRMY_DOOSAN_SKODA_POWER_PLZEN_10_575.webp", [640, 1200], None),
+    # vlastní art-direction rendery (vygenerované pro web, ne z moodboardu) a produktové kompozice
+    "r-cherry": ("r/cherry.jpg", [960, 1440, 1920], None),
+    "r-cherry-m": ("r/cherry-m.jpg", [600, 900], None),
+    "r-suede": ("r/suede.jpg", [800, 1200, 1600], None),
+    "r-suede-p": ("r/suede-p.jpg", [600, 870], None),
+    "r-covers": ("r/covers.jpg", [800, 1300, 2000], None),
+    "r-cars": ("r/carousels.jpg", [800, 1300, 1800], None),
+    "r-covers-p": ("r/covers-p.jpg", [600, 900, 1200], None),
+    "r-cars-p": ("r/cars-p.jpg", [600, 900, 1200], None),
+    "r-aero": ("r/aero-duo.jpg", [800, 1350], None),
+    "asd-spark": ("v/asd-12.jpg", [600, 1024], None),
+    "konf": ("Konference-Zeny-Zenam-2024_3.webp", [800, 1400, 1920], None),
+    "tech": ("DSC03180.webp", [800, 1400, 1920], None),
+    "haso-trail": ("v/haso-9.jpg", [600, 941], None),
 }
 for i, src in enumerate(["Premiovy-merchandise-12", "Premiovy-merchandise-3", "Premiovy-merchandise-6", "Premiovy-merchandise-10",
                          "Premiovy-merchandise-8", "Premiovy-merchandise-7", "Premiovy-merchandise", "Premiovy-merchandise-4",
@@ -82,6 +97,7 @@ SERVICE_MEDIA = {
     "media": {"type": "carousels", "keys": ["car-skoda-1", "car-gls-1", "car-raynet-1", "car-arf-1"]},
     "experiences": {"type": "image", "key": "merch-2"},
 }
+SERVICE_IMG = {"editorials": "r-covers-p", "campaigns": "aero-1", "strategies": "akom", "events": "konf", "media": "r-cars-p", "experiences": "merch-6"}
 SERVICE_COLLAGE = {
     "editorials": ["cover-kvt", "v-asd", "cover-k26"],
     "campaigns": ["aero-1", "aero-5", "aero-2"],
@@ -90,7 +106,7 @@ SERVICE_COLLAGE = {
     "media": ["car-skoda-1", "j-compas", "car-raynet-1"],
     "experiences": ["merch-6", "merch-2", "haso-medal"],
 }
-WORK_CARD = {"forbes": "covers", "aero": "aero-1", "socialni-site": "carousels", "merchandise": "merch-1"}
+WORK_CARD = {"forbes": "covers", "aero": "r-aero", "socialni-site": "carousels", "merchandise": "merch-1"}
 
 
 def h(data: bytes) -> str:
@@ -144,17 +160,8 @@ def venture_svg(path: Path) -> str:
 
 
 def acc(text: str) -> Markup:
-    """Titulek ve stylu reference: verzálky + kurzívový akcent. *x* = akcent; bez hvězdiček se zvýrazní
-    poslední část za čárkou, druhá věta nebo poslední dvě slova."""
+    """*x* -> <em>x</em> (jemné zvýraznění barvou), jinak čistý text"""
     t = str(text)
-    if "*" not in t:
-        if ", " in t.rstrip(",. "):
-            a, z = t.rsplit(", ", 1); t = f"{a}, *{z}*"
-        elif re.search(r"[.?!] \S", t.strip()):
-            a, z = re.split(r"(?<=[.?!]) (?=\S)", t.strip(), maxsplit=1); t = f"{a} *{z}*"
-        else:
-            w = t.split(" ")
-            t = " ".join(w[:-2]) + " *" + " ".join(w[-2:]) + "*" if len(w) > 3 else t
     parts = re.split(r"\*(.+?)\*", t)
     return Markup("".join(str(escape(p)) if i % 2 == 0 else f"<em>{escape(p)}</em>" for i, p in enumerate(parts)))
 
@@ -182,7 +189,7 @@ def main():
     LOGO = (A / "bmm-logo.svg").read_text()
     VLOGO = {k: venture_svg(A / f"{k}.svg") for k in ("asd", "dtp", "gryfix", "haso")}
     files = {}
-    for f in ("style.css", "app.js", "ring.js"):
+    for f in ("style.css", "app.js"):
         b = (ROOT / f).read_bytes(); (DIST / f).write_bytes(b); files[f] = h(b)
     for f in ("favicon.svg", "og.jpg"):
         if (A / f).exists():
@@ -201,13 +208,15 @@ def main():
             alt_pre = "en/" if pre == "" else ""
             ctx = dict(t=t, ui=t["ui"], c=c, base=BASE, pre=pre, path=path, site_url=SITE_URL, IMG=IMG, VIDEO=VIDEO,
                        LOGOS=LOGOS, LOGO=LOGO, VLOGO=VLOGO, V=files, pages_v=pages_v, has_en=bool(EN),
-                       alt_url=f"{BASE}{alt_pre}{path + '/' if path else ''}", SERVICE_MEDIA=SERVICE_MEDIA, WORK_CARD=WORK_CARD, SERVICE_COLLAGE=SERVICE_COLLAGE)
+                       alt_url=f"{BASE}{alt_pre}{path + '/' if path else ''}", SERVICE_MEDIA=SERVICE_MEDIA, WORK_CARD=WORK_CARD, SERVICE_COLLAGE=SERVICE_COLLAGE, SERVICE_IMG=SERVICE_IMG)
             ctx.update(kw)
             html = env.get_template(tpl).render(**ctx)
             if t["lang"] == "cs":
                 html = nbsp(html)
             out.write_text(html); count += 1
         page("home.html", "")
+        if os.environ.get("JEN_HOME"):
+            continue
         page("services.html", "sluzby")
         S = t["services"]
         for i, s in enumerate(S):

@@ -1,164 +1,144 @@
 {% extends 'base.html' %}
 {% import '_m.html' as m with context %}
-{% set H = t.home %}{% set X = t.v4 %}
+{% set H = t.home %}
 {% block title %}{{ H.title }}{% endblock %}
 {% block description %}{{ H.description }}{% endblock %}
 {% block bodyclass %}home{% endblock %}
 {% block main %}
 
-<!-- HERO: vínová, verzálky s kurzívou, koláž přetéká do další sekce -->
-<section class="hero dark" aria-labelledby="h-hero">
-  <div class="hero-bg bw" aria-hidden="true">{{ m.pic('aero-5', '', '100vw') }}</div>
+{# 01 HERO: klidná powder blue plocha, jeden lesklý maroon objekt, dominantní titulek #}
+<section class="hero" aria-labelledby="h-hero">
+  <div class="hero-bg" aria-hidden="true">
+    <picture>
+      <source media="(max-width: 699px)" srcset="{% for w in IMG['r-cherry-m'].w %}{{ base }}img/r-cherry-m-{{ w }}.webp?v={{ IMG['r-cherry-m'].v }} {{ w }}w{% if not loop.last %}, {% endif %}{% endfor %}" sizes="100vw">
+      {{ m.pic('r-cherry', '', '100vw', 'hero-img', eager=True) }}
+    </picture>
+  </div>
   <div class="wrap hero-in">
-    <p class="hand hero-script" lang="en">{{ X.hero_script }}</p>
-    <h1 class="hero-h1 cap" id="h-hero">{{ X.hero_h1 | acc }}</h1>
-    <p class="lbl hero-line">{{ X.hero_line }}</p>
-    <div class="hero-btns">
-      <a class="btn btn-cream" href="{{ m.href('kontakt/') }}">{{ ui.cta_button }}</a>
-      <a class="btn btn-line" href="{{ m.href('prace/') }}">{{ ui.all_work }}</a>
-    </div>
-  </div>
-  <div class="hero-collage wrap" aria-hidden="true">
-    {{ m.pol('valerie-brand', 'Valérie', -6, 'hc hc-1') }}
-    <div class="hc hc-2"><span class="tape"></span><span class="hc2-panel">{{ m.covers() }}</span><p class="hand hc-note">{{ X.hero_note }} ↓</p></div>
-    {{ m.tp('haso-arch', 4, 'hc hc-3') }}
-    {{ m.pol('merch-3', '', 7, 'hc hc-4', bw=False) }}
-  </div>
-</section>
-
-<!-- AHOJ, JSEM VALÉRIE -->
-<section class="hi" aria-labelledby="h-hi">
-  <div class="wrap hi-grid">
-    <div class="hi-collage">
-      {{ m.tp('valerie-brand', -2, 'hi-main', alt='Valérie Čížková') }}
-      {{ m.film(['aero-1', 'haso-run', 'j-manazer'], 'hi-film') }}
-      <p class="note cap hi-note">{{ X.note | acc }}</p>
-    </div>
-    <div class="hi-copy">
-      <p class="lbl">{{ X.hi }}</p>
-      <h2 class="hand hi-name" id="h-hi">Valérie Čížková</h2>
-      <p class="lbl hi-role" lang="en">Founder &amp; CEO · Bite Marks Media</p>
-      <p class="hi-lead">{{ X.intro_p1 }}</p>
-      <p>{{ X.intro_p2 }}</p>
-      <a class="btn btn-maroon" href="{{ m.href('o-nas/') }}">{{ X.intro_btn }}</a>
-    </div>
-  </div>
-  <div class="wrap">{{ m.logos_row() }}</div>
-</section>
-
-<!-- CO DĚLÁME: vínový blok + fotka -->
-<section class="split-photo" aria-labelledby="h-svc">
-  <div class="sp-text dark">
-    <p class="lbl">{{ X.svc_kicker }}</p>
-    <h2 class="cap sp-title" id="h-svc">{{ X.svc_title | acc }}</h2>
-    <ol class="sp-list" role="list">
-      {% for s in t.services %}
-      <li><a href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}"><span class="sp-n lbl">{{ '%02d' % loop.index }}</span><span class="sp-name cap" lang="en">{{ s.name }}</span><span class="sp-short">{{ s.short }}</span></a></li>
-      {% endfor %}
-    </ol>
-    <a class="btn btn-cream" href="{{ m.href('sluzby/') }}">{{ ui.all_services }}</a>
-  </div>
-  <div class="sp-photo bw" aria-hidden="true">{{ m.pic('aero-6', '', '50vw') }}
-    {{ m.pol('merch-1', 'merch', 6, 'sp-pol', bw=False) }}
-  </div>
-</section>
-
-<!-- VYBRANÉ PROJEKTY -->
-<section class="sec" aria-labelledby="h-work">
-  <div class="wrap">
-    <div class="center-head">
-      <h2 class="cap h2" id="h-work">{{ X.work_title | acc }}</h2>
-      <p class="hand head-note">{{ X.work_note }}</p>
-    </div>
-    <div class="wgrid">
-      {% for w in t.work %}{{ m.work_card(w, loop.index0) }}{% endfor %}
-    </div>
-    <p class="center-cta"><a class="btn btn-maroon" href="{{ m.href('prace/') }}">{{ ui.all_work }}</a></p>
-  </div>
-</section>
-
-<!-- BUILT BY -->
-<section class="built dark" aria-labelledby="h-built">
-  <div class="wrap">
-    <div class="center-head">
-      <p class="lbl" lang="en">Built by</p>
-      <p class="hand built-script">Bite Marks</p>
-      <h2 class="cap h2" id="h-built">{{ X.built_title | acc }}</h2>
-      <p class="center-lead">{{ H.built_text }}</p>
-    </div>
-    <div class="vgrid">{% for v in t.ventures %}{{ m.venture_card(v, loop.index0) }}{% endfor %}</div>
-  </div>
-</section>
-
-<!-- DETAIL: vizitka -->
-<section class="phil" aria-labelledby="h-phil">
-  <div class="wrap phil-grid">
-    <div class="phil-copy">
-      <p class="lbl" lang="en">Philosophy</p>
-      <h2 class="cap h2" id="h-phil" lang="en">{{ X.phil_title | acc }}</h2>
-      <p>{{ H.phil_text }}</p>
-      <ul class="vals" role="list">{% for v in t.about['values'] %}<li class="cap"><em>{{ v[0] }}</em></li>{% endfor %}</ul>
-    </div>
-    <div class="phil-card">
-      <p class="hand card-note">{{ X.card_note }} <svg viewBox="0 0 60 40" aria-hidden="true"><path d="M2 8 C 20 2, 40 10, 50 30 M50 30 l-9 -3 M50 30 l1 -9"/></svg></p>
-      <div class="card3d" tabindex="0" role="button" aria-pressed="false" aria-label="{{ H.card_hint }}">
-        <div class="card-in">
-          <div class="card-face card-front">
-            <div class="cf-left">
-              <p class="cf-name">Valérie Čížková</p>
-              <p class="cf-role">Founder &amp; CEO<br><b>Bite Marks Media</b></p>
-              <p class="cf-contact">{{ c.phone }}<br>{{ c.email }}<br>www.bitemarksmedia.com</p>
-            </div>
-            <div class="cf-right"><span class="cf-logo">{{ LOGO | safe }}</span><p class="cf-list" lang="en">Media<br>Events<br>Experiences<br>Ventures</p></div>
-          </div>
-          <div class="card-face card-back">
-            <span class="cb-sheen" aria-hidden="true"></span>
-            <p class="cb-by" lang="en">Built by</p>
-            <p class="cb-brand">Bite Marks</p>
-            <div class="cb-logos">{% for k in ('asd', 'dtp', 'gryfix', 'haso') %}<span class="cb-l">{{ VLOGO[k] | safe }}</span>{% endfor %}</div>
-            <p class="cb-pillars" lang="en">Media <i>/</i> Events <i>/</i> Experiences <i>/</i> Ventures</p>
-          </div>
-        </div>
+    <p class="lbl hero-k">{{ H.kicker }}</p>
+    <h1 class="hero-h1" id="h-hero" lang="en"><span class="hero-l1">{{ H.line1 }}</span> <span class="hero-l2">{{ m.ring(H.line2) }}</span></h1>
+    <div class="hero-foot">
+      <p class="hero-lead">{{ H.lead }}</p>
+      <div class="hero-cta">
+        <a class="btn btn-gloss" href="{{ m.href('kontakt/') }}"><span>{{ ui.cta_button }}</span>{{ m.arrow() }}</a>
+        <a class="tlink" href="{{ m.href('prace/') }}"><span>{{ ui.all_work }}</span>{{ m.arrow() }}</a>
       </div>
     </div>
   </div>
+  <nav class="hero-disc wrap" aria-label="{{ H.services_kicker }}">
+    {% for s in t.services %}<a href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}" lang="en">{{ s.name }}</a>{% endfor %}
+  </nav>
 </section>
 
-<!-- CO ŘÍKAJÍ KLIENTI -->
-<section class="sec says" aria-labelledby="h-says">
-  <div class="wrap says-grid">
-    <div class="says-head">
-      <h2 class="cap h2" id="h-says">{{ X.quotes_title | acc }}</h2>
-      {{ m.pol('aero-3', '', -4, 'says-pol') }}
+{# studio: supporting line #}
+<section class="intro" aria-labelledby="h-intro">
+  <div class="wrap intro-grid">
+    <p class="lbl intro-k">Studio</p>
+    <h2 class="intro-big" id="h-intro" lang="en">{{ H.intro_big }}</h2>
+    <div class="intro-side">
+      <p>{{ H.intro_text }}</p>
+      <a class="tlink" href="{{ m.href('o-nas/') }}"><span>{{ H.intro_link }}</span>{{ m.arrow() }}</a>
     </div>
-    <ul class="says-list" role="list">
-      {% for q, who, org in t.about.quotes[:3] %}
-      <li><blockquote><p>{{ q }}</p></blockquote><p class="lbl">{{ who }}{% if org %} · {{ org }}{% endif %}</p></li>
-      {% endfor %}
-      <li class="says-more"><a class="link" href="{{ m.href('o-nas/') }}">{{ X.all_quotes }} {{ m.arrow() }}</a></li>
-    </ul>
   </div>
+  <div class="wrap">{{ m.logos(H.trust_kicker) }}</div>
 </section>
 
-<!-- JOURNAL -->
-<section class="sec journal-home" aria-labelledby="h-journal">
+{# 02 WHAT WE DO #}
+<section class="sec sec-cream" aria-labelledby="h-svc">
   <div class="wrap">
-    <div class="center-head">
-      <h2 class="cap h2" id="h-journal">{{ X.journal_title | acc }}</h2>
-      <p class="hand head-note">{{ X.journal_note }}</p>
+    {{ m.head(H.services_kicker, H.services_title, 'h-svc', m.href('sluzby/'), ui.all_services) }}
+    <div class="svcs">
+      {% for s in t.services %}{{ m.svc_card(s) }}{% endfor %}
     </div>
-    <div class="posts posts-3">
-      {% for p in t.posts[:3] %}
-      <article class="post" style="--r:{{ [-1.5, 1, -0.8][loop.index0] }}deg"><a href="{{ p[4] }}" target="_blank" rel="noopener" lang="cs">
-        <span class="post-pol"><span class="bw-hover">{{ m.pic(p[0], '', '(min-width: 900px) 28vw, 92vw') }}</span></span>
-        <span class="lbl post-meta">{{ p[2] }} · {{ p[1] }}</span>
-        <span class="post-title cap">{{ p[3] }}</span>
-      </a></article>
-      {% endfor %}
-    </div>
-    <p class="center-cta"><a class="btn btn-maroon" href="{{ m.href('journal/') }}">Journal</a></p>
   </div>
 </section>
 
-{{ m.cta_band() }}
+{# 04 SELECTED WORK #}
+<section class="sec" aria-labelledby="h-work">
+  <div class="wrap">
+    {{ m.head(H.work_kicker, H.work_title, 'h-work', m.href('prace/'), ui.all_work) }}
+    {{ m.case_row(t.work[0], 0) }}
+    {{ m.case_row(t.work[1], 1) }}
+    <div class="wtiles">
+      {{ m.work_tile(t.work[2]) }}
+      {{ m.work_tile(t.work[3]) }}
+    </div>
+  </div>
+</section>
+
+{# reference #}
+<section class="sec sec-tight" aria-label="{{ t.about.quotes_kicker }}">
+  <div class="wrap">
+    {% set q = t.about.quotes[0] %}
+    <figure class="bigq">
+      <blockquote><p>{{ q[0] }}</p></blockquote>
+      <figcaption><span class="bigq-name">{{ q[1] }}</span><span class="lbl">{{ q[2] }}</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+{# 05 BUILT BY BITE MARKS: tvrdý lesklý maroon jako vizitka „Built by“ #}
+<section class="built" aria-labelledby="h-built">
+  <div class="wrap">
+    <div class="built-head">
+      <p class="lbl">{{ H.built_kicker }}</p>
+      <h2 class="h2" id="h-built" lang="en">{{ H.built_title }}</h2>
+      <p class="built-text">{{ H.built_text }}</p>
+    </div>
+    <ul class="vrows" role="list">
+      {% for v in t.ventures %}{{ m.venture_row(v) }}{% endfor %}
+    </ul>
+    <a class="tlink tlink-light" href="{{ m.href('built-by/') }}"><span>{{ ui.all_ventures }}</span>{{ m.arrow() }}</a>
+  </div>
+  <img class="vpeek" alt="" aria-hidden="true">
+</section>
+
+{# 03 PHILOSOPHY: měkké × lesklé #}
+<section class="sec phil" aria-labelledby="h-phil">
+  <div class="wrap phil-grid">
+    <figure class="phil-img">{{ m.pic('r-suede-p', '', '(min-width: 900px) 40vw, 92vw') }}</figure>
+    <div class="phil-copy">
+      <p class="lbl">{{ H.phil_kicker }}</p>
+      <h2 class="h2" id="h-phil" lang="en">{{ H.phil_title }}</h2>
+      <p class="phil-text">{{ H.phil_text }}</p>
+      <ul class="values" role="list">
+        {% for v, d in t.about['values'] %}<li><span class="values-t">{{ v }}</span><span class="values-d">{{ d }}</span></li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{# 07 PEOPLE BEHIND THE MARK #}
+<section class="sec sec-tight people" aria-labelledby="h-people">
+  <div class="wrap">
+    {{ m.head(t.about.kicker, t.about.h1, 'h-people', m.href('o-nas/'), ui.read_more) }}
+    <div class="persons">
+      {% for p in t.about.team %}
+      <a class="person" href="{{ m.href('o-nas/') }}">
+        <span class="person-img">{{ m.pic('p-' ~ p.key, p.name, '(min-width: 900px) 30vw, 92vw') }}<svg class="person-ring" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="100" cy="100" rx="98" ry="97"/></svg></span>
+        <span class="person-name">{{ p.name }}</span>
+        <span class="lbl person-role" lang="en">{{ p.role }}</span>
+        <span class="person-line">{{ p.line }}</span>
+      </a>
+      {% endfor %}
+      <figure class="person-q">
+        <blockquote><p>{{ t.about.story[0] }}</p></blockquote>
+        <figcaption class="lbl">{{ t.about.story_sign }}</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+{# 06 JOURNAL #}
+<section class="sec sec-cream" aria-labelledby="h-journal">
+  <div class="wrap">
+    {{ m.head(H.journal_kicker, H.journal_title, 'h-journal', c.journal, 'bitemarks.cz', ext_link=True) }}
+    <div class="posts">
+      {% for p in t.posts[:3] %}{{ m.post(p) }}{% endfor %}
+    </div>
+  </div>
+</section>
+
+{# 08 CTA #}
+{{ m.cta() }}
 {% endblock %}

@@ -4,46 +4,15 @@
 {% block title %}{{ P.title }}{% endblock %}
 {% block description %}{{ P.description }}{% endblock %}
 {% block main %}
-{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[0][1])], ['aero-5', 'haso-arch', 'merch-3']) }}
+{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[0][1])], img='r-suede', tone='', cls='phero-wide') }}
 
-<section class="sec sec-top0" aria-label="{{ P.kicker }}">
-  <div class="wrap">
-    <ol class="cols" role="list">
-      {% for s in t.services %}
-      <li class="col{% if loop.first %} is-on{% endif %}" data-key="{{ s.slug }}">
-        <button class="col-btn" type="button" aria-expanded="{{ 'true' if loop.first else 'false' }}" aria-controls="col-{{ s.slug }}">
-          <span class="col-n">{{ '%02d' % loop.index }}</span>
-          <span class="col-name" lang="en">{{ s.name }}</span>
-        </button>
-        <div class="col-body" id="col-{{ s.slug }}">
-          <p class="col-big" lang="en">{{ s.name }}</p>
-          <p class="col-text">{{ s.lead }}</p>
-          <ul class="col-tags" role="list">{% for it in s['items'][:4] %}<li>{{ it[0] }}</li>{% endfor %}</ul>
-          <a class="btn btn-cream" href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}"><span>{{ ui.read_more }}</span>{{ m.arrow() }}</a>
-        </div>
-        <span class="col-gloss" aria-hidden="true"></span>
-      </li>
-      {% endfor %}
-    </ol>
-  </div>
-</section>
-
-<section class="sec sec-tight" aria-labelledby="h-areas">
-  <div class="wrap split">
-    <div><p class="eyebrow">{{ P.areas_kicker }}</p></div>
-    <ul class="areas" role="list" id="h-areas">
-      {% for a, d in P.areas %}<li><span class="areas-n">{{ a }}</span><span class="areas-d">{{ d }}</span></li>{% endfor %}
-    </ul>
-  </div>
-</section>
-
-<section class="sec sec-tight" aria-label="{{ ui.all_services }}">
+<section class="sec sec-top" aria-label="{{ P.kicker }}">
   <div class="wrap">
     <ol class="rows" role="list">
       {% for s in t.services %}
       <li><a class="row" href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}">
-        <span class="row-n">{{ '%02d' % loop.index }}</span>
-        <span class="row-name cap" lang="en">{{ s.name }}</span>
+        <span class="row-img{% if not SERVICE_IMG[s.slug].startswith('r-') %} bw{% endif %}">{{ m.pic(SERVICE_IMG[s.slug], '', '12rem') }}</span>
+        <span class="row-name" lang="en">{{ s.name }}</span>
         <span class="row-short">{{ s.short }}</span>
         <span class="row-go">{{ m.arrow() }}</span>
       </a></li>
@@ -51,5 +20,14 @@
     </ol>
   </div>
 </section>
-{{ m.cta_band() }}
+
+<section class="sec sec-cream" aria-labelledby="h-areas">
+  <div class="wrap split">
+    <div class="split-head"><p class="lbl">{{ P.areas_kicker }}</p><h2 class="h3" id="h-areas">{{ t.home.intro_big }}</h2></div>
+    <ul class="areas" role="list">
+      {% for a, d in P.areas %}<li><span class="areas-n">{{ a }}</span><span class="areas-d">{{ d }}</span></li>{% endfor %}
+    </ul>
+  </div>
+</section>
+{{ m.cta() }}
 {% endblock %}

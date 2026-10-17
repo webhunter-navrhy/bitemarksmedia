@@ -3,37 +3,12 @@
 {% set P = t.built_page %}
 {% block title %}{{ P.title }}{% endblock %}
 {% block description %}{{ P.description }}{% endblock %}
-{% block bodyclass %}dark-top{% endblock %}
 {% block main %}
-<section class="vhero dark">
-  <span class="lacq-light" aria-hidden="true"></span>
-  <div class="wrap">
-    <nav class="crumbs lbl" aria-label="Breadcrumb"><a href="{{ m.href() }}">{{ ui.home }}</a><span>/</span><span aria-current="page">Built by</span></nav>
-    <p class="vhero-by" lang="en">Built by</p>
-    <h1 class="vhero-brand">Bite Marks</h1>
-    <div class="vhero-grid">
-      <p class="vhero-claim" lang="en">{{ P.h1 | acc }}</p>
-      <p class="vhero-lead">{{ P.lead }}</p>
-    </div>
-  </div>
-</section>
-
+{{ m.page_hero(P.kicker, P.h1, P.lead, [('', 'Built by')], cls='phero-maroon phero-pad') }}
 <section class="sec" aria-label="Built by">
-  <div class="wrap feats">
-    {% for v in t.ventures %}
-    <article class="feat{% if loop.index is even %} feat-rev{% endif %}">
-      <a class="feat-media{% if not v.img %} feat-media-logo lacq{% endif %}" href="{{ m.href('built-by/' ~ v.slug ~ '/') }}" tabindex="-1" aria-hidden="true">
-        {% if v.img %}{{ m.pic(v.img, '', '(min-width: 900px) 55vw, 92vw') }}{% else %}<span class="lacq-light"></span><span class="feat-logo vl-{{ v.logo }}">{{ VLOGO[v.logo] | safe }}</span>{% endif %}
-      </a>
-      <div class="feat-copy">
-        <p class="eyebrow">{{ v.cat }}{% if v.when %} · {{ v.when }}{% endif %}</p>
-        <h2 class="h3"><a href="{{ m.href('built-by/' ~ v.slug ~ '/') }}">{{ v.name }}</a></h2>
-        <p class="feat-lead">{{ v.lead }}</p>
-        <a class="link-line" href="{{ m.href('built-by/' ~ v.slug ~ '/') }}">{{ ui.read_more }} {{ m.arrow() }}</a>
-      </div>
-    </article>
-    {% endfor %}
+  <div class="wrap vtiles">
+    {% for v in t.ventures %}{{ m.venture_tile(v) }}{% endfor %}
   </div>
 </section>
-{{ m.cta_band() }}
+{{ m.cta() }}
 {% endblock %}

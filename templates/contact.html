@@ -4,16 +4,16 @@
 {% block title %}{{ P.title }}{% endblock %}
 {% block description %}{{ P.description }}{% endblock %}
 {% block main %}
-<section class="phero dark phero-contact">
+<section class="phero">
   <div class="wrap">
-    <nav class="crumbs lbl" aria-label="Breadcrumb"><a href="{{ m.href() }}">{{ ui.home }}</a><span>/</span><span aria-current="page">{{ ui.talk }}</span></nav>
+    {{ m.crumbs([('', ui.talk)]) }}
     <div class="contact-grid">
       <div class="contact-copy">
-        <p class="eyebrow" lang="en">{{ P.kicker }}</p>
-        <h1 class="phero-h1 h1-md cap">{{ P.h1 | acc }}</h1>
-        <p class="phero-lead">{{ P.lead }}</p>
+        <p class="lbl" lang="en">{{ P.kicker }}</p>
+        <h1 class="phero-h1 phero-h1-md">{{ P.h1 | acc }}</h1>
+        <p class="contact-lead">{{ P.lead }}</p>
         <div class="direct">
-          <p class="eyebrow">{{ P.direct }}</p>
+          <p class="lbl">{{ P.direct }}</p>
           <a class="direct-mail" href="mailto:{{ c.email }}">{{ c.email }}</a>
           <a class="direct-tel" href="tel:{{ c.phone_href }}">{{ c.phone }}</a>
           <ul class="direct-people" role="list">
@@ -21,7 +21,7 @@
           </ul>
         </div>
         <div class="where">
-          <p class="eyebrow">{{ P.where }}</p>
+          <p class="lbl">{{ P.where }}</p>
           {{ m.meta_list([(ui.office, c.office), (ui.seat, c.street ~ ', ' ~ c.zip ~ ' ' ~ c.city), (ui.hours.split(' ')[0], ui.hours.split(' ', 1)[1]), (ui.legal_ico ~ ' / ' ~ ui.legal_dic, c.ico ~ ' / ' ~ c.dic)]) }}
         </div>
       </div>
@@ -40,7 +40,7 @@
           <label class="fld"><span>{{ P.f_phone }}</span><input name="phone" type="tel" autocomplete="tel"></label>
         </div>
         <label class="fld"><span>{{ P.f_msg }} *</span><textarea name="msg" rows="5" required></textarea></label>
-        <button class="btn-lacquer" type="submit"><span>{{ P.f_send }}</span>{{ m.arrow() }}</button>
+        <button class="btn btn-gloss" type="submit"><span>{{ P.f_send }}</span>{{ m.arrow() }}</button>
         <p class="cform-note">{{ P.f_note }}</p>
       </form>
     </div>

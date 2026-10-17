@@ -1,51 +1,36 @@
 {% extends 'base.html' %}
 {% import '_m.html' as m with context %}
-{% set MED = SERVICE_MEDIA[s.slug] %}
 {% block title %}{{ s.name }} — {{ s.h1 }} | Bite Marks Media{% endblock %}
 {% block description %}{{ s.lead[:155] }}{% endblock %}
 {% block main %}
-{{ m.page_hero(('%02d' % (idx + 1)) ~ ' / 06 · ' ~ s.name, s.h1, s.lead, [('sluzby/', ui.nav[0][1]), ('', s.name)], SERVICE_COLLAGE[s.slug]) }}
-
-<section class="smedia wrap" aria-hidden="true">
-  {% if MED.type == 'covers' %}<div class="panel panel-blue">{{ m.covers() }}</div>
-  {% elif MED.type == 'carousels' %}<div class="panel panel-cream">{{ m.carousels(MED['keys']) }}</div>
-  {% elif MED.type == 'triptych' %}<div class="trip">{% for k in MED['keys'] %}<span>{{ m.pic(k, '', '(min-width: 900px) 30vw, 46vw') }}</span>{% endfor %}</div>
-  {% elif MED.type == 'image' %}<div class="panel panel-img">{{ m.pic(MED.key, '', '(min-width: 1400px) 1400px, 100vw') }}</div>
-  {% else %}<div class="panel panel-lacq lacq"><span class="lacq-light"></span><p class="panel-quote">{{ s['items'][-1][1] }}</p></div>{% endif %}
-</section>
+{{ m.page_hero(s.name, s.h1, s.lead, [('sluzby/', ui.nav[0][1]), ('', s.name)], side=SERVICE_IMG[s.slug], side_tone=('' if SERVICE_IMG[s.slug].startswith('r-') else 'bw')) }}
 
 <section class="sec" aria-labelledby="h-items">
   <div class="wrap split">
     <div class="split-head">
-      <p class="eyebrow">{{ ui.services }}</p>
-      <h2 class="h3" id="h-items">{{ s.short | acc }}</h2>
+      <p class="lbl">{{ ui.services }}</p>
+      <h2 class="h3" id="h-items">{{ s.short }}</h2>
     </div>
-    <ol class="items" role="list">
+    <ul class="items" role="list">
       {% for it in s['items'] %}
-      <li><span class="items-n">{{ '%02d' % loop.index }}</span><h3 class="items-t">{{ it[0] }}</h3><p class="items-d">{{ it[1] }}</p></li>
+      <li><h3 class="items-t">{{ it[0] }}</h3><p class="items-d">{{ it[1] }}</p></li>
       {% endfor %}
-    </ol>
+    </ul>
   </div>
 </section>
 
-<section class="sec sec-tight" aria-labelledby="h-rel">
+<section class="sec sec-cream" aria-labelledby="h-rel">
   <div class="wrap">
-    <div class="head"><p class="eyebrow">{{ ui.related }}</p><h2 class="sr" id="h-rel">{{ ui.related }}</h2></div>
-    <div class="wgrid wgrid-2">
+    {{ m.head(ui.related, ui.all_work, 'h-rel', m.href('prace/'), ui.all_work, cls='shead-sm') }}
+    <div class="wtiles">
       {% for slug in s.work %}
         {% set w = (t.work | selectattr('slug', 'equalto', slug) | first) %}
-        {% if w %}{{ m.work_card(w) }}{% else %}{% set v = (t.ventures | selectattr('slug', 'equalto', slug) | first) %}{% if v %}{{ m.venture_card(v) }}{% endif %}{% endif %}
+        {% if w %}{{ m.work_tile(w) }}{% else %}{% set v = (t.ventures | selectattr('slug', 'equalto', slug) | first) %}{% if v %}{{ m.venture_tile(v) }}{% endif %}{% endif %}
       {% endfor %}
     </div>
   </div>
 </section>
 
-<section class="nextl" aria-label="{{ ui.next_service }}">
-  <a class="wrap nextl-in" href="{{ m.href('sluzby/' ~ nxt.slug ~ '/') }}">
-    <span class="eyebrow">{{ ui.next_service }}</span>
-    <span class="nextl-name" lang="en">{{ nxt.name }}</span>
-    <span class="nextl-go">{{ m.arrow() }}</span>
-  </a>
-</section>
-{{ m.cta_band() }}
+{{ m.next_link(ui.next_service, nxt.name, m.href('sluzby/' ~ nxt.slug ~ '/')) }}
+{{ m.cta() }}
 {% endblock %}
