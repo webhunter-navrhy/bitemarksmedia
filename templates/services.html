@@ -4,7 +4,7 @@
 {% block title %}{{ P.title }}{% endblock %}
 {% block description %}{{ P.description }}{% endblock %}
 {% block main %}
-{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[0][1])]) }}
+{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[0][1])], ['aero-5', 'haso-arch', 'merch-3']) }}
 
 <section class="sec sec-top0" aria-label="{{ P.kicker }}">
   <div class="wrap">
@@ -19,7 +19,7 @@
           <p class="col-big" lang="en">{{ s.name }}</p>
           <p class="col-text">{{ s.lead }}</p>
           <ul class="col-tags" role="list">{% for it in s['items'][:4] %}<li>{{ it[0] }}</li>{% endfor %}</ul>
-          <a class="btn-cream btn-sm" href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}"><span>{{ ui.read_more }}</span>{{ m.arrow() }}</a>
+          <a class="btn btn-cream" href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}"><span>{{ ui.read_more }}</span>{{ m.arrow() }}</a>
         </div>
         <span class="col-gloss" aria-hidden="true"></span>
       </li>
@@ -43,7 +43,7 @@
       {% for s in t.services %}
       <li><a class="row" href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}">
         <span class="row-n">{{ '%02d' % loop.index }}</span>
-        <span class="row-name" lang="en">{{ s.name }}</span>
+        <span class="row-name cap" lang="en">{{ s.name }}</span>
         <span class="row-short">{{ s.short }}</span>
         <span class="row-go">{{ m.arrow() }}</span>
       </a></li>

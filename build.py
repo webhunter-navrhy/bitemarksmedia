@@ -12,6 +12,7 @@ import subprocess
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
+from markupsafe import Markup, escape
 from PIL import Image
 
 from content import COMMON, CZ
@@ -81,6 +82,14 @@ SERVICE_MEDIA = {
     "media": {"type": "carousels", "keys": ["car-skoda-1", "car-gls-1", "car-raynet-1", "car-arf-1"]},
     "experiences": {"type": "image", "key": "merch-2"},
 }
+SERVICE_COLLAGE = {
+    "editorials": ["cover-kvt", "v-asd", "cover-k26"],
+    "campaigns": ["aero-1", "aero-5", "aero-2"],
+    "strategies": ["valerie-brand", "j-manazer", "merch-7"],
+    "events": ["haso-run", "haso-arch", "aero-6"],
+    "media": ["car-skoda-1", "j-compas", "car-raynet-1"],
+    "experiences": ["merch-6", "merch-2", "haso-medal"],
+}
 WORK_CARD = {"forbes": "covers", "aero": "aero-1", "socialni-site": "carousels", "merchandise": "merch-1"}
 
 
@@ -134,6 +143,22 @@ def venture_svg(path: Path) -> str:
     return f'<svg viewBox="{" ".join(f"{n:g}" for n in vb)}" aria-hidden="true">{body}</svg>'
 
 
+def acc(text: str) -> Markup:
+    """Titulek ve stylu reference: verzálky + kurzívový akcent. *x* = akcent; bez hvězdiček se zvýrazní
+    poslední část za čárkou, druhá věta nebo poslední dvě slova."""
+    t = str(text)
+    if "*" not in t:
+        if ", " in t.rstrip(",. "):
+            a, z = t.rsplit(", ", 1); t = f"{a}, *{z}*"
+        elif re.search(r"[.?!] \S", t.strip()):
+            a, z = re.split(r"(?<=[.?!]) (?=\S)", t.strip(), maxsplit=1); t = f"{a} *{z}*"
+        else:
+            w = t.split(" ")
+            t = " ".join(w[:-2]) + " *" + " ".join(w[-2:]) + "*" if len(w) > 3 else t
+    parts = re.split(r"\*(.+?)\*", t)
+    return Markup("".join(str(escape(p)) if i % 2 == 0 else f"<em>{escape(p)}</em>" for i, p in enumerate(parts)))
+
+
 def nbsp(html: str) -> str:
     """nezlomitelná mezera po jednopísmenných předložkách a spojkách (jen text mimo tagy)"""
     return re.sub(r"(>[^<]*)", lambda m: re.sub(r"(?<=[\s(])([kKsSvVzZoOuUaAiI]) (?=\S)", "\\1\u00a0", m.group(1)), html)
@@ -164,6 +189,7 @@ def main():
             shutil.copy(A / f, DIST / (f if f.endswith("svg") else "img/" + f)); files[f] = h((A / f).read_bytes())
 
     env = Environment(loader=FileSystemLoader(str(ROOT / "templates")), autoescape=True, trim_blocks=True, lstrip_blocks=True)
+    env.filters["acc"] = acc
     c = COMMON
     langs = [(CZ, "")] + ([(EN, "en/")] if EN else [])
     count = 0
@@ -175,7 +201,7 @@ def main():
             alt_pre = "en/" if pre == "" else ""
             ctx = dict(t=t, ui=t["ui"], c=c, base=BASE, pre=pre, path=path, site_url=SITE_URL, IMG=IMG, VIDEO=VIDEO,
                        LOGOS=LOGOS, LOGO=LOGO, VLOGO=VLOGO, V=files, pages_v=pages_v, has_en=bool(EN),
-                       alt_url=f"{BASE}{alt_pre}{path + '/' if path else ''}", SERVICE_MEDIA=SERVICE_MEDIA, WORK_CARD=WORK_CARD)
+                       alt_url=f"{BASE}{alt_pre}{path + '/' if path else ''}", SERVICE_MEDIA=SERVICE_MEDIA, WORK_CARD=WORK_CARD, SERVICE_COLLAGE=SERVICE_COLLAGE)
             ctx.update(kw)
             html = env.get_template(tpl).render(**ctx)
             if t["lang"] == "cs":

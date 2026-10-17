@@ -9,7 +9,7 @@
 
   /* header: pevný po odjetí, světlý text nad vínovým lakem */
   const hdr = $("#hdr"), mnav = $("#mnav"), burger = $(".burger");
-  const dark = $$(".lacq");
+  const dark = $$(".dark");
   const mb = $(".manifest-big");
   let words = [];
   if (mb) { mb.innerHTML = mb.textContent.trim().split(/\s+/).map(w => `<span class="w">${w}</span>`).join(" "); words = $$(".w", mb); }

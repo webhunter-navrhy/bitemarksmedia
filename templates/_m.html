@@ -6,7 +6,18 @@
 {%- macro arrow() -%}<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>{%- endmacro -%}
 {%- macro ext() -%}<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>{%- endmacro -%}
 
-{%- macro covers(keys=('kvt','shr','ci','k26'), reader=False, sizes='(min-width: 900px) 18vw, 40vw') -%}
+{# --- koláž: polaroid, foto s páskou, filmový pás --- #}
+{%- macro pol(key, cap='', r=0, cls='', bw=True, sizes='(min-width: 900px) 22vw, 50vw', alt='') -%}
+<figure class="pol {{ cls }}" style="--r:{{ r }}deg"><span class="pol-img{% if bw %} bw{% endif %}">{{ pic(key, alt or cap, sizes) }}</span>{% if cap %}<figcaption class="hand">{{ cap }}</figcaption>{% endif %}</figure>
+{%- endmacro -%}
+{%- macro tp(key, r=0, cls='', bw=True, sizes='(min-width: 900px) 30vw, 70vw', alt='') -%}
+<figure class="tp {{ cls }}" style="--r:{{ r }}deg"><span class="tape" aria-hidden="true"></span><span class="tp-img{% if bw %} bw{% endif %}">{{ pic(key, alt, sizes) }}</span></figure>
+{%- endmacro -%}
+{%- macro film(keys, cls='') -%}
+<div class="film {{ cls }}" aria-hidden="true">{% for k in keys %}<span class="film-f bw">{{ pic(k, '', '12rem') }}</span>{% endfor %}</div>
+{%- endmacro -%}
+
+{%- macro covers(keys=('kvt','shr','ci','k26'), reader=False, sizes='(min-width: 900px) 16vw, 40vw') -%}
 <div class="covers">
   {% for k in keys %}
   {% if reader %}<button type="button" class="cov" data-mag="{{ k }}" data-title="{{ (t.work[0].mags | selectattr(0, 'equalto', k) | first)[1] }}" style="--i:{{ loop.index0 }}">{% else %}<span class="cov" style="--i:{{ loop.index0 }}">{% endif %}
@@ -15,61 +26,64 @@
   {% endfor %}
 </div>
 {%- endmacro -%}
-
 {%- macro carousels(keys) -%}
-<div class="cars">{% for k in keys %}<span class="car" style="--i:{{ loop.index0 }}">{{ pic(k, '', '(min-width: 900px) 16vw, 36vw') }}</span>{% endfor %}</div>
+<div class="cars">{% for k in keys %}<span class="car" style="--i:{{ loop.index0 }}">{{ pic(k, '', '(min-width: 900px) 14vw, 30vw') }}</span>{% endfor %}</div>
 {%- endmacro -%}
 
-{%- macro work_card(w, cls='') -%}
-<a class="wcard {{ cls }}" href="{{ href('prace/' ~ w.slug ~ '/') }}">
-  <span class="wcard-media{% if WORK_CARD[w.slug] in ('covers', 'carousels') %} is-panel{% endif %}">
-    {% if WORK_CARD[w.slug] == 'covers' %}{{ covers() }}
-    {% elif WORK_CARD[w.slug] == 'carousels' %}{{ carousels(['car-skoda-1', 'car-gls-1', 'car-raynet-1']) }}
-    {% else %}{{ pic(WORK_CARD[w.slug], w.title, '(min-width: 900px) 45vw, 92vw', 'wcard-img') }}{% endif %}
+{%- macro work_card(w, i=0) -%}
+<a class="wcard" href="{{ href('prace/' ~ w.slug ~ '/') }}" style="--r:{{ [-1.6, 1.4, -1, 1.8][i % 4] }}deg">
+  <span class="wcard-media">
+    <span class="tape" aria-hidden="true"></span>
+    {% if WORK_CARD[w.slug] == 'covers' %}<span class="wcard-panel">{{ covers() }}</span>
+    {% elif WORK_CARD[w.slug] == 'carousels' %}<span class="wcard-panel wcard-panel-c">{{ carousels(['car-skoda-1', 'car-gls-1', 'car-raynet-1']) }}</span>
+    {% else %}<span class="bw-hover">{{ pic(WORK_CARD[w.slug], w.title, '(min-width: 900px) 40vw, 92vw') }}</span>{% endif %}
   </span>
-  <span class="wcard-meta"><span>{{ w.client }}</span><span lang="en">{{ w.disc }}</span></span>
-  <span class="wcard-title">{{ w.title }}</span>
+  <span class="wcard-meta lbl"><span>{{ w.client }}</span><span lang="en">{{ w.disc }}</span></span>
+  <span class="wcard-title cap">{{ w.title | acc }}</span>
 </a>
 {%- endmacro -%}
 
-{%- macro venture_card(v) -%}
-<a class="vcard vcard-{{ v.slug }}" href="{{ href('built-by/' ~ v.slug ~ '/') }}">
-  {% if v.card or v.img %}<span class="vcard-bg">{{ pic(v.card or v.img, '', '(min-width: 900px) 46vw, 92vw') }}</span>{% endif %}
-  <span class="vcard-glint" aria-hidden="true"></span>
-  <span class="vcard-top"><span class="vcard-cat">{{ v.cat }}</span>{% if v.when %}<span class="vcard-when">{{ v.when }}</span>{% endif %}</span>
+{%- macro venture_card(v, i=0) -%}
+<a class="vcard" href="{{ href('built-by/' ~ v.slug ~ '/') }}" style="--r:{{ [-2, 1.5, -1, 2][i % 4] }}deg">
+  <span class="vcard-pol">
+    {% if v.card or v.img %}<span class="bw-hover">{{ pic(v.card or v.img, '', '(min-width: 900px) 22vw, 70vw') }}</span>
+    {% else %}<span class="vcard-logo-only vl-{{ v.logo }}">{{ VLOGO[v.logo] | safe }}</span>{% endif %}
+  </span>
   <span class="vcard-logo vl-{{ v.logo }}" role="img" aria-label="{{ v.name }}">{{ VLOGO[v.logo] | safe }}</span>
-  <span class="vcard-bottom"><span class="vcard-short">{{ v.short }}</span><span class="vcard-go">{{ arrow() }}</span></span>
+  <span class="vcard-cat lbl">{{ v.cat }}{% if v.when %} · {{ v.when }}{% endif %}</span>
+  <span class="vcard-short">{{ v.short }}</span>
 </a>
 {%- endmacro -%}
 
-{%- macro page_hero(kicker, h1, lead='', crumbs=(), cls='') -%}
-<section class="phero {{ cls }}">
-  <div class="wrap">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ href() }}">{{ ui.home }}</a>{% for href_, label in crumbs %}<span>/</span>{% if href_ %}<a href="{{ href(href_) }}">{{ label }}</a>{% else %}<span aria-current="page">{{ label }}</span>{% endif %}{% endfor %}</nav>
-    <div class="phero-grid">
-      <div>
-        <p class="eyebrow">{{ kicker }}</p>
-        <h1 class="phero-h1">{{ h1 }}</h1>
-      </div>
-      {% if lead %}<p class="phero-lead">{{ lead }}</p>{% endif %}
-    </div>
+{%- macro page_hero(kicker, h1, lead='', crumbs=(), collage=(), cls='') -%}
+<section class="phero dark {{ cls }}{% if collage %} has-collage{% endif %}">
+  <div class="wrap phero-in">
+    <nav class="crumbs lbl" aria-label="Breadcrumb"><a href="{{ href() }}">{{ ui.home }}</a>{% for href_, label in crumbs %}<span>/</span>{% if href_ %}<a href="{{ href(href_) }}">{{ label }}</a>{% else %}<span aria-current="page">{{ label }}</span>{% endif %}{% endfor %}</nav>
+    <p class="lbl phero-k">{{ kicker }}</p>
+    <h1 class="phero-h1 cap">{{ h1 | acc }}</h1>
+    {% if lead %}<p class="phero-lead">{{ lead }}</p>{% endif %}
   </div>
+  {% if collage %}
+  <div class="phero-collage wrap" aria-hidden="true">
+    {% for k in collage %}{% set colr = ('cover' not in k and 'car-' not in k) %}{% if loop.index == 2 %}{{ tp(k, 2, 'pc pc-' ~ loop.index, bw=colr) }}{% else %}{{ pol(k, '', [-5, 2, 6][loop.index0 % 3], 'pc pc-' ~ loop.index, bw=colr) }}{% endif %}{% endfor %}
+  </div>
+  {% endif %}
 </section>
 {%- endmacro -%}
 
 {%- macro cta_band() -%}
-<section class="ctab lacq" aria-labelledby="h-ctab">
-  <span class="lacq-light" aria-hidden="true"></span>
+<section class="ctab dark" aria-labelledby="h-ctab">
+  <div class="ctab-col ctab-l" aria-hidden="true">{{ pol('haso-arch', '', -6, 'ctab-p') }}</div>
   <div class="wrap ctab-in">
-    <h2 class="ctab-title" id="h-ctab" lang="en">{{ ui.cta_title }}</h2>
-    <div class="ctab-side">
-      <p>{{ ui.cta_text }}</p>
-      <div class="ctab-row">
-        <a class="btn-cream" href="{{ href('kontakt/') }}"><span>{{ ui.cta_button }}</span>{{ arrow() }}</a>
-        <a class="link-line link-cream" href="tel:{{ c.phone_href }}">{{ c.phone }}</a>
-      </div>
+    <p class="hand ctab-script">let’s talk</p>
+    <h2 class="ctab-title cap" id="h-ctab" lang="en">{{ t.v4.cta_title | acc }}</h2>
+    <p class="ctab-text">{{ ui.cta_text }}</p>
+    <div class="ctab-row">
+      <a class="btn btn-cream" href="{{ href('kontakt/') }}">{{ ui.cta_button }}</a>
+      <a class="ctab-mail" href="mailto:{{ c.email }}">{{ c.email }}</a>
     </div>
   </div>
+  <div class="ctab-col ctab-r" aria-hidden="true">{{ pol('valerie-brand', '', 5, 'ctab-p') }}</div>
 </section>
 {%- endmacro -%}
 
@@ -89,5 +103,12 @@
 {%- endmacro -%}
 
 {%- macro meta_list(rows) -%}
-<dl class="meta">{% for k, v in rows %}<div><dt>{{ k }}</dt><dd>{{ v }}</dd></div>{% endfor %}</dl>
+<dl class="meta">{% for k, v in rows %}<div><dt class="lbl">{{ k }}</dt><dd>{{ v }}</dd></div>{% endfor %}</dl>
+{%- endmacro -%}
+
+{%- macro logos_row() -%}
+<div class="trusted">
+  <p class="lbl trusted-k" lang="en">{{ t.v4.trusted }}</p>
+  <ul class="trusted-list" role="list">{% for k in c.clients %}<li><img src="{{ base }}img/logo-{{ k }}.png?v={{ LOGOS[k].v }}" width="{{ LOGOS[k].w }}" height="{{ LOGOS[k].h }}" alt="{{ c.client_names[k] }}" loading="lazy" decoding="async"></li>{% endfor %}</ul>
+</div>
 {%- endmacro -%}

@@ -4,16 +4,16 @@
 {% block title %}{{ P.title }}{% endblock %}
 {% block description %}{{ P.description }}{% endblock %}
 {% block main %}
-{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[4][1])]) }}
+{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[4][1])], ['j-manazer', 'haso-run', 'merch-4']) }}
 
 <section class="sec sec-top0" aria-labelledby="h-story">
   <div class="wrap story">
-    <figure class="story-photo">{{ m.pic('valerie-brand', 'Valérie Čížková', '(min-width: 900px) 34vw, 92vw') }}<figcaption>Ing. Valérie Čížková · Founder &amp; CEO</figcaption></figure>
+    <figure class="story-photo">{{ m.pic('valerie-brand', 'Valérie Čížková', '(min-width: 900px) 34vw, 92vw') }}<figcaption>Valérie</figcaption></figure>
     <div class="story-copy">
       <p class="eyebrow">{{ P.story_kicker }}</p>
-      <h2 class="h2" id="h-story">{{ P.story_title }}</h2>
+      <h2 class="h2" id="h-story">{{ P.story_title | acc }}</h2>
       {% for p in P.story %}<p class="story-p{% if loop.first %} story-lead{% endif %}">{{ p }}</p>{% endfor %}
-      <p class="story-sign">— {{ P.story_sign }}</p>
+      <p class="story-sign">Valérie Čížková</p>
     </div>
   </div>
 </section>
@@ -58,7 +58,7 @@
 
 <section class="phil sec" aria-labelledby="h-values">
   <div class="wrap">
-    <div class="head"><p class="eyebrow">{{ P.values_kicker }}</p><h2 class="h2" id="h-values" lang="en">The whole is built in the details.</h2></div>
+    <div class="head"><p class="eyebrow">{{ P.values_kicker }}</p><h2 class="h2" id="h-values" lang="en">{{ t.v4.phil_title | acc }}</h2></div>
     <ol class="values4" role="list">
       {% for v, d in P['values'] %}<li><span class="v4-n">{{ '%02d' % loop.index }}</span><h3 class="v4-t">{{ v }}</h3><p>{{ d }}</p></li>{% endfor %}
     </ol>

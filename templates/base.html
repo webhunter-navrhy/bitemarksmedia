@@ -17,7 +17,7 @@
 <link rel="icon" href="{{ base }}favicon.svg?v={{ V['favicon.svg'] }}" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Ms+Madi&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ base }}style.css?v={{ V['style.css'] }}">
 {% block head %}{% endblock %}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Bite Marks Media","legalName":"{{ c.company }}","url":"https://bitemarksmedia.com/","slogan":"Leave a mark.","email":"{{ c.email }}","telephone":"{{ c.phone }}","taxID":"{{ c.ico }}","address":{"@type":"PostalAddress","streetAddress":"{{ c.street }}","postalCode":"{{ c.zip }}","addressLocality":"Praha","addressCountry":"CZ"},"founder":{"@type":"Person","name":"Valérie Čížková","jobTitle":"Founder & CEO"},"sameAs":["{{ c.linkedin }}","{{ c.instagram }}","{{ c.facebook }}","{{ c.journal }}"]}</script>
@@ -35,7 +35,7 @@
       {% if slug == 'sluzby' %}
       <div class="mega">
         <div class="mega-in">
-          {% for s in t.services %}<a class="mega-l" href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}"><span class="mega-n">{{ '%02d' % loop.index }}</span><span class="mega-name" lang="en">{{ s.name }}</span><span class="mega-short">{{ s.short }}</span></a>{% endfor %}
+          {% for s in t.services %}<a class="mega-l" href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}"><span class="mega-n">{{ '%02d' % loop.index }}</span><span class="mega-name cap" lang="en">{{ s.name }}</span><span class="mega-short">{{ s.short }}</span></a>{% endfor %}
         </div>
       </div>
       {% elif slug == 'built-by' %}
@@ -50,7 +50,7 @@
   </nav>
   <div class="hdr-right">
     {% if has_en %}<a class="lang" href="{{ alt_url }}" hreflang="{{ t.other }}" lang="{{ t.other }}"><b>{{ 'CZ' if t.lang == 'cs' else 'EN' }}</b> / {{ 'EN' if t.lang == 'cs' else 'CZ' }}</a>{% endif %}
-    <a class="btn-pill" href="{{ m.href('kontakt/') }}"><span>{{ ui.talk }}</span></a>
+    <a class="btn btn-line hdr-cta" href="{{ m.href('kontakt/') }}">{{ ui.talk }}</a>
     <button class="burger" type="button" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span class="sr">{{ ui.menu }}</span></button>
   </div>
 </header>
@@ -71,7 +71,7 @@
 {% block main %}{% endblock %}
 </main>
 
-<footer class="ftr">
+<footer class="ftr dark">
   <div class="wrap">
     <div class="ftr-top">
       <a class="ftr-logo" href="{{ m.href() }}" aria-label="Bite Marks Media">{{ LOGO | safe }}</a>
@@ -82,7 +82,7 @@
         <div><p class="ftr-h">{{ ui.footer_follow }}</p><ul role="list"><li><a href="{{ c.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="{{ c.instagram }}" target="_blank" rel="noopener">Instagram</a></li><li><a href="{{ c.facebook }}" target="_blank" rel="noopener">Facebook</a></li></ul></div>
       </div>
     </div>
-    <p class="ftr-mark" lang="en" aria-hidden="true">Leave a mark.</p>
+    <p class="ftr-mark hand" lang="en" aria-hidden="true">Leave a mark.</p>
     <div class="ftr-bottom">
       <p>© 2026 {{ c.company }} · {{ ui.legal_ico }} {{ c.ico }} · {{ ui.legal_dic }} {{ c.dic }} · {{ ui.seat }} {{ c.street }}, {{ c.zip }} {{ c.city }}</p>
       <p>{{ ui.note }}</p>

@@ -4,17 +4,17 @@
 {% block description %}{{ v.lead[:155] }}{% endblock %}
 {% block bodyclass %}dark-top{% endblock %}
 {% block main %}
-<section class="vhero lacq vhero-v">
+<section class="vhero dark vhero-v">
   <span class="lacq-light" aria-hidden="true"></span>
   <div class="wrap">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ m.href() }}">{{ ui.home }}</a><span>/</span><a href="{{ m.href('built-by/') }}">Built by</a><span>/</span><span aria-current="page">{{ v.name }}</span></nav>
+    <nav class="crumbs lbl" aria-label="Breadcrumb"><a href="{{ m.href() }}">{{ ui.home }}</a><span>/</span><a href="{{ m.href('built-by/') }}">Built by</a><span>/</span><span aria-current="page">{{ v.name }}</span></nav>
     <p class="eyebrow">{{ v.cat }}</p>
     <h1 class="vhero-logo vl-{{ v.logo }}"><span class="sr">{{ v.name }}</span>{{ VLOGO[v.logo] | safe }}</h1>
     <div class="vhero-grid">
       <p class="vhero-lead">{{ v.lead }}</p>
       <div>
         {{ m.meta_list(v.facts) }}
-        {% if v.url %}<a class="btn-cream" href="{{ v.url }}" target="_blank" rel="noopener"><span>{{ ui.visit }}</span>{{ m.ext() }}</a>{% endif %}
+        {% if v.url %}<a class="btn btn-cream" href="{{ v.url }}" target="_blank" rel="noopener"><span>{{ ui.visit }}</span>{{ m.ext() }}</a>{% endif %}
       </div>
     </div>
   </div>

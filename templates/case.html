@@ -3,13 +3,13 @@
 {% block title %}{{ w.title }} — {{ w.client }} | Bite Marks Media{% endblock %}
 {% block description %}{{ w.lead[:155] }}{% endblock %}
 {% block main %}
-<section class="phero">
+<section class="phero dark case-hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ m.href() }}">{{ ui.home }}</a><span>/</span><a href="{{ m.href('prace/') }}">{{ ui.nav[1][1] }}</a><span>/</span><span aria-current="page">{{ w.client }}</span></nav>
+    <nav class="crumbs lbl" aria-label="Breadcrumb"><a href="{{ m.href() }}">{{ ui.home }}</a><span>/</span><a href="{{ m.href('prace/') }}">{{ ui.nav[1][1] }}</a><span>/</span><span aria-current="page">{{ w.client }}</span></nav>
     <div class="phero-grid">
       <div>
-        <p class="eyebrow"><span lang="en">{{ w.disc }}</span> · {{ w.client }}</p>
-        <h1 class="phero-h1">{{ w.title }}</h1>
+        <p class="lbl phero-k"><span lang="en">{{ w.disc }}</span> · {{ w.client }}</p>
+        <h1 class="phero-h1 cap">{{ w.title | acc }}</h1>
       </div>
       <div class="phero-side">
         <p class="phero-lead">{{ w.lead }}</p>
@@ -83,7 +83,7 @@
 <section class="nextl" aria-label="{{ ui.next_case }}">
   <a class="wrap nextl-in" href="{{ m.href('prace/' ~ nxt.slug ~ '/') }}">
     <span class="eyebrow">{{ ui.next_case }} · {{ nxt.client }}</span>
-    <span class="nextl-name nextl-sm">{{ nxt.title }}</span>
+    <span class="nextl-name nextl-sm">{{ nxt.title | acc }}</span>
     <span class="nextl-go">{{ m.arrow() }}</span>
   </a>
 </section>

@@ -4,7 +4,7 @@
 {% block title %}{{ P.title }}{% endblock %}
 {% block description %}{{ P.description }}{% endblock %}
 {% block main %}
-{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[1][1])]) }}
+{{ m.page_hero(P.kicker, P.h1, P.lead, [('', ui.nav[1][1])], ['aero-2', 'haso-arch', 'merch-6']) }}
 
 <section class="sec sec-top0" aria-label="{{ P.kicker }}">
   <div class="wrap">
@@ -13,8 +13,8 @@
       {% for d in ['Editorials', 'Campaigns', 'Media', 'Experiences', 'Built by'] %}<button type="button" class="chip" data-f="{{ d }}" lang="en">{{ d }}</button>{% endfor %}
     </div>
     <div class="wgrid wgrid-all">
-      {% for w in t.work %}<div class="fi" data-d="{{ w.disc }}">{{ m.work_card(w) }}</div>{% endfor %}
-      {% for v in t.ventures[:2] %}<div class="fi" data-d="Built by">{{ m.venture_card(v) }}</div>{% endfor %}
+      {% for w in t.work %}<div class="fi" data-d="{{ w.disc }}">{{ m.work_card(w, loop.index0) }}</div>{% endfor %}
+      {% for v in t.ventures[:2] %}<div class="fi fi-v" data-d="Built by">{{ m.venture_card(v, loop.index0) }}</div>{% endfor %}
     </div>
   </div>
 </section>

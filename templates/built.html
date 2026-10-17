@@ -5,14 +5,14 @@
 {% block description %}{{ P.description }}{% endblock %}
 {% block bodyclass %}dark-top{% endblock %}
 {% block main %}
-<section class="vhero lacq">
+<section class="vhero dark">
   <span class="lacq-light" aria-hidden="true"></span>
   <div class="wrap">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ m.href() }}">{{ ui.home }}</a><span>/</span><span aria-current="page">Built by</span></nav>
+    <nav class="crumbs lbl" aria-label="Breadcrumb"><a href="{{ m.href() }}">{{ ui.home }}</a><span>/</span><span aria-current="page">Built by</span></nav>
     <p class="vhero-by" lang="en">Built by</p>
     <h1 class="vhero-brand">Bite Marks</h1>
     <div class="vhero-grid">
-      <p class="vhero-claim" lang="en">{{ P.h1 }}</p>
+      <p class="vhero-claim" lang="en">{{ P.h1 | acc }}</p>
       <p class="vhero-lead">{{ P.lead }}</p>
     </div>
   </div>

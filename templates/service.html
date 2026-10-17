@@ -4,7 +4,7 @@
 {% block title %}{{ s.name }} — {{ s.h1 }} | Bite Marks Media{% endblock %}
 {% block description %}{{ s.lead[:155] }}{% endblock %}
 {% block main %}
-{{ m.page_hero(('%02d' % (idx + 1)) ~ ' / 06 · ' ~ s.name, s.h1, s.lead, [('sluzby/', ui.nav[0][1]), ('', s.name)]) }}
+{{ m.page_hero(('%02d' % (idx + 1)) ~ ' / 06 · ' ~ s.name, s.h1, s.lead, [('sluzby/', ui.nav[0][1]), ('', s.name)], SERVICE_COLLAGE[s.slug]) }}
 
 <section class="smedia wrap" aria-hidden="true">
   {% if MED.type == 'covers' %}<div class="panel panel-blue">{{ m.covers() }}</div>
@@ -18,7 +18,7 @@
   <div class="wrap split">
     <div class="split-head">
       <p class="eyebrow">{{ ui.services }}</p>
-      <h2 class="h3" id="h-items">{{ s.short }}</h2>
+      <h2 class="h3" id="h-items">{{ s.short | acc }}</h2>
     </div>
     <ol class="items" role="list">
       {% for it in s['items'] %}
