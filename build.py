@@ -27,33 +27,16 @@ SITE_URL = SITE["url"]
 
 # název -> (zdroj, šířky, ořez (l, t, r, b) v pixelech zdroje nebo None)
 IMAGES = {
-    "hero": ("ribbon.jpg", [960, 1600], None),
-    "cta": ("pedestal.jpg", [960, 1600], None),
-    "card": ("cards.jpg", [800, 1536], None),
-    "lacquer": ("ribbon.jpg", [1040], (560, 0, 1600, 430)),
-    "svc-editorials": ("kvt-str-01.webp", [600, 1000], None),
-    "svc-campaigns": ("Aero_BMM_02.webp", [675], None),
-    "svc-strategies": ("crystal.jpg", [800, 1400], (300, 0, 1300, 900)),
-    "svc-events": ("ASD_Fest_vizual_sirka.webp", [800, 1400], None),
-    "svc-media": ("skoda-1-1.webp", [800], None),
-    "svc-experiences": ("Premiovy-merchandise-6.webp", [800, 1400], None),
     "cover-kvt": ("kvt-str-01.webp", [480, 900], None),
     "cover-shr": ("shr-str-01.webp", [480, 900], None),
     "cover-ci": ("str-01.webp", [480, 900], None),
     "cover-k26": ("forbes-str-01.webp", [480, 900], None),
     "aero-1": ("Aero_BMM_05.webp", [675], None),
     "aero-2": ("Aero_BMM_01.webp", [675], None),
-    "aero-3": ("Aero_BMM_03.webp", [675], None),
     "aero-poster": ("aero-poster.jpg", [696], None),
-    "car-skoda": ("skoda-1-1.webp", [480, 800], None),
-    "car-gls": ("GLSpdf-1-1.webp", [480, 800], None),
-    "car-raynet": ("RAYNET-1-1.webp", [480, 800], None),
-    "car-arf": ("ARF-1-1.webp", [480, 800], None),
-    "car-brunch": ("SALES-BRUNCH-1-1.webp", [480, 800], None),
-    "j-manazer": ("manazer-roku-Macek.webp", [480, 1200], None),
-    "j-asd": ("ASD_Fest_vizual_sirka.webp", [480, 1200], None),
-    "j-compas": ("COMPAS-foto-3.webp", [480, 1200], None),
-    "j-tos": ("DSC00689.webp", [480, 1200], None),
+    "j-manazer": ("manazer-roku-Macek.webp", [640, 1200], None),
+    "j-asd": ("ASD_Fest_vizual_sirka.webp", [640, 1200], None),
+    "j-compas": ("COMPAS-foto-3.webp", [640, 1200], None),
     "p-valerie": ("valerie.png", [500], None),
     "p-maryna": ("maryna.png", [500], None),
 }
@@ -157,6 +140,7 @@ def main():
 
     css = (ROOT / "style.css").read_bytes(); (DIST / "style.css").write_bytes(css)
     js = (ROOT / "app.js").read_bytes(); (DIST / "app.js").write_bytes(js)
+    ring = (ROOT / "ring.js").read_bytes(); (DIST / "ring.js").write_bytes(ring)
     fav = (A / "favicon.svg").read_bytes(); (DIST / "favicon.svg").write_bytes(fav)
     og = A / "og.jpg"
     if og.exists():
@@ -183,7 +167,7 @@ def main():
     for t, out in ((CZ, DIST / "index.html"), (EN, DIST / "en" / "index.html")):
         out.parent.mkdir(parents=True, exist_ok=True)
         html = tpl.render(t=t, c=c, base=BASE, site_url=SITE_URL, IMG=IMG, VIDEO=VIDEO, LOGOS=LOGOS,
-                          LOGO=logo, VLOGO=VLOGO, css_v=h(css), js_v=h(js), fav_v=h(fav), og_v=og_v,
+                          LOGO=logo, VLOGO=VLOGO, css_v=h(css), js_v=h(js), ring_v=h(ring), fav_v=h(fav), og_v=og_v,
                           pages_v=pages_v, ld=json.dumps(dict(ld, inLanguage=t["lang"]), ensure_ascii=False))
         # nezlomitelná mezera po jednopísmenných předložkách a spojkách (jen CZ text mimo tagy)
         if t["lang"] == "cs":

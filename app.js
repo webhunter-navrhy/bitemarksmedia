@@ -1,92 +1,118 @@
-/* Bite Marks Media – malé vanilla interakce, nativní scroll */
+/* Bite Marks Media – interakce (vanilla, nativní scroll) */
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const desk = matchMedia("(min-width: 900px)");
+  const fine = matchMedia("(hover: hover) and (pointer: fine)");
 
-  /* header: pevný stav po odjetí z hero, tmavá varianta nad vínovou sekcí */
-  const hdr = $("#hdr");
-  const darkSecs = $$(".built");
-  const navLinks = $$(".hdr-nav a");
-  const secs = navLinks.map(a => $(a.getAttribute("href"))).filter(Boolean);
-  let ticking = false;
+  /* header */
+  const hdr = $("#hdr"), mnav = $("#mnav"), burger = $(".burger");
+  const dark = $$(".built");
+  const links = $$(".hdr-nav a");
+  const targets = links.map(a => $(a.getAttribute("href"))).filter(Boolean);
+  const words = $$(".manifest-big .w");
+  let tick = false;
   const onScroll = () => {
-    ticking = false;
-    const y = scrollY;
-    hdr.classList.toggle("is-solid", y > 40);
+    tick = false;
+    hdr.classList.toggle("is-solid", scrollY > 30);
     const mid = hdr.offsetHeight / 2;
-    const menuOpen = !document.getElementById("mnav").hidden;
-    hdr.classList.toggle("is-dark", menuOpen || darkSecs.some(s => { const r = s.getBoundingClientRect(); return r.top <= mid && r.bottom >= mid; }));
+    hdr.classList.toggle("is-dark", !mnav.hidden || dark.some(s => { const r = s.getBoundingClientRect(); return r.top <= mid && r.bottom >= mid; }));
     let cur = null;
-    for (const s of secs) if (s.getBoundingClientRect().top < innerHeight * .4) cur = s;
-    navLinks.forEach(a => a.classList.toggle("is-on", cur && a.getAttribute("href") === "#" + cur.id));
+    for (const s of targets) if (s.getBoundingClientRect().top < innerHeight * .45) cur = s;
+    links.forEach(a => a.classList.toggle("is-on", !!cur && a.getAttribute("href") === "#" + cur.id));
+    // manifest: slova se „propisují“ se scrollem
+    if (words.length) {
+      const r = words[0].parentElement.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (r.height + innerHeight * .35)));
+      const n = reduce ? words.length : Math.round(p * words.length);
+      words.forEach((w, i) => w.classList.toggle("on", i < n));
+    }
   };
-  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  // rozdělit manifest na slova
+  const mb = $(".manifest-big");
+  if (mb) {
+    mb.innerHTML = mb.textContent.trim().split(/\s+/).map(w => `<span class="w">${w}</span>`).join(" ");
+    words.push(...$$(".w", mb));
+  }
+  addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  addEventListener("resize", onScroll);
   onScroll();
 
-  /* mobilní menu */
-  const burger = $(".burger"), mnav = $("#mnav");
   const setMenu = open => {
-    burger.setAttribute("aria-expanded", open);
+    burger.setAttribute("aria-expanded", String(open));
     mnav.hidden = !open;
-    document.body.style.overflow = open ? "hidden" : "";
-    hdr.classList.toggle("is-dark", open);
+    document.documentElement.style.overflow = open ? "hidden" : "";
+    onScroll();
   };
   burger.addEventListener("click", () => setMenu(burger.getAttribute("aria-expanded") !== "true"));
-  $$("#mnav a[href^='#']").forEach(a => a.addEventListener("click", () => setMenu(false)));
+  $$("a", mnav).forEach(a => a.addEventListener("click", () => setMenu(false)));
   addEventListener("keydown", e => { if (e.key === "Escape" && !mnav.hidden) setMenu(false); });
 
-  /* reveal */
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-  }), { rootMargin: "0px 0px -8% 0px", threshold: .12 });
-  $$(".rv:not(.hero .rv), .touch").forEach(el => io.observe(el));
+  /* lakové tlačítko: odlesk za kurzorem */
+  $$(".btn-lacquer").forEach(b => b.addEventListener("pointermove", e => {
+    const r = b.getBoundingClientRect();
+    b.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    b.style.setProperty("--my", `${e.clientY - r.top}px`);
+  }));
 
-  /* dashed stopa pod intro: kreslí se scrollem */
-  const trail = $(".trail-intro path");
-  if (trail && !reduce) {
-    const sec = trail.closest("section");
-    const draw = () => {
-      const r = sec.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .9)));
-      trail.ownerSVGElement.style.clipPath = `inset(0 ${100 - p * 100}% 0 0)`;
-    };
-    addEventListener("scroll", () => requestAnimationFrame(draw), { passive: true }); draw();
-  }
-
-  /* What we do: index + sticky obraz (desktop), akordeon (mobil) */
-  const items = $$(".svc-item"), figs = $$(".svc-fig"), count = $(".svc-count");
-  const desk = matchMedia("(min-width: 900px)");
-  const setSvc = (key, fromHover) => {
-    items.forEach((it, i) => {
-      const on = it.dataset.key === key;
-      if (on && count) count.textContent = String(i + 1).padStart(2, "0");
-      if (!fromHover || desk.matches) {
-        it.classList.toggle("is-on", on);
-        $(".svc-btn", it).setAttribute("aria-expanded", on);
-      }
+  /* What we do: sloupce (desktop: najetí i klik, mobil: jen klik) */
+  const cols = $$(".col");
+  let hoverT = 0;
+  const openCol = col => cols.forEach(c => {
+    const on = c === col;
+    c.classList.toggle("is-on", on);
+    $(".col-btn", c).setAttribute("aria-expanded", String(on));
+  });
+  cols.forEach(c => {
+    $(".col-btn", c).addEventListener("click", () => {
+      if (!desk.matches && c.classList.contains("is-on")) { c.classList.remove("is-on"); $(".col-btn", c).setAttribute("aria-expanded", "false"); return; }
+      openCol(c);
     });
-    figs.forEach(f => f.classList.toggle("is-on", f.dataset.key === key));
-  };
-  items.forEach(it => {
-    const btn = $(".svc-btn", it);
-    btn.addEventListener("click", () => {
-      if (!desk.matches && it.classList.contains("is-on")) { it.classList.remove("is-on"); btn.setAttribute("aria-expanded", "false"); return; }
-      setSvc(it.dataset.key);
+    c.addEventListener("pointerenter", () => {
+      if (!desk.matches || !fine.matches) return;
+      clearTimeout(hoverT); hoverT = setTimeout(() => openCol(c), 140);
     });
-    it.addEventListener("mouseenter", () => { if (desk.matches && matchMedia("(hover: hover)").matches) setSvc(it.dataset.key, true); });
+    c.addEventListener("pointerleave", () => clearTimeout(hoverT));
+    c.addEventListener("pointermove", e => {
+      const r = c.getBoundingClientRect();
+      c.style.setProperty("--gx", `${e.clientX - r.left}px`);
+      c.style.setProperty("--gy", `${e.clientY - r.top}px`);
+    });
   });
 
-  /* Aero video: přehrát potichu, když je vidět; tlačítko zvuku */
+  /* vizitka: náklon za kurzorem, klik = otočit */
+  const card = $(".card3d");
+  if (card) {
+    const flip = () => { card.classList.toggle("is-flipped"); card.setAttribute("aria-pressed", String(card.classList.contains("is-flipped"))); };
+    card.addEventListener("click", flip);
+    card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+    card.addEventListener("pointermove", e => {
+      if (!fine.matches || reduce) return;
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      card.style.setProperty("--ry", `${(x - .5) * 16}deg`);
+      card.style.setProperty("--rx", `${(.5 - y) * 12}deg`);
+      card.style.setProperty("--px", `${x * 100}%`);
+      card.style.setProperty("--py", `${y * 100}%`);
+    });
+    card.addEventListener("pointerleave", () => { card.style.setProperty("--rx", "0deg"); card.style.setProperty("--ry", "0deg"); });
+  }
+
+  /* ventures: odlesk za kurzorem */
+  $$(".v-in").forEach(v => v.addEventListener("pointermove", e => {
+    const r = v.getBoundingClientRect();
+    v.style.setProperty("--gx", `${e.clientX - r.left}px`);
+    v.style.setProperty("--gy", `${e.clientY - r.top}px`);
+  }));
+
+  /* Aero video: potichu, když je vidět; zvuk na tlačítko */
   const v = $("#aeroVideo");
   if (v) {
-    const vio = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        if (!v.src) v.src = v.dataset.src;
-        if (!reduce) v.play().catch(() => {});
-      } else v.pause();
-    }, { threshold: .35 });
-    vio.observe(v);
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { if (!v.src) v.src = v.dataset.src; if (!reduce) v.play().catch(() => {}); }
+      else if (v.src) v.pause();
+    }, { threshold: .3 }).observe(v);
     const sb = $(".sound");
     sb.addEventListener("click", () => {
       if (!v.src) v.src = v.dataset.src;
@@ -96,92 +122,65 @@
     });
   }
 
-  /* časopisy: hover propojení seznam <-> obálka, čtečka stránek */
-  $$(".mag-link").forEach(l => {
-    const mag = $(`.mag[data-mag="${l.dataset.mag}"]`);
-    l.addEventListener("mouseenter", () => mag.classList.add("is-hot"));
-    l.addEventListener("mouseleave", () => mag.classList.remove("is-hot"));
-  });
-  $$(".mag").forEach(m => {
-    const l = $(`.mag-link[data-mag="${m.dataset.mag}"]`);
-    m.addEventListener("mouseenter", () => l.classList.add("is-hot"));
-    m.addEventListener("mouseleave", () => l.classList.remove("is-hot"));
-  });
+  /* čtečka příloh */
   const reader = $("#reader"), ra = $(".reader-a"), rb = $(".reader-b"), rn = $(".reader-n"), rt = $(".reader-title");
-  const prev = $(".reader-prev"), next = $(".reader-next");
-  const N = 16;
+  const prev = $(".reader-prev"), next = $(".reader-next"), N = 16;
   let mag = null, page = 1, lastFocus = null;
-  const one = () => !desk.matches;
+  const single = () => !desk.matches;
   const src = p => `${BMM.base}img/pages/${mag}-${String(p).padStart(2, "0")}.webp?v=${BMM.pagesV}`;
   const render = () => {
-    // titulní strana sama, pak dvojstrany 2-3, 4-5 … (na mobilu po jedné)
-    const spread = $(".reader-spread");
-    spread.style.animation = "none"; void spread.offsetWidth; spread.style.animation = "";
+    const sp = $(".reader-spread"); sp.style.animation = "none"; void sp.offsetWidth; sp.style.animation = "";
     ra.src = src(page); ra.alt = `${rt.textContent} – ${BMM.page} ${page}`;
-    if (!one() && page > 1 && page < N) { rb.src = src(page + 1); rb.alt = `${rt.textContent} – ${BMM.page} ${page + 1}`; rb.hidden = false; }
+    const two = !single() && page > 1 && page < N;
+    if (two) { rb.src = src(page + 1); rb.alt = `${rt.textContent} – ${BMM.page} ${page + 1}`; rb.hidden = false; }
     else { rb.removeAttribute("src"); rb.hidden = true; }
-    rn.textContent = rb.hidden ? page : `${page}–${page + 1}`;
+    rn.textContent = two ? `${page}–${page + 1}` : page;
     prev.disabled = page <= 1;
-    next.disabled = one() ? page >= N : (page === 1 ? false : page + 1 >= N);
-    // přednačíst další
-    [page + 2, page + 3].filter(p => p <= N).forEach(p => { const i = new Image(); i.src = src(p); });
+    next.disabled = two ? page + 1 >= N : page >= N;
+    [page + 2, page + 3].filter(p => p <= N).forEach(p => { new Image().src = src(p); });
   };
   const go = d => {
-    if (one()) page = Math.min(N, Math.max(1, page + d));
-    else if (d > 0) page = page === 1 ? 2 : Math.min(N, page + 2);
+    if (single()) page = Math.min(N, Math.max(1, page + d));
+    else if (d > 0) page = page === 1 ? 2 : Math.min(N - 1, page + 2);
     else page = page <= 3 ? 1 : page - 2;
     render();
   };
-  const openReader = (key, title) => {
-    mag = key; page = 1; rt.textContent = title; lastFocus = document.activeElement;
-    reader.hidden = false; document.body.style.overflow = "hidden"; render(); $(".reader-x").focus();
-  };
-  const closeReader = () => { reader.hidden = true; document.body.style.overflow = ""; lastFocus && lastFocus.focus(); };
-  $$("[data-mag]").forEach(b => b.addEventListener("click", () => openReader(b.dataset.mag, b.dataset.title)));
-  $(".reader-x").addEventListener("click", closeReader);
+  const openR = (key, title) => { mag = key; page = 1; rt.textContent = title; lastFocus = document.activeElement; reader.hidden = false; document.documentElement.style.overflow = "hidden"; render(); $(".reader-x").focus(); };
+  const closeR = () => { reader.hidden = true; document.documentElement.style.overflow = ""; if (lastFocus) lastFocus.focus(); };
+  $$(".mag").forEach(b => b.addEventListener("click", () => openR(b.dataset.mag, b.dataset.title)));
+  $(".reader-x").addEventListener("click", closeR);
   prev.addEventListener("click", () => go(-1));
   next.addEventListener("click", () => go(1));
-  reader.addEventListener("click", e => { if (e.target === reader || e.target.classList.contains("reader-stage")) closeReader(); });
+  $(".reader-stage").addEventListener("click", e => { if (e.target.classList.contains("reader-stage")) closeR(); });
   addEventListener("keydown", e => {
     if (reader.hidden) return;
-    if (e.key === "Escape") closeReader();
+    if (e.key === "Escape") closeR();
     if (e.key === "ArrowRight") go(1);
     if (e.key === "ArrowLeft") go(-1);
   });
   let sx = null;
   $(".reader-stage").addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
-  $(".reader-stage").addEventListener("touchend", e => {
-    if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; sx = null;
-    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
-  });
+  $(".reader-stage").addEventListener("touchend", e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); });
 
-  /* People: 3 stavy – hover = mimo kancelář (desktop), klik/tap/swipe = další stav */
+  /* lidé: tři stavy jen na klik / tap / swipe (žádné samovolné přepínání) */
   $$(".person").forEach(p => {
-    const card = $(".person-card", p), tabs = $$(".ptab", p);
-    let state = 0, pinned = false;
+    const tabs = $$(".ptab", p), card = $(".person-card", p);
     const set = s => {
-      state = (s + 3) % 3; p.dataset.state = state;
-      tabs.forEach((t, i) => { t.classList.toggle("is-on", i === state); t.setAttribute("aria-selected", i === state); });
-      $$(".pst", p).forEach((el, i) => el.setAttribute("aria-hidden", i !== state && !(i === 1 && state === 2)));
+      s = (s + 3) % 3; p.dataset.state = s;
+      tabs.forEach((t, i) => { t.classList.toggle("is-on", i === s); t.setAttribute("aria-selected", String(i === s)); });
     };
-    tabs.forEach((t, i) => t.addEventListener("click", () => { pinned = true; set(i); }));
-    card.addEventListener("click", e => { if (e.target.closest("a")) return; pinned = true; set(state + 1); });
-    card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pinned = true; set(state + 1); } });
-    card.addEventListener("mouseenter", () => { if (!pinned && matchMedia("(hover: hover)").matches && state === 0) set(1); });
-    card.addEventListener("mouseleave", () => { if (!pinned) set(0); pinned = false; });
+    tabs.forEach((t, i) => t.addEventListener("click", () => set(i)));
     let x0 = null;
     card.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
-    card.addEventListener("touchend", e => {
-      if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
-      if (Math.abs(dx) > 40) { pinned = true; set(state + (dx < 0 ? 1 : -1)); }
-    });
+    card.addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) set(+p.dataset.state + (dx < 0 ? 1 : -1)); });
   });
 
-  /* reference: přepínání citací (bez automatické rotace) */
-  const qtabs = $$(".qtab"), quotes = $$(".quote");
-  qtabs.forEach(t => t.addEventListener("click", () => {
-    const q = t.dataset.q;
-    qtabs.forEach(x => { const on = x === t; x.classList.toggle("is-on", on); x.setAttribute("aria-selected", on); });
-    quotes.forEach(x => { const on = x.dataset.q === q; x.hidden = !on; x.classList.toggle("is-on", on); });
+  /* reference */
+  const quotes = $$(".quote"), qn = $(".qcount b");
+  let qi = 0;
+  $$(".qbtn").forEach(b => b.addEventListener("click", () => {
+    qi = (qi + +b.dataset.d + quotes.length) % quotes.length;
+    quotes.forEach((q, i) => { q.hidden = i !== qi; q.classList.toggle("is-on", i === qi); });
+    qn.textContent = qi + 1;
   }));
 })();

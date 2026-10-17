@@ -40,7 +40,9 @@ CZ = {
     "intro": {
         "big": "We build brands, media and experiences that people remember.",
         "text": "Jsme jako dobrý fotograf. Neměníme to, kým jste — hledáme světlo a úhel, ve kterém skutečně vyniknete. A co umíme postavit pro sebe, přenášíme se stejnou péčí do značek a kampaní našich klientů.",
+        "label": "Studio",
     },
+    "card": {"flip": "Otočit vizitku", "hint": "Klikněte a otočte"},
     "services": {
         "kicker": "What we do",
         "title": "Šest disciplín, jeden rukopis.",
@@ -104,7 +106,7 @@ CZ = {
             "title": "Jak Aero zaujalo mladou generaci",
             "text": "Roční employer brandingová spolupráce s cílem přilákat mladé talenty do leteckého průmyslu a trainee programu Aero Vodochody. Vizuály, tiskoviny, stánek pro kariérní veletrhy a video, které ukazuje, proč má smysl stavět letadla.",
             "role": "Strategie · Vizuály · Stánek · Video",
-            "video": "Video „To dá rozum“ — zapnout zvuk",
+            "video": "Zapnout zvuk",
             "alts": ["Stánek Aero s nápisem To dá rozum", "Brandované nápoje Aero na stánku", "Tiskoviny a merch Aero na stole", "Detail stánku Aero"],
         },
         "more_title": "Další spolupráce",
@@ -221,7 +223,9 @@ EN = {
         "more": "What we do",
         "pillars": ["Media", "Events", "Experiences", "Ventures"],
     },
+    "card": {"flip": "Flip the card", "hint": "Click to flip"},
     "intro": {
+        "label": "Studio",
         "big": "We build brands, media and experiences that people remember.",
         "text": "Think of us as a good photographer. We don’t change who you are — we find the light and the angle in which you truly stand out. And what we build for ourselves, we bring to our clients’ brands and campaigns with the same care.",
     },
@@ -288,7 +292,7 @@ EN = {
             "title": "How Aero won over a new generation",
             "text": "A year-long employer branding partnership to attract young talent to aviation and to the Aero Vodochody trainee programme. Visuals, print, a career-fair stand and a video that shows why building aircraft makes sense.",
             "role": "Strategy · Visuals · Stand · Video",
-            "video": "Video “To dá rozum” — sound on",
+            "video": "Sound on",
             "alts": ["Aero stand with the claim To dá rozum", "Aero branded drinks at the stand", "Aero print and merch on a table", "Aero stand detail"],
         },
         "more_title": "More work",
