@@ -1,0 +1,425 @@
+{%- macro pic(name, alt, sizes="100vw", cls="", eager=False) -%}
+{%- set im = IMG[name] -%}
+<img class="{{ cls }}" src="{{ base }}img/{{ name }}-{{ im.w[-1] }}.webp?v={{ im.v }}" srcset="{% for w in im.w %}{{ base }}img/{{ name }}-{{ w }}.webp?v={{ im.v }} {{ w }}w{% if not loop.last %}, {% endif %}{% endfor %}" sizes="{{ sizes }}" width="{{ im.W }}" height="{{ im.H }}" alt="{{ alt }}"{% if eager %} fetchpriority="high"{% else %} loading="lazy" decoding="async"{% endif %}>
+{%- endmacro -%}
+{%- macro arrow() -%}<svg class="ico-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>{%- endmacro -%}
+{%- macro ext() -%}<svg class="ico-ext" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>{%- endmacro -%}
+<!doctype html>
+<html lang="{{ t.lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ t.title }}</title>
+<meta name="description" content="{{ t.description }}">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#BFD8E8">
+<link rel="alternate" hreflang="cs" href="{{ site_url }}">
+<link rel="alternate" hreflang="en" href="{{ site_url }}en/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ t.title }}">
+<meta property="og:description" content="{{ t.description }}">
+<meta property="og:image" content="{{ site_url }}img/og.jpg?v={{ og_v }}">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="{{ base }}favicon.svg?v={{ fav_v }}" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap&subset=latin-ext" rel="stylesheet">
+<link rel="preload" as="image" href="{{ base }}img/hero-{{ IMG['hero'].w[-1] }}.webp?v={{ IMG['hero'].v }}" imagesrcset="{% for w in IMG['hero'].w %}{{ base }}img/hero-{{ w }}.webp?v={{ IMG['hero'].v }} {{ w }}w{% if not loop.last %}, {% endif %}{% endfor %}" imagesizes="100vw">
+<link rel="stylesheet" href="{{ base }}style.css?v={{ css_v }}">
+<script type="application/ld+json">{{ ld | safe }}</script>
+</head>
+<body>
+<a class="skip" href="#obsah">{{ t.skip }}</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="hdr" id="hdr">
+  <a class="hdr-logo" href="{{ base }}{{ t.prefix }}" aria-label="Bite Marks Media">{{ LOGO | safe }}</a>
+  <nav class="hdr-nav" aria-label="Hlavní">
+    {% for href, label in t.nav %}<a href="{{ href }}">{{ label }}</a>{% endfor %}
+  </nav>
+  <div class="hdr-right">
+    <a class="lang" href="{{ base }}{{ 'en/' if t.lang == 'cs' else '' }}" hreflang="{{ t.other_lang }}" lang="{{ t.other_lang }}"><span class="lang-on">{{ t.this_label }}</span><span class="lang-sep">/</span>{{ t.other_label }}</a>
+    <a class="btn btn-gloss btn-sm hdr-cta" href="#kontakt"><span>{{ t.talk }}</span>{{ arrow() }}</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="mnav"><span class="burger-l"></span><span class="burger-l"></span><span class="sr">{{ t.menu }}</span></button>
+  </div>
+</header>
+
+<div class="mnav" id="mnav" hidden>
+  <nav aria-label="Mobilní">
+    {% for href, label in t.nav %}<a href="{{ href }}" style="--i:{{ loop.index }}">{{ label }}</a>{% endfor %}
+  </nav>
+  <div class="mnav-foot">
+    <a href="mailto:{{ c.email }}">{{ c.email }}</a>
+    <a href="tel:{{ c.phone_href }}">{{ c.phone }}</a>
+    <a class="lang" href="{{ base }}{{ 'en/' if t.lang == 'cs' else '' }}" hreflang="{{ t.other_lang }}">{{ t.this_label }} / {{ t.other_label }}</a>
+  </div>
+</div>
+
+<main id="obsah">
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="h-hero">
+  <picture class="hero-bg">
+    {{ pic('hero', '', '100vw', 'hero-img', True) }}
+  </picture>
+  <div class="hero-shine" aria-hidden="true"></div>
+  <div class="hero-inner wrap">
+    <p class="kicker hero-kicker rv">{{ t.hero.kicker }}</p>
+    <h1 class="hero-title" id="h-hero">
+      <span class="hl"><span class="hl-in">{{ t.hero.line1 }}</span></span>
+      <span class="hl"><span class="hl-in mark-word">{{ t.hero.line2 }}<svg class="mark-ring" viewBox="0 0 520 220" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <mask id="mr1" maskUnits="userSpaceOnUse"><path class="mr-draw" pathLength="1" d="M55.2 52.6 A250 100 0 0 1 501.5 135.9"/></mask>
+          <mask id="mr2" maskUnits="userSpaceOnUse"><path class="mr-draw mr-draw2" pathLength="1" d="M18.5 135.9 A250 100 0 0 0 385 196.6"/></mask>
+        </defs>
+        <path class="mr-dash" mask="url(#mr1)" d="M55.2 52.6 A250 100 0 0 1 501.5 135.9"/>
+        <path class="mr-dash" mask="url(#mr2)" d="M18.5 135.9 A250 100 0 0 0 385 196.6"/>
+      </svg></span></span>
+    </h1>
+    <div class="hero-foot">
+      <p class="hero-lead rv" style="--d:.5s">{{ t.hero.lead }}</p>
+      <div class="hero-actions rv" style="--d:.65s">
+        <a class="btn btn-gloss" href="#kontakt"><span>{{ t.hero.cta }}</span>{{ arrow() }}</a>
+        <a class="btn btn-line" href="#sluzby"><span>{{ t.hero.more }}</span></a>
+      </div>
+    </div>
+    <ul class="hero-pillars rv" style="--d:.8s" aria-label="Bite Marks Media">
+      {% for p in t.hero.pillars %}<li>{{ p }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro wrap" aria-label="Bite Marks Media">
+  <svg class="trail trail-intro" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-10 30 C 260 150, 520 -20, 760 70 S 1100 140, 1210 40"/></svg>
+  <p class="intro-big rv" lang="en">{{ t.intro.big }}</p>
+  <p class="intro-text rv">{{ t.intro.text }}</p>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="svc" id="sluzby" aria-labelledby="h-svc">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">{{ t.services.kicker }}</p>
+      <h2 class="h2" id="h-svc">{{ t.services.title }}</h2>
+    </div>
+    <div class="svc-grid">
+      <ol class="svc-list" role="list">
+        {% for s in t.services.entries %}
+        <li class="svc-item{% if loop.first %} is-on{% endif %}" data-key="{{ s.key }}">
+          <button class="svc-btn" type="button" aria-expanded="{{ 'true' if loop.first else 'false' }}" aria-controls="svc-{{ s.key }}">
+            <span class="svc-name" lang="en">{{ s.name }}</span>
+            <span class="svc-plus" aria-hidden="true"></span>
+          </button>
+          <div class="svc-body" id="svc-{{ s.key }}">
+            <div class="svc-body-in">
+              <figure class="svc-mfig">{{ pic(s.img, s.alt, '(max-width: 899px) 92vw, 1px') }}</figure>
+              <p>{{ s.text }}</p>
+              <ul class="tags">{% for g in s.tags %}<li>{{ g }}</li>{% endfor %}</ul>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ol>
+      <div class="svc-stage" aria-hidden="true">
+        <div class="svc-frame">
+          {% for s in t.services.entries %}
+          <figure class="svc-fig{% if loop.first %} is-on{% endif %}" data-key="{{ s.key }}">{{ pic(s.img, '', '(min-width: 900px) 40vw, 1px', 'svc-img') }}</figure>
+          {% endfor %}
+          <svg class="svc-ring" viewBox="0 0 200 250" aria-hidden="true"><ellipse cx="100" cy="125" rx="96" ry="121"/></svg>
+        </div>
+        <p class="svc-caption"><span class="svc-count">01</span><span class="svc-total">/ 06</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="phil" id="filozofie" aria-labelledby="h-phil">
+  <div class="wrap phil-grid">
+    <div class="phil-copy">
+      <p class="kicker">{{ t.philosophy.kicker }}</p>
+      <h2 class="h2 phil-title" id="h-phil" lang="en">{{ t.philosophy.title }}</h2>
+      <p class="phil-p rv">{{ t.philosophy.p1 }}</p>
+      <p class="phil-p phil-quote rv">{{ t.philosophy.p2 }}</p>
+    </div>
+    <figure class="phil-fig rv">
+      {{ pic('card', t.philosophy.img_alt, '(min-width: 900px) 50vw, 92vw', 'phil-img') }}
+    </figure>
+  </div>
+  <div class="wrap">
+    <ol class="touch" role="list">
+      {% for x in t.philosophy.touch %}<li class="touch-i" style="--i:{{ loop.index0 }}"><span>{{ x }}</span></li>{% endfor %}
+    </ol>
+    <div class="values">
+      <p class="kicker">{{ t.philosophy.values_label }}</p>
+      <ul role="list">{% for v in t.philosophy.vals %}<li class="rv" style="--d:{{ loop.index0 * 0.08 }}s">{{ v }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTED WORK -->
+<section class="work" id="prace" aria-labelledby="h-work">
+  <div class="wrap">
+    <div class="sec-head sec-head-row">
+      <div>
+        <p class="kicker">{{ t.work.kicker }}</p>
+        <h2 class="h2" id="h-work">{{ t.work.title }}</h2>
+      </div>
+    </div>
+
+    {% set f = t.work.forbes %}
+    <article class="case case-forbes">
+      <div class="case-meta">
+        <p class="case-label"><span lang="en">{{ f.label }}</span> · {{ f.client }}</p>
+        <h3 class="h3">{{ f.title }}</h3>
+        <p class="case-text">{{ f.text }}</p>
+        <p class="case-role">{{ f.role }}</p>
+        <ul class="mags-list" role="list">
+          {% for m in f.entries %}
+          <li><button type="button" class="mag-link" data-mag="{{ m.key }}" data-title="{{ m.name }}"><span class="mag-name">{{ m.name }}</span><span class="mag-txt">{{ m.text }}</span><span class="mag-open">{{ f.open }} {{ arrow() }}</span></button></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="mags" role="list">
+        {% for m in f.entries %}
+        <button type="button" role="listitem" class="mag" style="--i:{{ loop.index0 }}" data-mag="{{ m.key }}" data-title="{{ m.name }}" aria-label="{{ f.open }}: {{ m.name }}">
+          {{ pic('cover-' ~ m.key, m.name, '(min-width: 900px) 22vw, 44vw', 'mag-img') }}
+        </button>
+        {% endfor %}
+      </div>
+    </article>
+
+    {% set a = t.work.aero %}
+    <article class="case case-aero">
+      <div class="aero-grid">
+        <div class="case-meta aero-meta">
+          <p class="case-label"><span lang="en">{{ a.label }}</span> · {{ a.client }}</p>
+          <h3 class="h3">{{ a.title }}</h3>
+          <p class="case-text">{{ a.text }}</p>
+          <p class="case-role">{{ a.role }}</p>
+        </div>
+        <div class="aero-video">
+          <video id="aeroVideo" muted loop playsinline preload="none" poster="{{ base }}img/aero-poster-{{ IMG['aero-poster'].w[-1] }}.webp?v={{ IMG['aero-poster'].v }}" width="{{ VIDEO.w }}" height="{{ VIDEO.h }}" data-src="{{ base }}media/aero.mp4?v={{ VIDEO.v }}" aria-label="{{ a.video }}"></video>
+          <button class="sound" type="button" aria-pressed="false" data-video="aeroVideo"><span class="sound-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="sound-on" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/><path class="sound-off" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg></span><span>{{ a.video }}</span></button>
+        </div>
+        <figure class="aero-ph aero-ph1">{{ pic('aero-1', a.alts[0], '(min-width: 900px) 22vw, 46vw') }}</figure>
+        <figure class="aero-ph aero-ph2">{{ pic('aero-2', a.alts[1], '(min-width: 900px) 22vw, 46vw') }}</figure>
+        <figure class="aero-ph aero-ph3">{{ pic('aero-3', a.alts[2], '(min-width: 900px) 22vw, 46vw') }}</figure>
+      </div>
+    </article>
+
+    <div class="more">
+      <h3 class="more-title">{{ t.work.more_title }}</h3>
+      <ul class="more-list" role="list">
+        {% for m in t.work.more %}
+        <li class="more-row rv"><span class="more-client">{{ m.client }}</span><span class="more-what">{{ m.what }}</span><span class="more-tag">{{ m.tag }}</span></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="cars">
+      <div class="cars-head">
+        <h3 class="more-title">{{ t.work.carousels_title }}</h3>
+        <p>{{ t.work.carousels_text }}</p>
+      </div>
+      <ul class="cars-track" role="list">
+        {% for k, label in t.work.carousels %}
+        <li class="car"><figure>{{ pic(k, label, '(min-width: 900px) 18vw, 62vw') }}<figcaption>{{ label }}</figcaption></figure></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT BY -->
+<section class="built" id="built" aria-labelledby="h-built">
+  <div class="built-bg" aria-hidden="true">{{ pic('lacquer', '', '100vw', 'built-bg-img') }}</div>
+  <div class="wrap">
+    <div class="built-head">
+      <p class="built-by" lang="en"><span class="kicker kicker-light">{{ t.built.kicker }}</span><span class="built-brand" id="h-built">{{ t.built.brand }}</span></p>
+      <div class="built-intro">
+        <p class="built-title" lang="en">{{ t.built.title }}</p>
+        <p class="built-text">{{ t.built.text }}</p>
+      </div>
+    </div>
+    <ul class="ventures" role="list">
+      {% for v in t.built.entries %}
+      <li class="venture rv" style="--d:{{ loop.index0 * 0.08 }}s">
+        {% if v.url %}<a class="venture-in" href="{{ v.url }}" target="_blank" rel="noopener">{% else %}<div class="venture-in">{% endif %}
+          <span class="venture-sheen" aria-hidden="true"></span>
+          <span class="venture-cat">{{ v.cat }}</span>
+          <span class="venture-logo venture-logo-{{ v.key }}" role="img" aria-label="{{ v.name }}">{{ VLOGO[v.key] | safe }}</span>
+          <span class="venture-text">{{ v.text }}</span>
+          <span class="venture-foot">
+            {% if v.note %}<span class="venture-note">{{ v.note }}</span>{% endif %}
+            {% if v.url %}<span class="venture-link">{{ t.built.visit }} {{ ext() }}</span>{% endif %}
+          </span>
+        {% if v.url %}</a>{% else %}</div>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    <p class="built-pillars" lang="en">Media <i>/</i> Events <i>/</i> Experiences <i>/</i> Ventures</p>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section class="journal" id="journal" aria-labelledby="h-journal">
+  <div class="wrap">
+    <div class="sec-head sec-head-row">
+      <div>
+        <p class="kicker">{{ t.journal.kicker }}</p>
+        <h2 class="h2" id="h-journal">{{ t.journal.title }}</h2>
+      </div>
+      <div class="journal-side">
+        <p>{{ t.journal.text }}</p>
+        <a class="btn btn-line" href="{{ c.journal }}" target="_blank" rel="noopener"><span>{{ t.journal.cta }}</span>{{ ext() }}</a>
+      </div>
+    </div>
+    <div class="posts">
+      {% for p in t.journal.posts %}
+      <article class="post{% if loop.first %} post-lead{% endif %} rv" style="--d:{{ loop.index0 * 0.06 }}s">
+        <a href="{{ p.url }}" target="_blank" rel="noopener" lang="cs">
+          <figure class="post-fig">{{ pic(p.img, '', '(min-width: 900px) 46vw, 92vw' if loop.first else '(min-width: 900px) 16vw, 30vw') }}</figure>
+          <div class="post-body">
+            <p class="post-meta"><span>{{ p.cat }}</span><time>{{ p.date }}</time></p>
+            <h3 class="post-title">{{ p.title }}</h3>
+            {% if loop.first %}<span class="post-read">{{ t.journal.read }} {{ ext() }}</span>{% endif %}
+          </div>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- PEOPLE -->
+<section class="people" id="lide" aria-labelledby="h-people">
+  <div class="wrap people-grid">
+    <div class="people-head">
+      <p class="kicker">{{ t.people.kicker }}</p>
+      <h2 class="h2" id="h-people">{{ t.people.title }}</h2>
+      <p class="people-text">{{ t.people.text }}</p>
+      <p class="people-hint"><span class="dash3" aria-hidden="true"><i></i><i></i><i></i></span>{{ t.people.hint }}</p>
+    </div>
+    <div class="persons">
+      {% for p in t.people.list %}
+      <article class="person" data-state="0" aria-label="{{ p.name }}">
+        <div class="person-card" tabindex="0">
+          <div class="pst pst-0">
+            <div class="pst-photo">
+              <svg class="pst-ring" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="100" cy="100" rx="98" ry="84"/></svg>
+              {{ pic('p-' ~ p.key, p.name, '(min-width: 900px) 26vw, 80vw', 'pst-img') }}
+            </div>
+            <div class="pst-cap">
+              <h3 class="pst-name">{{ p.name }}</h3>
+              <p class="pst-role" lang="en">{{ p.role }}</p>
+              <p class="pst-line">{{ p.line }}</p>
+            </div>
+          </div>
+          <div class="pst pst-1" aria-hidden="true">
+            <div class="pst-photo pst-duo">{{ pic('p-' ~ p.key, '', '(min-width: 900px) 26vw, 80vw', 'pst-img') }}</div>
+            <div class="pst-cap">
+              <p class="pst-off-title">{{ p.off_title }}</p>
+              <p class="pst-off">{{ p.off }}</p>
+            </div>
+          </div>
+          <div class="pst pst-2" aria-hidden="true">
+            <span class="pst-logo" aria-hidden="true">{{ LOGO | safe }}</span>
+            <p class="kicker">{{ t.people.states[2] }}</p>
+            <p class="pst-big">{{ p.name }}</p>
+            <ul class="pst-contacts" role="list">
+              <li><a href="tel:{{ p.phone | replace(' ', '') }}">{{ p.phone }}</a></li>
+              <li><a href="mailto:{{ p.email }}">{{ p.email }}</a></li>
+              <li><a href="{{ c.linkedin }}" target="_blank" rel="noopener">LinkedIn {{ ext() }}</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="person-tabs" role="tablist" aria-label="{{ p.name }}">
+          {% for s in t.people.states %}<button type="button" role="tab" class="ptab{% if loop.first %} is-on{% endif %}" data-s="{{ loop.index0 }}" aria-selected="{{ 'true' if loop.first else 'false' }}"><i></i><span>{{ s }}</span></button>{% endfor %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust" aria-labelledby="h-trust">
+  <div class="wrap">
+    <div class="trust-top">
+      <div>
+        <p class="kicker" lang="en">{{ t.trust.kicker }}</p>
+        <h2 class="h2 h2-sm" id="h-trust">{{ t.trust.title }}</h2>
+      </div>
+      <ul class="logos" role="list">
+        {% for k in c.clients %}<li><img src="{{ base }}img/logo-{{ k }}.png?v={{ LOGOS[k].v }}" width="{{ LOGOS[k].w }}" height="{{ LOGOS[k].h }}" alt="{{ c.client_names[k] }}" loading="lazy" decoding="async"></li>{% endfor %}
+      </ul>
+    </div>
+    <div class="quotes">
+      <div class="quote-stage" aria-live="polite">
+        {% for q in t.trust.quotes %}
+        <figure class="quote{% if loop.first %} is-on{% endif %}" data-q="{{ loop.index0 }}"{% if not loop.first %} hidden{% endif %}>
+          <blockquote><p>{{ q.q }}</p></blockquote>
+          <figcaption><strong>{{ q.who }}</strong>, {{ q.org }}</figcaption>
+        </figure>
+        {% endfor %}
+      </div>
+      <div class="quote-tabs" role="tablist">
+        {% for q in t.trust.quotes %}<button type="button" role="tab" class="qtab{% if loop.first %} is-on{% endif %}" data-q="{{ loop.index0 }}" aria-selected="{{ 'true' if loop.first else 'false' }}"><span>{{ q.who }}</span><small>{{ q.org }}</small></button>{% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="kontakt" aria-labelledby="h-cta">
+  <div class="cta-bg" aria-hidden="true">{{ pic('cta', '', '100vw', 'cta-img') }}</div>
+  <div class="wrap cta-inner">
+    <h2 class="cta-title" id="h-cta" lang="en">{{ t.cta.title }}</h2>
+    <p class="cta-text">{{ t.cta.text }}</p>
+    <a class="btn btn-gloss btn-xl" href="mailto:{{ c.email }}?subject=Bite%20Marks%20Media"><span>{{ t.cta.button }}</span>{{ arrow() }}</a>
+    <p class="cta-alt">{{ t.cta.or }} <a href="tel:{{ c.phone_href }}">{{ c.phone }}</a> · <a href="mailto:{{ c.email }}">{{ c.email }}</a></p>
+  </div>
+</section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-top">
+      <div class="ftr-brand">
+        <span class="ftr-logo">{{ LOGO | safe }}</span>
+        <p class="ftr-tag" lang="en">{{ t.footer.tag }}</p>
+      </div>
+      <div class="ftr-cols">
+        <div><p class="ftr-h">{{ t.footer.studio }}</p><ul role="list">{% for href, label in t.nav[:5] %}<li><a href="{{ href }}">{{ label }}</a></li>{% endfor %}</ul></div>
+        <div><p class="ftr-h" lang="en">{{ t.footer.ventures }}</p><ul role="list">{% for v in t.built.entries %}<li>{% if v.url %}<a href="{{ v.url }}" target="_blank" rel="noopener">{{ v.name }}</a>{% else %}<span>{{ v.name }}</span>{% endif %}</li>{% endfor %}<li><a href="{{ c.journal }}" target="_blank" rel="noopener">bitemarks.cz</a></li></ul></div>
+        <div><p class="ftr-h">{{ t.footer.contact }}</p><ul role="list"><li><a href="mailto:{{ c.email }}">{{ c.email }}</a></li><li><a href="tel:{{ c.phone_href }}">{{ c.phone }}</a></li><li>{{ c.street }}, {{ c.city }}</li></ul></div>
+        <div><p class="ftr-h">{{ t.footer.follow }}</p><ul role="list"><li><a href="{{ c.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="{{ c.instagram }}" target="_blank" rel="noopener">Instagram</a></li><li><a href="{{ c.facebook }}" target="_blank" rel="noopener">Facebook</a></li></ul></div>
+      </div>
+    </div>
+    <div class="ftr-bottom">
+      <p>© 2026 {{ c.company }} · {{ t.footer.legal }} {{ c.ico }} · {{ t.footer.seat }} {{ c.street }}, {{ c.zip }} {{ c.city }}</p>
+      <p class="ftr-note">{{ t.footer.note }}</p>
+    </div>
+  </div>
+</footer>
+
+<div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="reader-title">
+  <div class="reader-top">
+    <p class="reader-title" id="reader-title"></p>
+    <p class="reader-count"><span class="reader-n">1</span> / 16</p>
+    <button class="reader-x" type="button" aria-label="{{ t.close }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
+  </div>
+  <div class="reader-stage">
+    <button class="reader-nav reader-prev" type="button" aria-label="{{ t.work.reader_prev }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="reader-spread"><img class="reader-a" alt=""><img class="reader-b" alt=""></div>
+    <button class="reader-nav reader-next" type="button" aria-label="{{ t.work.reader_next }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<script>window.BMM={base:"{{ base }}",pagesV:"{{ pages_v }}",page:"{{ t.work.reader_page }}"};</script>
+<script src="{{ base }}app.js?v={{ js_v }}" defer></script>
+</body>
+</html>

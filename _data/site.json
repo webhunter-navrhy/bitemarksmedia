@@ -1,0 +1,43 @@
+{
+ "slug": "bitemarksmedia",
+ "nazev": "Bite Marks Media",
+ "url": "https://webhunter-navrhy.github.io/bitemarksmedia/",
+ "base": "/bitemarksmedia/",
+ "lang": "cs",
+ "popis": "Creative media studio z Prahy – strategie, média, obsah, eventy a zážitky.",
+ "navrh": true,
+ "domena": "bitemarksmedia.com",
+ "og_image": "placeholder.jpg",
+ "logo": "",
+ "theme_color": "#ffffff",
+ "typ": "LocalBusiness",
+ "ico": "23672161",
+ "kontakt": {
+  "email": "",
+  "telefon": "",
+  "adresa": {
+   "ulice": "",
+   "psc": "",
+   "mesto": "",
+   "zeme": "CZ"
+  }
+ },
+ "oteviraci_doba": [],
+ "sameas": [],
+ "cenove_rozpeti": "",
+ "formular": {
+  "endpoint": "",
+  "demo": true,
+  "predmet": "Poptávka z webu"
+ },
+ "nav": [
+  {
+   "text": "Služby",
+   "href": "#sluzby"
+  },
+  {
+   "text": "Kontakt",
+   "href": "#kontakt"
+  }
+ ]
+}
