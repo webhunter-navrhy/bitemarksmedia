@@ -24,7 +24,7 @@ COMMON = {
 CZ = {
     "lang": "cs", "other_lang": "en", "other_label": "EN", "this_label": "CZ", "prefix": "",
     "title": "Bite Marks Media — Leave a mark.",
-    "description": "Creative media studio z Prahy. Strategie, média, obsah, eventy a zážitky pro značky, které nechtějí splynout v davu. Prémiové přílohy, kampaně, sociální sítě a vlastní projekty.",
+    "description": "Creative media studio z Prahy. Strategie, média, obsah, eventy a zážitky pro značky, které nechtějí splynout v davu.",
     "skip": "Přeskočit na obsah",
     "nav": [("#sluzby", "Co děláme"), ("#prace", "Práce"), ("#built", "Built by"), ("#journal", "Journal"), ("#lide", "Lidé"), ("#kontakt", "Kontakt")],
     "menu": "Menu", "close": "Zavřít",
@@ -208,7 +208,7 @@ CZ = {
 EN = {
     "lang": "en", "other_lang": "cs", "other_label": "CZ", "this_label": "EN", "prefix": "en/",
     "title": "Bite Marks Media — Leave a mark.",
-    "description": "A creative media studio from Prague. Strategy, media, content, events and experiences for brands that refuse to blend in. Premium supplements, campaigns, social and our own ventures.",
+    "description": "A creative media studio from Prague. Strategy, media, content, events and experiences for brands that refuse to blend in.",
     "skip": "Skip to content",
     "nav": [("#sluzby", "What we do"), ("#prace", "Work"), ("#built", "Built by"), ("#journal", "Journal"), ("#lide", "People"), ("#kontakt", "Contact")],
     "menu": "Menu", "close": "Close",

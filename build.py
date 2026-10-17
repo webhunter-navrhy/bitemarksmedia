@@ -30,7 +30,7 @@ IMAGES = {
     "hero": ("ribbon.jpg", [960, 1600], None),
     "cta": ("pedestal.jpg", [960, 1600], None),
     "card": ("cards.jpg", [800, 1536], None),
-    "lacquer": ("cards.jpg", [1200], (980, 0, 1536, 470)),
+    "lacquer": ("ribbon.jpg", [1040], (560, 0, 1600, 430)),
     "svc-editorials": ("kvt-str-01.webp", [600, 1000], None),
     "svc-campaigns": ("Aero_BMM_02.webp", [675], None),
     "svc-strategies": ("crystal.jpg", [800, 1400], (300, 0, 1300, 900)),
