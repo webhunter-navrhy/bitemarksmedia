@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% import '_m.html' as m with context %}
+{% set P = t.journal_page %}
+{% block title %}{{ P.title }}{% endblock %}
+{% block description %}{{ P.description }}{% endblock %}
+{% block main %}
+{{ m.page_hero(P.kicker, P.h1, P.lead, [('', 'Journal')]) }}
+<section class="sec sec-top0" aria-label="Journal">
+  <div class="wrap">
+    {% set f = t.posts[0] %}
+    <article class="post post-feat"><a href="{{ f[4] }}" target="_blank" rel="noopener" lang="cs">
+      <figure class="post-fig">{{ m.pic(f[0], '', '(min-width: 900px) 60vw, 92vw') }}</figure>
+      <div class="post-feat-copy">
+        <p class="post-meta"><span>{{ f[2] }}</span><time>{{ f[1] }}</time></p>
+        <h2 class="post-title post-title-xl">{{ f[3] }}</h2>
+        <span class="link-line">{{ ui.read_article }} {{ m.ext() }}</span>
+      </div>
+    </a></article>
+    <div class="posts posts-3 posts-more">
+      {% for p in t.posts[1:] %}
+      <article class="post"><a href="{{ p[4] }}" target="_blank" rel="noopener" lang="cs">
+        <figure class="post-fig">{{ m.pic(p[0], '', '(min-width: 900px) 30vw, 92vw') }}</figure>
+        <p class="post-meta"><span>{{ p[2] }}</span><time>{{ p[1] }}</time></p>
+        <h3 class="post-title">{{ p[3] }}</h3>
+      </a></article>
+      {% endfor %}
+    </div>
+    <p class="center-cta"><a class="btn-lacquer" href="{{ c.journal }}" target="_blank" rel="noopener"><span>{{ P.cta }}</span>{{ m.ext() }}</a></p>
+  </div>
+</section>
+{{ m.cta_band() }}
+{% endblock %}

@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% import '_m.html' as m with context %}
+{% set H = t.home %}
+{% block title %}{{ H.title }}{% endblock %}
+{% block description %}{{ H.description }}{% endblock %}
+{% block bodyclass %}home{% endblock %}
+{% block head %}
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" crossorigin>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+{% endblock %}
+{% block main %}
+<section class="hero" aria-labelledby="h-hero">
+  <div class="hero-stage" aria-hidden="true">
+    <span class="hero-shadow"></span>
+    <canvas class="ring" data-ring='{"scroll":true}'></canvas>
+  </div>
+  <div class="hero-top wrap">
+    <p class="eyebrow">{{ H.kicker }}</p>
+    <ul class="hero-pillars" lang="en">{% for p in H.pillars %}<li>{{ p }}</li>{% endfor %}</ul>
+  </div>
+  <div class="hero-main wrap">
+    <h1 class="hero-title" id="h-hero" lang="en"><span class="ln"><span>{{ H.line1 }}</span></span><span class="ln ln-2"><span>{{ H.line2 }}</span></span></h1>
+    <div class="hero-side">
+      <p class="hero-lead">{{ H.lead }}</p>
+      <a class="btn-lacquer" href="{{ m.href('kontakt/') }}"><span>{{ ui.cta_button }}</span>{{ m.arrow() }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="manifest wrap" aria-label="Studio">
+  <p class="eyebrow">Studio</p>
+  <p class="manifest-big" lang="en">{{ H.intro_big }}</p>
+  <div class="manifest-side">
+    <p>{{ H.intro_text }}</p>
+    <a class="link-line" href="{{ m.href('o-nas/') }}">{{ H.intro_link }} {{ m.arrow() }}</a>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="h-work">
+  <div class="wrap">
+    <div class="head head-row">
+      <div><p class="eyebrow" lang="en">{{ H.work_kicker }}</p><h2 class="h2" id="h-work">{{ H.work_title }}</h2></div>
+      <a class="link-line" href="{{ m.href('prace/') }}">{{ ui.all_work }} {{ m.arrow() }}</a>
+    </div>
+    <div class="wgrid">
+      {% for w in t.work %}{{ m.work_card(w, 'wc-' ~ loop.index) }}{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-tight" aria-labelledby="h-svc">
+  <div class="wrap">
+    <div class="head head-row">
+      <div><p class="eyebrow" lang="en">{{ H.services_kicker }}</p><h2 class="h2" id="h-svc">{{ H.services_title }}</h2></div>
+      <a class="link-line" href="{{ m.href('sluzby/') }}">{{ ui.all_services }} {{ m.arrow() }}</a>
+    </div>
+    <ol class="rows" role="list">
+      {% for s in t.services %}
+      <li><a class="row" href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}" data-preview="{{ base }}img/{{ s.img if s.img in IMG else 'merch-2' }}-{{ (IMG[s.img] if s.img in IMG else IMG['merch-2']).w[0] }}.webp">
+        <span class="row-n">{{ '%02d' % loop.index }}</span>
+        <span class="row-name" lang="en">{{ s.name }}</span>
+        <span class="row-short">{{ s.short }}</span>
+        <span class="row-go">{{ m.arrow() }}</span>
+      </a></li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="built-home lacq" aria-labelledby="h-built">
+  <span class="lacq-light" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="head head-row head-light">
+      <div><p class="eyebrow" lang="en">{{ H.built_kicker }}</p><h2 class="h2" id="h-built" lang="en">{{ H.built_title }}</h2></div>
+      <div class="head-side"><p>{{ H.built_text }}</p><a class="link-line link-cream" href="{{ m.href('built-by/') }}">{{ ui.all_ventures }} {{ m.arrow() }}</a></div>
+    </div>
+    <div class="vgrid">{% for v in t.ventures %}{{ m.venture_card(v) }}{% endfor %}</div>
+  </div>
+</section>
+
+<section class="phil" aria-labelledby="h-phil">
+  <div class="wrap phil-grid">
+    <div class="phil-copy">
+      <p class="eyebrow" lang="en">{{ H.phil_kicker }}</p>
+      <h2 class="h2" id="h-phil" lang="en">{{ H.phil_title }}</h2>
+      <p class="phil-p">{{ H.phil_text }}</p>
+      <ul class="vals" role="list">{% for v in t.about['values'] %}<li>{{ v[0] }}</li>{% endfor %}</ul>
+    </div>
+    <div class="phil-card">
+      <div class="card3d" tabindex="0" role="button" aria-pressed="false" aria-label="{{ H.card_hint }}">
+        <div class="card-in">
+          <div class="card-face card-front">
+            <div class="cf-left">
+              <p class="cf-name">Valérie Čížková</p>
+              <p class="cf-role">Founder &amp; CEO<br><b>Bite Marks Media</b></p>
+              <p class="cf-contact">{{ c.phone }}<br>{{ c.email }}<br>www.bitemarksmedia.com</p>
+            </div>
+            <div class="cf-right"><span class="cf-logo">{{ LOGO | safe }}</span><p class="cf-list" lang="en">Media<br>Events<br>Experiences<br>Ventures</p></div>
+          </div>
+          <div class="card-face card-back">
+            <span class="cb-sheen" aria-hidden="true"></span>
+            <p class="cb-by" lang="en">Built by</p>
+            <p class="cb-brand">Bite Marks</p>
+            <div class="cb-logos">{% for k in ('asd', 'dtp', 'gryfix', 'haso') %}<span class="cb-l">{{ VLOGO[k] | safe }}</span>{% endfor %}</div>
+            <p class="cb-pillars" lang="en">Media <i>/</i> Events <i>/</i> Experiences <i>/</i> Ventures</p>
+          </div>
+        </div>
+      </div>
+      <p class="card-hint"><span class="dashes" aria-hidden="true"></span>{{ H.card_hint }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="h-journal">
+  <div class="wrap">
+    <div class="head head-row">
+      <div><p class="eyebrow" lang="en">{{ H.journal_kicker }}</p><h2 class="h2" id="h-journal">{{ H.journal_title }}</h2></div>
+      <a class="link-line" href="{{ m.href('journal/') }}">Journal {{ m.arrow() }}</a>
+    </div>
+    <div class="posts posts-3">
+      {% for p in t.posts[:3] %}
+      <article class="post"><a href="{{ p[4] }}" target="_blank" rel="noopener" lang="cs">
+        <figure class="post-fig">{{ m.pic(p[0], '', '(min-width: 900px) 30vw, 92vw') }}</figure>
+        <p class="post-meta"><span>{{ p[2] }}</span><time>{{ p[1] }}</time></p>
+        <h3 class="post-title">{{ p[3] }}</h3>
+      </a></article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="trust sec-tight" aria-label="{{ H.trust_kicker }}">
+  <div class="wrap">
+    {% set q = t.about.quotes[0] %}
+    <figure class="bigquote">
+      <p class="eyebrow" lang="en">{{ H.trust_kicker }}</p>
+      <blockquote><p>{{ q[0] }}</p></blockquote>
+      <figcaption><b>{{ q[1] }}</b> · {{ q[2] }}</figcaption>
+    </figure>
+    <ul class="logos" role="list">
+      {% for k in c.clients %}<li><img src="{{ base }}img/logo-{{ k }}.png?v={{ LOGOS[k].v }}" width="{{ LOGOS[k].w }}" height="{{ LOGOS[k].h }}" alt="{{ c.client_names[k] }}" loading="lazy" decoding="async"></li>{% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="cta" aria-labelledby="h-cta">
+  <div class="cta-stage" aria-hidden="true"><canvas class="ring" data-ring='{"rot":[-0.6,-0.5,1.2],"phase":7,"dist":6.4}'></canvas></div>
+  <div class="wrap cta-inner">
+    <h2 class="cta-title" id="h-cta" lang="en">{{ ui.cta_title }}</h2>
+    <p class="cta-text">{{ ui.cta_text }}</p>
+    <a class="cta-mail" href="mailto:{{ c.email }}">{{ c.email }}</a>
+    <div class="cta-row">
+      <a class="btn-lacquer" href="{{ m.href('kontakt/') }}"><span>{{ ui.cta_button }}</span>{{ m.arrow() }}</a>
+      <a class="link-line" href="tel:{{ c.phone_href }}">{{ c.phone }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block after %}<div class="preview" aria-hidden="true"><img alt=""></div>{% endblock %}
+{% block scripts %}<script type="module" src="{{ base }}ring.js?v={{ V['ring.js'] }}"></script>{% endblock %}

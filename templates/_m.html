@@ -1,0 +1,93 @@
+{%- macro href(p='') -%}{{ base }}{{ pre }}{{ p }}{%- endmacro -%}
+{%- macro pic(name, alt='', sizes='100vw', cls='', eager=False) -%}
+{%- set im = IMG[name] -%}
+<img class="{{ cls }}" src="{{ base }}img/{{ name }}-{{ im.w[-1] }}.webp?v={{ im.v }}" srcset="{% for w in im.w %}{{ base }}img/{{ name }}-{{ w }}.webp?v={{ im.v }} {{ w }}w{% if not loop.last %}, {% endif %}{% endfor %}" sizes="{{ sizes }}" width="{{ im.W }}" height="{{ im.H }}" alt="{{ alt }}"{% if eager %} fetchpriority="high"{% else %} loading="lazy" decoding="async"{% endif %}>
+{%- endmacro -%}
+{%- macro arrow() -%}<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>{%- endmacro -%}
+{%- macro ext() -%}<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>{%- endmacro -%}
+
+{%- macro covers(keys=('kvt','shr','ci','k26'), reader=False, sizes='(min-width: 900px) 18vw, 40vw') -%}
+<div class="covers">
+  {% for k in keys %}
+  {% if reader %}<button type="button" class="cov" data-mag="{{ k }}" data-title="{{ (t.work[0].mags | selectattr(0, 'equalto', k) | first)[1] }}" style="--i:{{ loop.index0 }}">{% else %}<span class="cov" style="--i:{{ loop.index0 }}">{% endif %}
+    {{ pic('cover-' ~ k, '', sizes) }}
+  {% if reader %}</button>{% else %}</span>{% endif %}
+  {% endfor %}
+</div>
+{%- endmacro -%}
+
+{%- macro carousels(keys) -%}
+<div class="cars">{% for k in keys %}<span class="car" style="--i:{{ loop.index0 }}">{{ pic(k, '', '(min-width: 900px) 16vw, 36vw') }}</span>{% endfor %}</div>
+{%- endmacro -%}
+
+{%- macro work_card(w, cls='') -%}
+<a class="wcard {{ cls }}" href="{{ href('prace/' ~ w.slug ~ '/') }}">
+  <span class="wcard-media{% if WORK_CARD[w.slug] in ('covers', 'carousels') %} is-panel{% endif %}">
+    {% if WORK_CARD[w.slug] == 'covers' %}{{ covers() }}
+    {% elif WORK_CARD[w.slug] == 'carousels' %}{{ carousels(['car-skoda-1', 'car-gls-1', 'car-raynet-1']) }}
+    {% else %}{{ pic(WORK_CARD[w.slug], w.title, '(min-width: 900px) 45vw, 92vw', 'wcard-img') }}{% endif %}
+  </span>
+  <span class="wcard-meta"><span>{{ w.client }}</span><span lang="en">{{ w.disc }}</span></span>
+  <span class="wcard-title">{{ w.title }}</span>
+</a>
+{%- endmacro -%}
+
+{%- macro venture_card(v) -%}
+<a class="vcard vcard-{{ v.slug }}" href="{{ href('built-by/' ~ v.slug ~ '/') }}">
+  {% if v.card or v.img %}<span class="vcard-bg">{{ pic(v.card or v.img, '', '(min-width: 900px) 46vw, 92vw') }}</span>{% endif %}
+  <span class="vcard-glint" aria-hidden="true"></span>
+  <span class="vcard-top"><span class="vcard-cat">{{ v.cat }}</span>{% if v.when %}<span class="vcard-when">{{ v.when }}</span>{% endif %}</span>
+  <span class="vcard-logo vl-{{ v.logo }}" role="img" aria-label="{{ v.name }}">{{ VLOGO[v.logo] | safe }}</span>
+  <span class="vcard-bottom"><span class="vcard-short">{{ v.short }}</span><span class="vcard-go">{{ arrow() }}</span></span>
+</a>
+{%- endmacro -%}
+
+{%- macro page_hero(kicker, h1, lead='', crumbs=(), cls='') -%}
+<section class="phero {{ cls }}">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ href() }}">{{ ui.home }}</a>{% for href_, label in crumbs %}<span>/</span>{% if href_ %}<a href="{{ href(href_) }}">{{ label }}</a>{% else %}<span aria-current="page">{{ label }}</span>{% endif %}{% endfor %}</nav>
+    <div class="phero-grid">
+      <div>
+        <p class="eyebrow">{{ kicker }}</p>
+        <h1 class="phero-h1">{{ h1 }}</h1>
+      </div>
+      {% if lead %}<p class="phero-lead">{{ lead }}</p>{% endif %}
+    </div>
+  </div>
+</section>
+{%- endmacro -%}
+
+{%- macro cta_band() -%}
+<section class="ctab lacq" aria-labelledby="h-ctab">
+  <span class="lacq-light" aria-hidden="true"></span>
+  <div class="wrap ctab-in">
+    <h2 class="ctab-title" id="h-ctab" lang="en">{{ ui.cta_title }}</h2>
+    <div class="ctab-side">
+      <p>{{ ui.cta_text }}</p>
+      <div class="ctab-row">
+        <a class="btn-cream" href="{{ href('kontakt/') }}"><span>{{ ui.cta_button }}</span>{{ arrow() }}</a>
+        <a class="link-line link-cream" href="tel:{{ c.phone_href }}">{{ c.phone }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+{%- endmacro -%}
+
+{%- macro reader() -%}
+<div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="reader-title">
+  <div class="reader-top">
+    <p class="reader-title" id="reader-title"></p>
+    <p class="reader-count"><span class="reader-n">1</span> / 16</p>
+    <button class="reader-x" type="button" aria-label="{{ ui.close }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
+  </div>
+  <div class="reader-stage">
+    <button class="reader-nav reader-prev" type="button" aria-label="{{ ui.reader_prev }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="reader-spread"><img class="reader-a" alt=""><img class="reader-b" alt=""></div>
+    <button class="reader-nav reader-next" type="button" aria-label="{{ ui.reader_next }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+{%- endmacro -%}
+
+{%- macro meta_list(rows) -%}
+<dl class="meta">{% for k, v in rows %}<div><dt>{{ k }}</dt><dd>{{ v }}</dd></div>{% endfor %}</dl>
+{%- endmacro -%}
