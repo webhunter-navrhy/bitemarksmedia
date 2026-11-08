@@ -21,7 +21,7 @@
 
 {% if w.slug == 'forbes' %}
 <section class="wrap" aria-label="{{ ui.open_mag }}">
-  <div class="cover-stage">{{ m.covers(reader=True, sizes='(min-width: 900px) 20vw, 44vw') }}</div>
+  <div class="cover-stage">{{ m.covers(reader=True, sizes='(min-width: 900px) 20vw, 44vw', mags=w.mags or ()) }}</div>
   <ul class="mags" role="list">
     {% for k, name, d in w.mags %}
     <li><button type="button" class="mag" data-mag="{{ k }}" data-title="{{ name }}">
@@ -43,12 +43,14 @@
 {% elif w.slug == 'socialni-site' %}
 <section class="wrap"><figure class="media media-cream">{{ m.pic('r-cars', w.title, '(min-width: 1400px) 1320px, 94vw') }}</figure></section>
 {% elif w.slug == 'merchandise' %}
-<section class="wrap"><figure class="media">{{ m.pic('merch-1', w.title, '(min-width: 1400px) 1320px, 94vw') }}</figure></section>
+<section class="wrap"><figure class="media">{{ m.pic(w.gallery[0] if w.gallery else w.img, w.title, '(min-width: 1400px) 1320px, 94vw') }}</figure></section>
 {% elif w.slug == 'asd-fest' %}
 <section class="wrap"><div class="asdhero">
   <figure class="asdhero-main">{{ m.pic(w.gallery[0], w.alts[0], '(min-width: 900px) 64vw, 94vw') }}</figure>
   <figure class="asdhero-side">{{ m.pic(w.gallery[1], w.alts[1], '(min-width: 900px) 30vw, 94vw') }}</figure>
 </div></section>
+{% elif w.img %}
+<section class="wrap"><figure class="media">{{ m.pic(w.img, w.title | replace('*', ''), '(min-width: 1400px) 1320px, 94vw') }}</figure></section>
 {% endif %}
 
 <section class="sec" aria-label="{{ w.title }}">
@@ -84,6 +86,11 @@
 <section class="sec sec-tight"><div class="wrap gal gal-masonry">
   {% for k in w.gallery[1:] %}<figure>{{ m.pic(k, w.title, '(min-width: 900px) 30vw, 46vw') }}</figure>{% endfor %}
 </div></section>
+{% elif w.gallery %}
+<section class="sec sec-tight"><div class="wrap gal gal-asd">
+  {% for k in w.gallery %}<figure>{{ m.pic(k, w.alts[loop.index0], '(min-width: 900px) 32vw, 46vw') }}</figure>{% endfor %}
+</div>{% if w.link and w.link[1] %}
+<div class="wrap asd-more"><a class="tlink" href="{{ w.link[1] }}" target="_blank" rel="noopener"><span>{{ w.link[0] or w.link[1] }}</span>{{ m.ext() }}</a></div>{% endif %}</section>
 {% endif %}
 
 {{ m.next_link(ui.next_case ~ ' · ' ~ nxt.client, nxt.title, m.href('prace/' ~ nxt.slug ~ '/')) }}

@@ -34,9 +34,10 @@
 {% if v.slug == 'asd-fest' %}
 <section class="sec sec-tight sec-cream"><div class="wrap split"><div class="split-head"><p class="lbl">asdfest.cz</p></div><figure class="media media-shot">{{ m.pic('asd-web', 'asdfest.cz', '(min-width: 900px) 60vw, 94vw') }}</figure></div></section>
 {% endif %}
-{% if v.gallery %}
+{% set gx = (v.gallery or []) | reject('equalto', v.img) | list %}
+{% if gx %}
 <section class="sec sec-tight"><div class="wrap gal gal-3">
-  {% for k in v.gallery[1:] %}<figure>{{ m.pic(k, v.alts[loop.index0 + 1], '(min-width: 900px) 32vw, 46vw') }}</figure>{% endfor %}
+  {% for k in gx %}<figure>{{ m.pic(k, v.alts[v.gallery.index(k)], '(min-width: 900px) 32vw, 46vw') }}</figure>{% endfor %}
 </div></section>
 {% endif %}
 

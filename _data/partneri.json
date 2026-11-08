@@ -1,0 +1,392 @@
+[
+ {
+  "slug": "c-aero",
+  "name": "Aero Vodochody",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "aeroklub-cr",
+  "name": "Aeroklub ČR",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "aerorozvedka",
+  "name": "AEROROZVĚDKA",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "aerospace-defence-meetings-brno",
+  "name": "Aerospace & Defence Meetings Brno",
+  "cat": "Mediální partneři"
+ },
+ {
+  "slug": "aeroweb",
+  "name": "AEROWEB",
+  "cat": "Mediální partneři"
+ },
+ {
+  "slug": "aircraft-industries",
+  "name": "Aircraft Industries",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "aithel",
+  "name": "AITHEL",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "c-amsp",
+  "name": "AMSP ČR",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "api",
+  "name": "API",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "armada-ceske-republiky",
+  "name": "Armáda České Republiky",
+  "cat": "Státní sektor"
+ },
+ {
+  "slug": "asociace-obranneho-a-bezpecnostniho-prumyslu",
+  "name": "Asociace obranného a bezpečnostního průmyslu",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "bkp-institut",
+  "name": "BKP Institut",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "brno-space-cluster",
+  "name": "Brno Space Cluster",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "cooper-standard",
+  "name": "Cooper-Standard",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "c-czechitas",
+  "name": "Czechitas",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "c-czechtourism",
+  "name": "CzechTourism",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "daniel-arms",
+  "name": "Daniel Arms",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "dassualt-systemes",
+  "name": "Dassualt Systemes",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "defence-consulting",
+  "name": "Defence Consulting",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "dust-institute",
+  "name": "DUST INSTITUTE",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "era",
+  "name": "ERA",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "esa-technology-broker",
+  "name": "ESA Technology Broker",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "esero",
+  "name": "ESERO",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "evektor",
+  "name": "EVEKTOR",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "fairino",
+  "name": "Fairino",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "fakescape",
+  "name": "FAKESCAPE",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "forbes",
+  "name": "FORBES",
+  "cat": "Mediální partneři"
+ },
+ {
+  "slug": "c-gls",
+  "name": "GLS",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "c-gordic",
+  "name": "Gordic",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "grapecare",
+  "name": "GRAPECARE",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "hilase",
+  "name": "HiLASE",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "infrahex",
+  "name": "Infrahex",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "c-iveco",
+  "name": "Iveco Group",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "jihomoravsky-kraj",
+  "name": "Jihomoravský kraj",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "kosmonautix",
+  "name": "Kosmonautix",
+  "cat": "Mediální partneři"
+ },
+ {
+  "slug": "kriz",
+  "name": "KŘÍŽ",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "life-save-cards",
+  "name": "LIFE SAVE CARDS",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "lom-praha",
+  "name": "LOM PRAHA",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "magistrat-mesta-brna",
+  "name": "Magistrát města Brna",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "manpowergroup",
+  "name": "ManpowerGroup",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "mesit",
+  "name": "MESIT",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "ministerstvo-prumyslu-a-obchodu",
+  "name": "Ministerstvo průmyslu a obchodu",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "moravsky-letecky-klastr",
+  "name": "Moravský letecký klastr",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "c-msd",
+  "name": "MSD",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "c-muni",
+  "name": "Masarykova univerzita",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "omnipol-defence",
+  "name": "Omnipol Defence",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "omnipol-group",
+  "name": "Omnipol Group",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "ostravska-univerzita",
+  "name": "Ostravská univerzita",
+  "cat": "Univerzity"
+ },
+ {
+  "slug": "outdoor-survival",
+  "name": "Outdoor survival",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "pbs",
+  "name": "PBS",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "c-pmi",
+  "name": "Philip Morris ČR",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "policie-ceske-republiky",
+  "name": "Policie České republiky",
+  "cat": "Státní sektor"
+ },
+ {
+  "slug": "prepper-survival-care",
+  "name": "Prepper Survival Care",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "radiohouse",
+  "name": "RADIOHOUSE",
+  "cat": "Mediální partneři"
+ },
+ {
+  "slug": "c-raynet",
+  "name": "Raynet",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "regionalni-hospodarska-komora-brno",
+  "name": "Regionální hospodářská komora Brno",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "safran-group",
+  "name": "SAFRAN Group",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "c-skoda",
+  "name": "Škoda Group",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "slezska-univerzita",
+  "name": "Slezská univerzita",
+  "cat": "Univerzity"
+ },
+ {
+  "slug": "strojirenstvi-cz",
+  "name": "STROJÍRENSTVÍ.CZ",
+  "cat": "Mediální partneři"
+ },
+ {
+  "slug": "studio-w",
+  "name": "STUDIO W",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "svet-prumyslu",
+  "name": "Svět průmyslu",
+  "cat": "Mediální partneři"
+ },
+ {
+  "slug": "c-tece",
+  "name": "TECE",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "technologicke-centrum-praha",
+  "name": "Technologické Centrum Praha",
+  "cat": "S podporou"
+ },
+ {
+  "slug": "c-tos",
+  "name": "TOS Varnsdorf",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "u-c-uas",
+  "name": "U&C UAS",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "c-ujv",
+  "name": "Skupina ÚJV",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "univerzita-obrany",
+  "name": "Univerzita Obrany",
+  "cat": "Univerzity"
+ },
+ {
+  "slug": "univerzita-palackeho",
+  "name": "Univerzita Palackého",
+  "cat": "Univerzity"
+ },
+ {
+  "slug": "univerzita-pardubice",
+  "name": "Univerzita Pardubice",
+  "cat": "Univerzity"
+ },
+ {
+  "slug": "vojenska-nemocnice-brno",
+  "name": "Vojenská nemocnice Brno",
+  "cat": "Státní sektor"
+ },
+ {
+  "slug": "vojenska-policie",
+  "name": "Vojenská Policie",
+  "cat": "Státní sektor"
+ },
+ {
+  "slug": "c-vscht",
+  "name": "VŠCHT Praha",
+  "cat": "Klienti"
+ },
+ {
+  "slug": "vut-brno",
+  "name": "VUT BRNO",
+  "cat": "Univerzity"
+ },
+ {
+  "slug": "vezenska-sluzba-cr",
+  "name": "Vězeňská služba ČR",
+  "cat": "Státní sektor"
+ },
+ {
+  "slug": "vsb-ostrava",
+  "name": "VŠB Ostrava",
+  "cat": "Univerzity"
+ },
+ {
+  "slug": "ceska-zbrojovka",
+  "name": "Česká zbrojovka",
+  "cat": "Soukromý sektor"
+ },
+ {
+  "slug": "cvut",
+  "name": "ČVUT",
+  "cat": "Univerzity"
+ }
+]

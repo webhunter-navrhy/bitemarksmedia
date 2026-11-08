@@ -153,16 +153,38 @@
     $(".reader-stage").addEventListener("touchend", e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); });
   }
 
-  /* kontaktní formulář → e-mail s předvyplněnou zprávou */
+  /* kontaktní formulář → backend webhunter-admin (uloží do administrace + e-mail); při výpadku e-mail s předvyplněnou zprávou */
   const form = $("#cform");
-  if (form) form.addEventListener("submit", e => {
-    e.preventDefault();
-    let ok = true;
-    $$("[required]", form).forEach(f => { const bad = !f.value.trim() || (f.type === "email" && !/^\S+@\S+\.\S+$/.test(f.value)); f.closest(".fld").classList.toggle("err", bad); if (bad && ok) { f.focus(); ok = false; } });
-    if (!ok) return;
-    const d = new FormData(form);
-    const interest = d.getAll("interest").join(", ");
-    const body = [d.get("msg"), "", `— ${d.get("name")}${d.get("company") ? ", " + d.get("company") : ""}`, d.get("email"), d.get("phone") || "", interest ? `\n(${interest})` : ""].join("\n");
-    location.href = `mailto:${form.dataset.mail}?subject=${encodeURIComponent(form.dataset.subject + (d.get("company") ? " – " + d.get("company") : ""))}&body=${encodeURIComponent(body)}`;
-  });
+  if (form) {
+    const t0 = Date.now(), en = form.dataset.lang === "en";
+    const msg = $(".cform-msg", form), btn = $("button[type=submit]", form);
+    const say = (text, err) => { msg.textContent = text; msg.hidden = false; msg.classList.toggle("is-err", !!err); };
+    const mailto = d => {
+      const interest = d.getAll("interest").join(", ");
+      const body = [d.get("msg"), "", `— ${d.get("name")}${d.get("company") ? ", " + d.get("company") : ""}`, d.get("email"), d.get("phone") || "", interest ? `\n(${interest})` : ""].join("\n");
+      return `mailto:${form.dataset.mail}?subject=${encodeURIComponent(form.dataset.subject + (d.get("company") ? " – " + d.get("company") : ""))}&body=${encodeURIComponent(body)}`;
+    };
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      let ok = true;
+      $$("[required]", form).forEach(f => { const bad = !f.value.trim() || (f.type === "email" && !/^\S+@\S+\.\S+$/.test(f.value)); f.closest(".fld").classList.toggle("err", bad); if (bad && ok) { f.focus(); ok = false; } });
+      if (!ok) return;
+      const d = new FormData(form);
+      const fields = { "Jméno": d.get("name"), "Firma": d.get("company"), "E-mail": d.get("email"), "Telefon": d.get("phone"), "Zájem": d.getAll("interest").join(", "), "Zpráva": d.get("msg") };
+      btn.disabled = true; msg.hidden = true;
+      try {
+        const r = await fetch(form.dataset.api, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "dopyt", fields, page: location.href.split("#")[0], hp: d.get("website") || "", ms: Date.now() - t0, lang: en ? "en" : "cs" }) });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok) { const er = new Error(j.error || ""); er.user = r.status >= 400 && r.status < 500 && r.status !== 404; throw er; }
+        form.reset();
+        say(en ? "Thank you, your message has been sent. We will get back to you soon." : "Děkujeme, zpráva odešla. Brzy se vám ozveme.");
+      } catch (er) {
+        if (er.user && er.message && !en) say(er.message, true);
+        else {
+          say(en ? "The message could not be sent. We are opening your email app instead – just press send." : "Zprávu se nepodařilo odeslat. Otevíráme proto váš e-mail s předvyplněnou zprávou – stačí ji odeslat.", true);
+          setTimeout(() => { location.href = mailto(d); }, 900);
+        }
+      } finally { btn.disabled = false; }
+    });
+  }
 })();

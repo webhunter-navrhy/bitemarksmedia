@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Nasazení na GitHub Pages: webhunter-navrhy/<slug>, zdroje ve větvi main, sestavený web (dist/) ve větvi gh-pages.
+# Nasazení na GitHub Pages: webhunter-navrhy/<slug>, zdroje ve větvi main; web sestaví GitHub Actions (.github/workflows/deploy.yml),
+# takže stejnou cestou jde i uložení z administrace (commit přes webhunter-admin). Lokální build slouží jen ke kontrole.
 #   ./deploy.sh              # build, commit, push, počkat na Pages, ověřit HTTP 200, spustit QA
 #   ./deploy.sh --dry        # jen build + výpis, co by se stalo (nic se nepushne)
 #   ./deploy.sh --bez-qa     # bez závěrečného qa.py
@@ -24,7 +25,7 @@ PUSH_URL="https://x-access-token:${TOKEN}@github.com/$REPO.git"
 echo "== build"; "$PY" build.py
 
 if [ "$DRY" = 1 ]; then
-  echo "DRY: pushnul bych zdroje do $REPO (main), dist/ do větve gh-pages, počkal na Pages a ověřil $URL, pak QA."
+  echo "DRY: pushnul bych zdroje do $REPO (main), počkal na build v Actions a ověřil $URL, pak QA."
   exit 0
 fi
 
@@ -33,33 +34,29 @@ echo "== main (zdroje)"
 git remote get-url origin >/dev/null 2>&1 && git remote set-url origin "$REMOTE" || git remote add origin "$REMOTE"
 git add -A
 git -c user.name="WebHunter" -c user.email="info@webhunter.cz" commit -q -m "Aktualizace webu $(date +%F\ %H:%M)" || echo "(nic nového k commitu)"
+# klientka mohla mezitím uložit změny z administrace -> nejdřív je stáhnout (nikdy nepřepsat)
+if git fetch -q "$PUSH_URL" main 2>/dev/null; then
+  git -c user.name="WebHunter" -c user.email="info@webhunter.cz" rebase -q FETCH_HEAD || { git rebase --abort; echo "CHYBA: konflikt se změnami z administrace – vyřeš ručně (git pull)"; exit 5; }
+fi
 git push -q "$PUSH_URL" HEAD:main
 
-echo "== gh-pages (dist/)"
-TMP="$(mktemp -d)"; cp -R dist/. "$TMP/"; touch "$TMP/.nojekyll"
-( cd "$TMP" && git init -q -b gh-pages && git add -A \
-  && git -c user.name="WebHunter" -c user.email="info@webhunter.cz" commit -q -m "build $(date +%F\ %H:%M)" \
-  && git push -q -f "$PUSH_URL" gh-pages )
-rm -rf "$TMP"
+echo "== Pages z GitHub Actions (build_type=workflow)"
+BT="$(gh api "repos/$REPO/pages" --jq .build_type 2>/dev/null || echo none)"
+if [ "$BT" = "none" ]; then gh api "repos/$REPO/pages" -X POST -f build_type=workflow >/dev/null; echo "  Pages zapnuty"
+elif [ "$BT" != "workflow" ]; then gh api "repos/$REPO/pages" -X PUT -f build_type=workflow >/dev/null; echo "  přepnuto z $BT na workflow"; fi
 
-echo "== Pages zapnuté?"
-if ! gh api "repos/$REPO/pages" >/dev/null 2>&1; then
-  gh api "repos/$REPO/pages" -X POST -f "source[branch]=gh-pages" -f "source[path]=/" >/dev/null
-  echo "Pages zapnuty (gh-pages)"
-fi
-
-echo "== čekám na build Pages"
-OPRAVENO=0
-for i in $(seq 1 40); do
-  ST="$(gh api "repos/$REPO/pages/builds/latest" --jq .status 2>/dev/null || echo unknown)"
-  echo "  [$i] status: $ST"
-  if [ "$ST" = "built" ]; then break; fi
-  if [ "$ST" = "errored" ] && [ "$OPRAVENO" = 0 ]; then
-    echo "  errored -> jednou znovu spouštím build"; gh api "repos/$REPO/pages/builds" -X POST >/dev/null || true; OPRAVENO=1
-  elif [ "$ST" = "errored" ]; then echo "CHYBA: Pages build znovu selhal"; exit 3; fi
-  sleep 8
+echo "== čekám, až web nasadí commit $(git rev-parse --short HEAD) (Actions build)"
+SHA="$(git rev-parse HEAD)"
+OK=0
+for i in $(seq 1 60); do
+  V="$(curl -s "${URL}version.json?t=$(date +%s)" | "$PY" -c 'import json,sys;print(json.load(sys.stdin).get("sha",""))' 2>/dev/null || true)"
+  if [ "$V" = "$SHA" ]; then OK=1; echo "  nasazeno"; break; fi
+  R="$(gh run list -R "$REPO" -L 1 --json status,conclusion --jq '.[0].status+"/"+.[0].conclusion' 2>/dev/null || echo ?)"
+  echo "  [$i] run: $R"
+  case "$R" in completed/failure|completed/cancelled) echo "CHYBA: build v Actions selhal (gh run view -R $REPO --log-failed)"; exit 3;; esac
+  sleep 10
 done
-[ "$ST" = "built" ] || { echo "CHYBA: Pages se nepostavily v limitu"; exit 3; }
+[ "$OK" = 1 ] || { echo "CHYBA: nasazení nedoběhlo v limitu"; exit 3; }
 
 echo "== HTTP 200 na $URL"
 "$PY" - "$URL" <<'PYEOF'

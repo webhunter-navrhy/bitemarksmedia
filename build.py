@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-"""Build vícestránkového webu Bite Marks Media: content.py (+ content_en.py) + templates/ + assets/ -> dist/.
+"""Build vícestránkového webu Bite Marks Media: _data/*.json + templates/ + assets/ -> dist/.
 
     python3 build.py
-CZ je v kořeni, EN pod /en/. Obrázky se převádí do WebP jen jednou (cache .cache/), vše s ?v=<hash>.
+Obsah je v _data/ (cs.json, en.json, spolecne.json, partneri.json) a upravuje ho klientka v administraci (/admin/,
+backend webhunter-admin). Po uložení web přegeneruje GitHub Action (.github/workflows/deploy.yml).
+CZ je v kořeni, EN pod /en/. CZ určuje pořadí projektů a fotky, EN jen překládá texty (párování přes slug).
+Fotky z administrace (img/uploads/…) se převádí stejně jako ostatní (klíč u-<název>).
+Obrázky se převádí do WebP jen jednou (cache .cache/), vše s ?v=<hash>.
 """
 import hashlib
 import os
@@ -15,13 +19,6 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup, escape
 from PIL import Image
-
-from content import COMMON, CZ
-
-try:
-    from content_en import EN
-except Exception:  # EN ještě není hotová
-    EN = None
 
 ROOT = Path(__file__).resolve().parent
 A = ROOT / "assets"
@@ -113,28 +110,107 @@ SERVICE_COLLAGE = {
     "media": ["car-skoda-1", "j-compas", "car-raynet-1"],
     "experiences": ["merch-6", "merch-2", "haso-medal"],
 }
-WORK_CARD = {"forbes": "covers", "aero": "aero-5", "socialni-site": "carousels", "asd-fest": "asd-022", "merchandise": "merch-1"}
+
+
+UPLOAD = re.compile(r"^img/uploads/[\w./-]+\.(webp|jpe?g|png)$")
+SHARED = {"work": ("img", "gallery", "card", "sets"), "ventures": ("img", "card", "peek", "gallery", "logo", "url"),
+          "services": ("img", "work")}
+
+
+def load_data():
+    """_data/*.json -> COMMON, CZ, EN; fotky z administrace -> IMAGES; EN se páruje s CZ přes slug"""
+    rd = lambda n: json.loads((ROOT / "_data" / f"{n}.json").read_text())
+    common, cz, en = rd("spolecne"), rd("cs"), rd("en")
+
+    def walk(o):
+        if isinstance(o, dict):
+            return {k: walk(v) for k, v in o.items()}
+        if isinstance(o, list):
+            return [walk(v) for v in o]
+        if isinstance(o, str) and UPLOAD.match(o):
+            if not (ROOT / o).exists():
+                return ""
+            key = "u-" + re.sub(r"[^a-z0-9-]+", "-", o[len("img/uploads/"):].rsplit(".", 1)[0].lower()).strip("-")
+            IMAGES[key] = (str(ROOT / o), [640, 1200, 1800], None)
+            return key
+        return o
+    cz, en = walk(cz), walk(en)
+
+    def fix(items):
+        out = []
+        for it in items:
+            if it.get("skryt"):
+                continue
+            g = it.get("gallery") or []
+            g = [k for k in g if k]
+            if "gallery" in it:
+                it["gallery"] = g
+                al = list(it.get("alts") or [])
+                it["alts"] = (al + [""] * len(g))[:len(g)]
+            out.append(it)
+        return out
+    for key in ("work", "ventures"):
+        cz[key] = fix(cz[key])
+    if en:
+        for key, shared in SHARED.items():
+            by = {x.get("slug"): x for x in en.get(key, [])}
+            merged = []
+            for c in cz[key]:
+                e = by.get(c["slug"])
+                if not e:
+                    merged.append(c); continue
+                m = {**c, **{k: v for k, v in e.items() if k not in shared and k != "skryt"}}
+                if "gallery" in c:
+                    al = e.get("alts") or []  # popisky fotek EN podle pořadí, chybějící z CZ
+                    m["alts"] = [(al[i] if i < len(al) and al[i] else c["alts"][i]) for i in range(len(c["gallery"]))]
+                merged.append(m)
+            en[key] = merged
+        en["about"]["office_imgs"] = cz["about"].get("office_imgs", en["about"].get("office_imgs"))
+    return common, cz, en
 
 
 def build_partners():
-    """černé siluety log partnerů (tools/logo_mono.py) -> dist/img/p/, s opticky vyrovnanou velikostí"""
+    """černé siluety log partnerů (tools/logo_mono.py) -> dist/img/p/, s opticky vyrovnanou velikostí.
+    Seznam, názvy, kategorie a pořadí jsou v _data/partneri.json (administrace); nové logo z administrace
+    (img/uploads/…) se převede na siluetu stejným postupem jako ostatní."""
     idx = json.loads((A / "partners" / "index.json").read_text())
+    lst = json.loads((ROOT / "_data" / "partneri.json").read_text())
     (DIST / "img" / "p").mkdir(parents=True, exist_ok=True)
     out = {}
-    for slug, m in idx.items():
-        f = A / "partners" / f"{slug}.png"
-        if not f.exists():
+    for x in lst:
+        if x.get("skryt") or not x.get("name"):
             continue
-        shutil.copy(f, DIST / "img" / "p" / f.name)
+        slug, logo = x["slug"], x.get("logo") or ""
+        if logo and UPLOAD.match(logo) and (ROOT / logo).exists():
+            raw = (ROOT / logo).read_bytes()
+            c = CACHE / "partners" / f"{h(raw)}.png"; cj = c.with_suffix(".json")
+            if not c.exists() or not cj.exists():
+                import sys; sys.path.insert(0, str(ROOT / "tools"))
+                import logo_mono
+                c.parent.mkdir(parents=True, exist_ok=True)
+                logo_mono.OUT = c.parent
+                try:
+                    meta = logo_mono.process(ROOT / logo, c.stem)
+                except Exception as e:  # prázdné/nečitelné logo nesmí shodit celý web
+                    print("logo přeskočeno:", x.get("name"), e)
+                    continue
+                cj.write_text(json.dumps(meta))
+            m = json.loads(cj.read_text())
+            f = c
+        else:
+            m = idx.get(slug)
+            f = A / "partners" / f"{slug}.png"
+            if not m or not f.exists():
+                continue
+        dst = DIST / "img" / "p" / f"{slug}.png"
+        shutil.copy(f, dst)
         r = m["w"] / m["h"]
         area = 13.0 * min(1.6, max(.7, (.3 / max(m["ink"], .05)) ** .35))  # hustá loga menší, řídká větší
         w = min(10.5, (area * r) ** .5)
         hh = w / r
         if hh > 4.2:
             hh = 4.2; w = hh * r
-        out.setdefault(m["cat"], []).append({"slug": slug, "name": m["name"], "w": m["w"], "h": m["h"], "cw": round(w, 2), "v": h(f.read_bytes())})
-    for v in out.values():
-        v.sort(key=lambda x: x["name"].lower())
+        out.setdefault(x["cat"], []).append({"slug": slug, "name": x["name"], "w": m["w"], "h": m["h"], "cw": round(w, 2), "v": h(f.read_bytes())})
     return out
 
 
@@ -201,6 +277,7 @@ def nbsp(html: str) -> str:
 
 
 def main():
+    COMMON, CZ, EN = load_data()
     if DIST.exists():
         shutil.rmtree(DIST)
     (DIST / "img").mkdir(parents=True)
@@ -238,7 +315,7 @@ def main():
             alt_pre = "en/" if pre == "" else ""
             ctx = dict(t=t, ui=t["ui"], c=c, base=BASE, pre=pre, path=path, site_url=SITE_URL, IMG=IMG, VIDEO=VIDEO,
                        LOGOS=LOGOS, LOGO=LOGO, VLOGO=VLOGO, V=files, pages_v=pages_v, has_en=bool(EN),
-                       alt_url=f"{BASE}{alt_pre}{path + '/' if path else ''}", SERVICE_MEDIA=SERVICE_MEDIA, WORK_CARD=WORK_CARD, SERVICE_COLLAGE=SERVICE_COLLAGE, SERVICE_IMG=SERVICE_IMG, PARTNERS=PARTNERS)
+                       alt_url=f"{BASE}{alt_pre}{path + '/' if path else ''}", SERVICE_MEDIA=SERVICE_MEDIA, SERVICE_COLLAGE=SERVICE_COLLAGE, SERVICE_IMG=SERVICE_IMG, PARTNERS=PARTNERS)
             ctx.update(kw)
             html = env.get_template(tpl).render(**ctx)
             if t["lang"] == "cs":
@@ -262,6 +339,21 @@ def main():
         page("journal.html", "journal")
         page("about.html", "o-nas")
         page("contact.html", "kontakt")
+    # administrace (cache busting jako na webu) + knihovna fotek pro výběr + verze pro hlídání zveřejnění
+    adm = ROOT / "admin"
+    if adm.exists():
+        shutil.copytree(adm, DIST / "admin")
+        (DIST / "admin" / "logo.svg").write_text(LOGO.replace('fill="currentColor"', 'fill="#6B0F1A"'))
+        ix = DIST / "admin" / "index.html"
+        ix.write_text(ix.read_text().replace("__V_ACSS__", h((adm / "admin.css").read_bytes())).replace("__V_AJS__", h((adm / "admin.js").read_bytes())))
+        lib = [{"k": k, "src": f"img/{k}-{v['w'][0]}.webp?v={v['v']}"} for k, v in IMG.items()
+               if not k.startswith(("r-", "aero-poster", "p-", "cover-", "u-")) and k not in ("asd-web",)]
+        lib = [{"k": k, "src": f"img/{k}-{v['w'][0]}.webp?v={v['v']}"} for k, v in IMG.items() if k.startswith("u-")] + lib
+        (DIST / "admin" / "images.json").write_text(json.dumps(lib, ensure_ascii=False))
+    up = ROOT / "img" / "uploads"
+    if up.exists():
+        shutil.copytree(up, DIST / "img" / "uploads")
+    (DIST / "version.json").write_text(json.dumps({"sha": os.environ.get("GITHUB_SHA", "local")}))
     (DIST / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
     (DIST / ".nojekyll").write_text("")
     (DIST / "404.html").write_text(f'<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url={BASE}"><title>Bite Marks Media</title>')

@@ -21,7 +21,7 @@
           </ul>
         </div>
       </div>
-      <form class="cform" id="cform" data-mail="{{ c.email }}" data-subject="{{ P.f_subject }}" novalidate>
+      <form class="cform" id="cform" data-mail="{{ c.email }}" data-subject="{{ P.f_subject }}" data-api="https://webhunter-admin.webhunter.workers.dev/api/bitemarksmedia/form" data-lang="{{ t.lang }}" novalidate>
         <p class="cform-title">{{ P.form_title }}</p>
         <fieldset class="chips">
           <legend>{{ P.f_interest }}</legend>
@@ -37,7 +37,9 @@
         </div>
         <label class="fld"><span>{{ P.f_msg }} *</span><textarea name="msg" rows="5" required></textarea></label>
         <button class="btn btn-gloss" type="submit"><span>{{ P.f_send }}</span>{{ m.arrow() }}</button>
+        <p class="cform-msg" role="status" aria-live="polite" hidden></p>
         <p class="cform-note">{{ P.f_note }}</p>
+        <label class="cform-hp" aria-hidden="true">Web <input name="website" tabindex="-1" autocomplete="off"></label>
       </form>
     </div>
   </div>
