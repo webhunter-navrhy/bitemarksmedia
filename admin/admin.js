@@ -189,7 +189,7 @@ async function saveAll() {
     const used = JSON.stringify(S.D);
     const imgs = Object.keys(S.pending).filter((p) => used.includes(p));
     imgs.forEach((p) => files.push({ path: p, b64: S.pending[p] }));
-    const sha = await commit(files, 'Administrace: ' + keys2.map((k) => LABEL[k]).join(', ') + (imgs.length ? ` (+${imgs.length} foto)` : ''));
+    const sha = await commit(files, keys2.map((k) => LABEL[k]).join(', ').replace(/^./, (c) => c.toUpperCase()) + (imgs.length ? ` (+${imgs.length} foto)` : ''));
     imgs.forEach((p) => delete S.pending[p]);
     snapshot(keys2); keys2.forEach((k) => { S.orig[k] = JSON.stringify(S.D[k]); });
     toast('Uloženo', 'Změny se na webu objeví zhruba za 2 minuty.', 'ok');
