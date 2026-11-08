@@ -516,8 +516,9 @@ button.cov:hover { transform: translateY(-10px) rotate(0deg); box-shadow: 0 40px
 .chipc span { display: inline-flex; align-items: center; height: 2.5rem; padding: 0 1rem; border: 1px solid var(--line); border-radius: 999px; font: 500 .7rem/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; transition: background .3s, color .3s; }
 .chipc input:checked + span { background: var(--maroon); color: var(--cream); border-color: var(--maroon); }
 .chipc input:focus-visible + span { outline: 2px solid var(--maroon); outline-offset: 2px; }
-.f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-.fld { display: grid; gap: .45rem; }
+.f2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.2rem; }
+.fld { display: grid; gap: .45rem; min-width: 0; }
+.fld input, .fld textarea { width: 100%; min-width: 0; }
 .fld span { font: 500 .7rem/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
 .fld input, .fld textarea { font: inherit; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid rgba(34, 34, 34, .35); padding: .6rem 0; border-radius: 0; resize: vertical; }
 .fld input:focus, .fld textarea:focus { outline: none; border-bottom-color: var(--maroon); }
