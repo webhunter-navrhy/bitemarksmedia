@@ -1,0 +1,548 @@
+{
+ "grapecare": {
+  "name": "GRAPECARE",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 107,
+  "ink": 0.4015536308288574
+ },
+ "aithel": {
+  "name": "AITHEL",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 183,
+  "ink": 0.29469144344329834
+ },
+ "aeroklub-cr": {
+  "name": "Aeroklub ČR",
+  "cat": "Soukromý sektor",
+  "w": 153,
+  "h": 220,
+  "ink": 0.7148593068122864
+ },
+ "aerorozvedka": {
+  "name": "AEROROZVĚDKA",
+  "cat": "Soukromý sektor",
+  "w": 261,
+  "h": 220,
+  "ink": 0.48327502608299255
+ },
+ "studio-w": {
+  "name": "STUDIO W",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 94,
+  "ink": 0.38095182180404663
+ },
+ "life-save-cards": {
+  "name": "LIFE SAVE CARDS",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 213,
+  "ink": 0.3095959722995758
+ },
+ "evektor": {
+  "name": "EVEKTOR",
+  "cat": "Soukromý sektor",
+  "w": 401,
+  "h": 220,
+  "ink": 0.14359727501869202
+ },
+ "esero": {
+  "name": "ESERO",
+  "cat": "S podporou",
+  "w": 640,
+  "h": 134,
+  "ink": 0.21834078431129456
+ },
+ "radiohouse": {
+  "name": "RADIOHOUSE",
+  "cat": "Mediální partneři",
+  "w": 346,
+  "h": 78,
+  "ink": 0.25189629197120667
+ },
+ "manpowergroup": {
+  "name": "ManpowerGroup",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 115,
+  "ink": 0.19703517854213715
+ },
+ "dust-institute": {
+  "name": "DUST INSTITUTE",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 55,
+  "ink": 0.3623034954071045
+ },
+ "fakescape": {
+  "name": "FAKESCAPE",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 127,
+  "ink": 0.3455476462841034
+ },
+ "jihomoravsky-kraj": {
+  "name": "Jihomoravský kraj",
+  "cat": "S podporou",
+  "w": 640,
+  "h": 66,
+  "ink": 0.3355209529399872
+ },
+ "daniel-arms": {
+  "name": "Daniel Arms",
+  "cat": "Soukromý sektor",
+  "w": 273,
+  "h": 220,
+  "ink": 0.1308939903974533
+ },
+ "dassualt-systemes": {
+  "name": "Dassualt Systemes",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 180,
+  "ink": 0.21669943630695343
+ },
+ "slezska-univerzita": {
+  "name": "Slezská univerzita",
+  "cat": "Univerzity",
+  "w": 640,
+  "h": 213,
+  "ink": 0.18596459925174713
+ },
+ "strojirenstvi-cz": {
+  "name": "STROJÍRENSTVÍ.CZ",
+  "cat": "Mediální partneři",
+  "w": 640,
+  "h": 100,
+  "ink": 0.32512885332107544
+ },
+ "defence-consulting": {
+  "name": "Defence Consulting",
+  "cat": "S podporou",
+  "w": 277,
+  "h": 220,
+  "ink": 0.6383375525474548
+ },
+ "forbes": {
+  "name": "FORBES",
+  "cat": "Mediální partneři",
+  "w": 640,
+  "h": 166,
+  "ink": 0.40700286626815796
+ },
+ "aeroweb": {
+  "name": "AEROWEB",
+  "cat": "Mediální partneři",
+  "w": 640,
+  "h": 107,
+  "ink": 0.5136584639549255
+ },
+ "kriz": {
+  "name": "KŘÍŽ",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 172,
+  "ink": 0.48632070422172546
+ },
+ "mesit": {
+  "name": "MESIT",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 164,
+  "ink": 0.2653023302555084
+ },
+ "omnipol-group": {
+  "name": "Omnipol Group",
+  "cat": "Soukromý sektor",
+  "w": 511,
+  "h": 220,
+  "ink": 0.11776379495859146
+ },
+ "era": {
+  "name": "ERA",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 205,
+  "ink": 0.5338078737258911
+ },
+ "aircraft-industries": {
+  "name": "Aircraft Industries",
+  "cat": "Soukromý sektor",
+  "w": 535,
+  "h": 220,
+  "ink": 0.31272992491722107
+ },
+ "omnipol-defence": {
+  "name": "Omnipol Defence",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 175,
+  "ink": 0.24661071598529816
+ },
+ "kosmonautix": {
+  "name": "Kosmonautix",
+  "cat": "Mediální partneři",
+  "w": 359,
+  "h": 220,
+  "ink": 0.08449207246303558
+ },
+ "ceska-zbrojovka": {
+  "name": "Česká zbrojovka",
+  "cat": "Soukromý sektor",
+  "w": 559,
+  "h": 220,
+  "ink": 0.3033756911754608
+ },
+ "api": {
+  "name": "API",
+  "cat": "S podporou",
+  "w": 383,
+  "h": 212,
+  "ink": 0.29382309317588806
+ },
+ "pbs": {
+  "name": "PBS",
+  "cat": "Soukromý sektor",
+  "w": 605,
+  "h": 220,
+  "ink": 0.42950165271759033
+ },
+ "asociace-obranneho-a-bezpecnostniho-prumyslu": {
+  "name": "Asociace obranného a bezpečnostního průmyslu",
+  "cat": "S podporou",
+  "w": 640,
+  "h": 178,
+  "ink": 0.27022331953048706
+ },
+ "magistrat-mesta-brna": {
+  "name": "Magistrát města Brna",
+  "cat": "S podporou",
+  "w": 640,
+  "h": 149,
+  "ink": 0.21878419816493988
+ },
+ "cvut": {
+  "name": "ČVUT",
+  "cat": "Univerzity",
+  "w": 451,
+  "h": 220,
+  "ink": 0.7670823335647583
+ },
+ "hilase": {
+  "name": "HiLASE",
+  "cat": "Soukromý sektor",
+  "w": 293,
+  "h": 220,
+  "ink": 0.5477219820022583
+ },
+ "safran-group": {
+  "name": "SAFRAN Group",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 134,
+  "ink": 0.2498428076505661
+ },
+ "aerospace-defence-meetings-brno": {
+  "name": "Aerospace & Defence Meetings Brno",
+  "cat": "Mediální partneři",
+  "w": 640,
+  "h": 138,
+  "ink": 0.3943944275379181
+ },
+ "univerzita-pardubice": {
+  "name": "Univerzita Pardubice",
+  "cat": "Univerzity",
+  "w": 220,
+  "h": 220,
+  "ink": 0.6673880219459534
+ },
+ "esa-technology-broker": {
+  "name": "ESA Technology Broker",
+  "cat": "S podporou",
+  "w": 640,
+  "h": 84,
+  "ink": 0.19828327000141144
+ },
+ "technologicke-centrum-praha": {
+  "name": "Technologické Centrum Praha",
+  "cat": "S podporou",
+  "w": 640,
+  "h": 197,
+  "ink": 0.2153235226869583
+ },
+ "univerzita-obrany": {
+  "name": "Univerzita Obrany",
+  "cat": "Univerzity",
+  "w": 193,
+  "h": 220,
+  "ink": 0.4260384738445282
+ },
+ "ostravska-univerzita": {
+  "name": "Ostravská univerzita",
+  "cat": "Univerzity",
+  "w": 640,
+  "h": 171,
+  "ink": 0.25566619634628296
+ },
+ "regionalni-hospodarska-komora-brno": {
+  "name": "Regionální hospodářská komora Brno",
+  "cat": "S podporou",
+  "w": 640,
+  "h": 181,
+  "ink": 0.12440070509910583
+ },
+ "brno-space-cluster": {
+  "name": "Brno Space Cluster",
+  "cat": "S podporou",
+  "w": 640,
+  "h": 158,
+  "ink": 0.1615951657295227
+ },
+ "outdoor-survival": {
+  "name": "Outdoor survival",
+  "cat": "Soukromý sektor",
+  "w": 444,
+  "h": 220,
+  "ink": 0.2602580487728119
+ },
+ "armada-ceske-republiky": {
+  "name": "Armáda České Republiky",
+  "cat": "Státní sektor",
+  "w": 220,
+  "h": 220,
+  "ink": 0.5920006036758423
+ },
+ "policie-ceske-republiky": {
+  "name": "Policie České republiky",
+  "cat": "Státní sektor",
+  "w": 220,
+  "h": 220,
+  "ink": 0.2873951196670532
+ },
+ "vojenska-policie": {
+  "name": "Vojenská Policie",
+  "cat": "Státní sektor",
+  "w": 220,
+  "h": 220,
+  "ink": 0.4310015141963959
+ },
+ "prepper-survival-care": {
+  "name": "Prepper Survival Care",
+  "cat": "Soukromý sektor",
+  "w": 220,
+  "h": 220,
+  "ink": 0.36041903495788574
+ },
+ "bkp-institut": {
+  "name": "BKP Institut",
+  "cat": "S podporou",
+  "w": 246,
+  "h": 220,
+  "ink": 0.27969011664390564
+ },
+ "infrahex": {
+  "name": "Infrahex",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 136,
+  "ink": 0.3558516204357147
+ },
+ "moravsky-letecky-klastr": {
+  "name": "Moravský letecký klastr",
+  "cat": "S podporou",
+  "w": 495,
+  "h": 220,
+  "ink": 0.2004530280828476
+ },
+ "cooper-standard": {
+  "name": "Cooper-Standard",
+  "cat": "Soukromý sektor",
+  "w": 582,
+  "h": 220,
+  "ink": 0.1451086550951004
+ },
+ "univerzita-palackeho": {
+  "name": "Univerzita Palackého",
+  "cat": "Univerzity",
+  "w": 640,
+  "h": 199,
+  "ink": 0.10256790369749069
+ },
+ "u-c-uas": {
+  "name": "U&C UAS",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 158,
+  "ink": 0.36347904801368713
+ },
+ "vojenska-nemocnice-brno": {
+  "name": "Vojenská nemocnice Brno",
+  "cat": "Státní sektor",
+  "w": 222,
+  "h": 220,
+  "ink": 0.463022381067276
+ },
+ "vezenska-sluzba-cr": {
+  "name": "Vězeňská služba ČR",
+  "cat": "Státní sektor",
+  "w": 201,
+  "h": 220,
+  "ink": 0.6443044543266296
+ },
+ "lom-praha": {
+  "name": "LOM PRAHA",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 197,
+  "ink": 0.08613535761833191
+ },
+ "vut-brno": {
+  "name": "VUT BRNO",
+  "cat": "Univerzity",
+  "w": 640,
+  "h": 220,
+  "ink": 0.7221885323524475
+ },
+ "vsb-ostrava": {
+  "name": "VŠB Ostrava",
+  "cat": "Univerzity",
+  "w": 542,
+  "h": 213,
+  "ink": 0.17647138237953186
+ },
+ "svet-prumyslu": {
+  "name": "Svět průmyslu",
+  "cat": "Mediální partneři",
+  "w": 640,
+  "h": 104,
+  "ink": 0.2833000719547272
+ },
+ "ministerstvo-prumyslu-a-obchodu": {
+  "name": "Ministerstvo průmyslu a obchodu",
+  "cat": "S podporou",
+  "w": 110,
+  "h": 220,
+  "ink": 0.8848925232887268
+ },
+ "fairino": {
+  "name": "Fairino",
+  "cat": "Soukromý sektor",
+  "w": 640,
+  "h": 144,
+  "ink": 0.24202072620391846
+ },
+ "c-aero": {
+  "name": "aero",
+  "cat": "Klienti",
+  "w": 291,
+  "h": 140,
+  "ink": 0.3172241151332855
+ },
+ "c-amsp": {
+  "name": "amsp",
+  "cat": "Klienti",
+  "w": 121,
+  "h": 137,
+  "ink": 0.20507057011127472
+ },
+ "c-czechitas": {
+  "name": "czechitas",
+  "cat": "Klienti",
+  "w": 360,
+  "h": 105,
+  "ink": 0.1675216406583786
+ },
+ "c-czechtourism": {
+  "name": "czechtourism",
+  "cat": "Klienti",
+  "w": 360,
+  "h": 55,
+  "ink": 0.3501788377761841
+ },
+ "c-gls": {
+  "name": "gls",
+  "cat": "Klienti",
+  "w": 360,
+  "h": 122,
+  "ink": 0.5677056312561035
+ },
+ "c-gordic": {
+  "name": "gordic",
+  "cat": "Klienti",
+  "w": 358,
+  "h": 109,
+  "ink": 0.22952993214130402
+ },
+ "c-iveco": {
+  "name": "iveco",
+  "cat": "Klienti",
+  "w": 275,
+  "h": 126,
+  "ink": 0.13421182334423065
+ },
+ "c-msd": {
+  "name": "msd",
+  "cat": "Klienti",
+  "w": 360,
+  "h": 134,
+  "ink": 0.32402652502059937
+ },
+ "c-muni": {
+  "name": "muni",
+  "cat": "Klienti",
+  "w": 351,
+  "h": 102,
+  "ink": 0.3707370460033417
+ },
+ "c-pmi": {
+  "name": "pmi",
+  "cat": "Klienti",
+  "w": 360,
+  "h": 68,
+  "ink": 0.1300230771303177
+ },
+ "c-raynet": {
+  "name": "raynet",
+  "cat": "Klienti",
+  "w": 360,
+  "h": 90,
+  "ink": 0.387347012758255
+ },
+ "c-skoda": {
+  "name": "skoda",
+  "cat": "Klienti",
+  "w": 360,
+  "h": 44,
+  "ink": 0.2700084447860718
+ },
+ "c-tece": {
+  "name": "tece",
+  "cat": "Klienti",
+  "w": 263,
+  "h": 140,
+  "ink": 0.2992103695869446
+ },
+ "c-tos": {
+  "name": "tos",
+  "cat": "Klienti",
+  "w": 225,
+  "h": 93,
+  "ink": 0.6086351275444031
+ },
+ "c-ujv": {
+  "name": "ujv",
+  "cat": "Klienti",
+  "w": 360,
+  "h": 71,
+  "ink": 0.34066665172576904
+ },
+ "c-vscht": {
+  "name": "vscht",
+  "cat": "Klienti",
+  "w": 357,
+  "h": 88,
+  "ink": 0.312740683555603
+ }
+}

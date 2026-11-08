@@ -24,7 +24,7 @@
 
   /* jemné odhalení při scrollu */
   if (!reduce && "IntersectionObserver" in window) {
-    const els = $$(".shead, .intro-big, .intro-side, .logos-wrap, .svc, .case, .wtile, .bigq, .built-head, .vrows li, .phil-img, .phil-copy, .person, .post, .row, .items li, .block, .vtile, .member, .qlist figure, .story-photo, .story-copy, .phero-img, .gal figure, .set, .mag, .areas li, .more li");
+    const els = $$(".shead, .intro-big, .intro-side, .logos-wrap, .svc, .case, .wtile, .bigq:not(.qslide), .qcar, .pwall-head, .pgroup, .office-head, .of, .of-map, .oi, .built-head, .vrows li, .phil-img, .phil-copy, .person, .post, .row, .items li, .block, .vtile, .member, .qlist figure, .story-photo, .story-copy, .phero-img, .gal figure, .set, .mag, .areas li, .more li");
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
     els.forEach(el => {
       const r = el.getBoundingClientRect();
@@ -34,6 +34,35 @@
       el.classList.add("rv"); io.observe(el);
     });
   }
+
+  /* karusel citací: šipky, tečky, swipe, autoplay (pauza při najetí/fokusu, mimo obrazovku a při reduced-motion) */
+  $$("[data-qcar]").forEach(car => {
+    const slides = $$(".qslide", car), dots = $$(".qcar-dot", car);
+    if (slides.length < 2) return;
+    let i = 0, timer = 0, hold = false, seen = false;
+    const go = n => {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => { s.classList.toggle("is-on", k === i); s.setAttribute("aria-hidden", String(k !== i)); });
+      dots.forEach((d, k) => { d.classList.toggle("is-on", k === i); d.setAttribute("aria-current", String(k === i)); });
+    };
+    const stop = () => { clearInterval(timer); timer = 0; };
+    const play = () => { stop(); if (!reduce && !hold && seen) timer = setInterval(() => go(i + 1), 7000); };
+    $$(".qcar-btn", car).forEach(b => b.addEventListener("click", () => { go(i + +b.dataset.dir); play(); }));
+    dots.forEach(d => d.addEventListener("click", () => { go(+d.dataset.i); play(); }));
+    car.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") { hold = true; stop(); } });
+    car.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") { hold = false; play(); } });
+    car.addEventListener("focusin", () => { hold = true; stop(); });
+    car.addEventListener("focusout", () => { hold = false; play(); });
+    let sx = 0, sy = 0;
+    car.addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    car.addEventListener("touchend", e => {
+      const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) { go(i + (dx < 0 ? 1 : -1)); play(); }
+    }, { passive: true });
+    car.addEventListener("keydown", e => { if (e.key === "ArrowRight") { go(i + 1); play(); } if (e.key === "ArrowLeft") { go(i - 1); play(); } });
+    if ("IntersectionObserver" in window) new IntersectionObserver(es => es.forEach(e => { seen = e.isIntersecting; seen ? play() : stop(); })).observe(car);
+    go(0);
+  });
 
   /* Built by: náhled fotky za kurzorem */
   const peek = $(".vpeek");

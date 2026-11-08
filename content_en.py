@@ -35,7 +35,7 @@ EN = {
         "svc_kicker": "What we do",
         "svc_title": "Six disciplines, *one signature.*",
         "work_title": "Selected *work*",
-        "work_note": "fewer projects, more care",
+        "work_note": "experience speaks louder than words",
         "built_title": "Ideas we don’t just *pitch.* We build them.",
         "phil_title": "The whole is built *in the details.*",
         "card_note": "flip me",
@@ -55,7 +55,7 @@ EN = {
         "intro_big": "We build brands, media and experiences that people remember.",
         "intro_text": "We work like a good photographer. We don’t change who you are — we find the light and the angle in which you truly stand out. And what we build for ourselves, we bring with the same care to our clients’ brands and campaigns.",
         "intro_link": "Meet the studio",
-        "work_kicker": "Selected work", "work_title": "Fewer projects. More care.",
+        "work_kicker": "Selected work", "work_title": "Experience is worth more than a thousand words.",
         "services_kicker": "What we do", "services_title": "Six disciplines, one signature.",
         "built_kicker": "Built by Bite Marks", "built_title": "Ideas we don’t just pitch. We bring them to life.",
         "built_text": "We build our own projects from the first idea to the last detail on site. Then we bring the same care to our clients’ brands.",
@@ -76,9 +76,12 @@ EN = {
         "areas_kicker": "Sectors we know",
         "areas": [
             ("HR and employer branding", "Talent campaigns, career supplements, job fairs and student events."),
-            ("Business and B2B", "Law, tax, B2B services, industry and technology."),
-            ("Healthcare", "Communication for OTC and RX brands, and health projects."),
-            ("Lifestyle", "Brands that want to be close to people — from merch to experiences."),
+            ("Business and technology", "B2B services, industry, technology and innovation. Supplements, articles and campaigns for companies building the future."),
+            ("Experiences and events", "Our own festivals and races, corporate and partner events, conferences and experiential team building."),
+            ("Merchandise", "With our partner Ellipse, we create clothing and objects people wear for years — not ones that end up in a drawer."),
+            ("Brand identity", "A brand’s identity, tone and visuals that hold together from the website and business card to the invoice and the event."),
+            ("Video & creative content", "Employer branding videos, carousels, visuals and content for social media."),
+            ("Strategy and consulting", "Regular marketing consultations, a media plan and a roadmap you can start working with right away."),
         ],
     },
     "services": [
@@ -98,7 +101,7 @@ EN = {
         {
             "slug": "campaigns", "name": "Campaigns", "img": "svc-campaigns",
             "h1": "Campaigns that connect online and offline.",
-            "short": "Visuals, print, outdoor, stands and video. From ad hoc activations to year-long partnerships.",
+            "short": "Partnerships through online articles and social media communication. Short- and long-term custom media and marketing campaigns.",
             "lead": "We develop the concept, visuals, print, outdoor and video, then launch and evaluate them. Clients value our speed on ad hoc activations as much as a long-term plan with a rich mix of channels.",
             "items": [
                 ("Employer branding", "Campaigns that capture the attention of young talent and bring them to you. Visuals, career fair stands, print and video."),
@@ -111,7 +114,7 @@ EN = {
         {
             "slug": "strategies", "name": "Strategies", "img": "svc-strategies",
             "h1": "Perspective, a roadmap and a clear plan.",
-            "short": "Consulting, year-long partnerships, marketing subscriptions and company culture.",
+            "short": "Regular marketing consultations, media planning, campaign development and brand identity.",
             "lead": "Getting the right mix, idea and impact into your communication isn’t always as easy as it looks. We lend a hand, draw up a roadmap and make sure your brand stays true to itself.",
             "items": [
                 ("Consulting", "When you need perspective: communication mix, idea and impact, written up as a plan you can start working on straight away."),
@@ -125,7 +128,7 @@ EN = {
         {
             "slug": "events", "name": "Events", "img": "svc-events",
             "h1": "Events that leave a mark.",
-            "short": "Corporate, partner, student and press events. Face to face, eye to eye.",
+            "short": "We run our own events and fairs, and help our clients create events that leave a mark. From team building and conferences to large-scale projects.",
             "lead": "Corporate, partner and customer events, student events, open days, press events and anniversaries. Nothing beats communication face to face, eye to eye.",
             "items": [
                 ("Events for schools", "For students and recent graduates of universities, secondary and primary schools. We present career opportunities in a way they’ll remember."),
@@ -138,7 +141,7 @@ EN = {
         {
             "slug": "media", "name": "Media", "img": "svc-media",
             "h1": "Media, social and content that speak for you.",
-            "short": "The bitemarks.cz magazine, social media, carousels, videos and podcasts.",
+            "short": "We run our own online magazine with the latest from business, careers and innovation. Optimised for both SEO and GEO search.",
             "lead": "We publish our own magazine, bitemarks.cz. We write articles for it and for partner sites with both SEO and GEO in mind, so search engines and AI can find them, and we amplify their reach through LinkedIn and Meta.",
             "items": [
                 ("Content that speaks for you", "Articles on our specialist site, on partner sites and in industry platform newsletters."),
@@ -152,7 +155,7 @@ EN = {
         {
             "slug": "experiences", "name": "Experiences", "img": "svc-experiences",
             "h1": "Experiences and things people take home.",
-            "short": "Premium merchandise, sampling, wow moments and team building.",
+            "short": "One of our projects focuses on experiential team building for companies; the other brings education in social and individual preparedness and resilience.",
             "lead": "Merch that doesn’t end up in a drawer, sampling where customers really get their hands on the product, and experiences that stay with people.",
             "items": [
                 ("Premium merchandise", "With our partner Ellipse, we create things people wear for years, and not just at work. They don’t end up in the bin — they leave a mark."),
@@ -170,24 +173,31 @@ EN = {
         "title": "Work — Bite Marks Media",
         "description": "Selected work by Bite Marks Media: premium supplements for Forbes and Ekonom, employer branding for Aero Vodochody, social content and premium merchandise.",
         "kicker": "Selected work",
-        "h1": "Fewer projects. More care.",
-        "lead": "From small projects to year-long campaigns. From employer branding and ESG to healthcare. For every client, we find the right mix of channels.",
+        "h1": "Experience is worth more than a thousand words.",
+        "lead": "Everything we do, we do as if it were for ourselves. Down to the last detail, with precision and a vision for the future. With responsibility and the courage to stand out from the crowd.",
         "more_kicker": "More collaborations",
+        "more_title": "Our clients’ stories",
         "more": [
             ("Dr. Theiss", "A year-long partnership across product lines — from toothpaste to prescription supplements. Communication for OTC and RX brands.", "Healthcare"),
             ("Smurfit Kappa", "Quarterly B2B communication for a sustainability leader: articles, videos, print and connections with key experts and organisations.", "B2B · ESG"),
             ("Eli Beamlights", "An employer branding video that shows the company the way its people see it — and love it.", "Video"),
             ("AKOM", "A new website: clear, representative and ready to grow with the company.", "Web"),
+            ("Škoda Group", "Carousels for online articles about technologies that are changing transport. The core idea of the partnership in a few LinkedIn slides.", "Media"),
+            ("Raynet", "An interview on how Raynet builds its international expansion on culture and relationships, followed by the carousel “Across borders with CRM”.", "Media"),
+            ("GLS", "Content and carousels for an article on the ambition to become the Czech number one in delivery.", "Media"),
+            ("TOS Varnsdorf", "Three career paths, from a scholarship to leading development. Stories of people that show how you can grow within the company.", "Editorials"),
+            ("Doosan Škoda Power", "From a trainee programme to turbine research: how to start a career while still at university. An article for the Careers in Technology series.", "Editorials"),
+            ("Rohde & Schwarz", "A story about investing in growth, with people in the leading role. Part of the Czechia Inspires series.", "Editorials"),
         ],
     },
     "work": [
         {
-            "slug": "forbes", "client": "Forbes · Ekonom", "year": "2025–2026", "disc": "Editorials",
-            "title": "Premium supplements companies actually read",
-            "short": "Four specialist supplements on careers, HR and Czech business.",
+            "slug": "forbes", "client": "Editorials", "year": "2025–2026", "disc": "Premium Magazines", "cat": "Editorials", "hide_client": True,
+            "title": "Premium supplements with an extensive distribution strategy.",
+            "short": "Specialist supplements that stay relevant for months.",
             "img": "cover-k26", "card": "w-forbes",
             "role": ["Concept", "Content", "Design", "Distribution"],
-            "lead": "Specialist supplements on careers, HR and Czech business, published in partnership with Forbes and Ekonom. We prepare the topics, interviews and design, and put them into the hands of the right people.",
+            "lead": "Specialist supplements focused on business, employer branding, HR and innovation that stay relevant for months. We distribute them at events, fairs, universities and other relevant places.",
             "blocks": [
                 ("Challenge", "Companies want to reach talent and partners where careers and business are genuinely on people’s minds. Not with a banner, but with a story people read to the end."),
                 ("Approach", "Each supplement has a clear theme and editorial line. Companies get space for interviews, case studies and the career stories of their people. We keep the design consistent so each issue reads as a whole."),
@@ -218,8 +228,8 @@ EN = {
         },
         {
             "slug": "socialni-site", "client": "Škoda Group · GLS · Raynet · ARF · Sales Brunch", "year": "2025–2026", "disc": "Media",
-            "title": "Carousels and content for social media",
-            "short": "The core idea of an article or event in a few slides.",
+            "title": "Content that makes people *stop scrolling.*",
+            "short": "Carousels and social content: the core idea of an article or event in a few slides.",
             "img": "car-skoda-1", "card": "w-social",
             "role": ["Copywriting", "Design", "Distribution"],
             "lead": "For our partners’ online articles, we create carousels and other social assets so the core idea of the partnership comes across quickly and simply. For events, we make sure people hear about them before, during and after.",
@@ -228,6 +238,22 @@ EN = {
                 ("Distribution", "We distribute the content on LinkedIn and Meta, with targeting and reporting. It builds on articles published on bitemarks.cz."),
             ],
             "sets": [("skoda", "Škoda Group"), ("gls", "GLS"), ("raynet", "Raynet"), ("arf", "ARF"), ("brunch", "Sales Brunch")],
+        },
+        {
+            "slug": "asd-fest", "client": "ASD Fest", "year": "October 2026", "disc": "Events",
+            "title": "The first aerospace & defence career festival in Czechia",
+            "short": "Our own festival, from the idea to the last stand. Brno Exhibition Centre, 27 October 2026.",
+            "img": "asd-022", "card": "w-asd",
+            "role": ["Concept", "Production", "Partners", "Programme", "Communication"],
+            "lead": "We came up with Aerospace & Defence Career Fest, built it and produced it ourselves. In one place it brought together the public and private sectors from the military, aviation, science and technology worlds with a young generation only just starting to think about a career in the field.",
+            "blocks": [
+                ("Challenge", "An industry looking for thousands of people, yet young people know almost nothing about it. Companies, the army, the police and universities had been meeting them separately."),
+                ("Approach", "One day, one hall and four zones: a Main stage with panels, a Second stage with practitioners, a Business lounge and a Crisis rehearsal zone. A Secret mission game led visitors to every stand."),
+                ("Result", "Pavilion G1 at the Brno Exhibition Centre full of students, aircraft and rescue demonstrations, dozens of exhibitors and partners. The general partner was OMNIPOL GROUP."),
+            ],
+            "gallery": ["asd-022", "asd-008", "asd-066", "asd-026", "asd-052", "asd-059", "asd-098", "asd-019", "asd-021", "asd-095", "asd-053", "asd-063"],
+            "alts": ["Pavilion G1 full of ASD Fest visitors", "The organisers on the main stage", "ASD FEST banner in the hall", "Aircraft demonstration in front of the crowd", "Panel discussion “I want to fly”", "OMNIPOL exhibition", "Flight simulator", "Helicopter on display", "Aero Vodochody stand", "Police dog demonstration", "Branded ASD Fest bags", "Brno Exhibition Centre at dusk"],
+            "link": ("asdfest.cz", "https://asdfest.cz/"),
         },
         {
             "slug": "merchandise", "client": "With our partner Ellipse", "year": "2025–2026", "disc": "Experiences",
@@ -254,9 +280,9 @@ EN = {
     },
     "ventures": [
         {
-            "slug": "asd-fest", "name": "ASD Fest", "logo": "asd", "cat": "Career fair", "url": "https://asdfest.cz/",
+            "slug": "asd-fest", "name": "ASD Fest", "logo": "asd", "cat": "Career festival", "peek": "asd-022", "url": "https://asdfest.cz/",
             "img": "v-asd", "card": "asd-web", "when": "27 Oct 2026", "where": "Brno Exhibition Centre, Pavilion G1",
-            "short": "The first aerospace & defence career fair in the Czech Republic.",
+            "short": "The first aerospace & defence career festival in Czechia.",
             "lead": "Aerospace & Defence Career Fest is the first event of its kind in the Czech Republic. It brings together the public and private sectors from the military, aviation, science and technology worlds, and inspires a young generation to build a career in the field.",
             "facts": [("When", "27 Oct 2026"), ("Where", "Brno Exhibition Centre, Pavilion G1"), ("Admission", "Free"), ("General partner", "OMNIPOL GROUP")],
             "blocks": [
@@ -296,7 +322,7 @@ EN = {
         {
             "slug": "gryfix", "name": "Gryfix Experience", "logo": "gryfix", "cat": "Team building", "url": "",
             "img": "", "when": "", "where": "",
-            "short": "Experiential team building under pressure.",
+            "short": "Experiential team building for companies.",
             "lead": "Experiential team building focused on cooperation in demanding situations, performing under pressure, psychodiagnostics and the development of individuals and teams.",
             "facts": [("Format", "Experiential team building"), ("Focus", "Cooperation and performing under pressure"), ("Outcome", "Psychodiagnostics and team development")],
             "blocks": [
@@ -308,11 +334,11 @@ EN = {
 
     # ------------------------------------------------------------------ JOURNAL
     "journal_page": {
-        "title": "Bite Marks Journal — a magazine on careers, business and health",
-        "description": "Bite Marks Journal: Bite Marks Media’s own magazine at bitemarks.cz. Careers, business, technology and health.",
+        "title": "Bite Marks Journal — a magazine on careers, business and innovation",
+        "description": "Bite Marks Journal: Bite Marks Media’s own magazine at bitemarks.cz. Careers, business, technology and innovation.",
         "kicker": "Bite Marks Journal",
         "h1": "Media we publish ourselves.",
-        "lead": "A magazine on careers, business and health at bitemarks.cz. This is where we do every day what we then offer our clients: content people read, and that search engines and AI can find.",
+        "lead": "A magazine on careers, business and innovation at bitemarks.cz. This is where we do every day what we then offer our clients: content people read, and that search engines and AI can find.",
         "cta": "The full magazine at bitemarks.cz",
     },
     "posts": [
@@ -379,7 +405,26 @@ EN = {
         ],
         "partners_kicker": "Partners",
         "partners": [("Forbes and Ekonom", "Premium supplements"), ("Ellipse", "Premium merchandise"), ("Institut firemní kultury", "Company culture")],
+        "partners_title": "Brands we *create with.*",
+        "partners_lead": "Clients we create campaigns, supplements and content for, and partners we build our own projects with, such as ASD Fest.",
+        "partner_groups": [
+            ("Clients", ["Klienti"]),
+            ("ASD Fest partners and exhibitors", ["Soukromý sektor", "Státní sektor", "S podporou"]),
+            ("Universities", ["Univerzity"]),
+            ("Media partners", ["Mediální partneři"]),
+        ],
         "clients_kicker": "Trusted by",
+        "office_kicker": "Where to find us",
+        "office_title": "Náměstí Republiky 7, *in the heart of Prague.*",
+        "office_lead": "We work from a historic building on Náměstí Republiky, a few steps from the Municipal House. Book a meeting and drop by for a coffee.",
+        "office_alts": ["Atrium with a glass roof at Náměstí Republiky 7", "Entrance hall with staircase", "Meeting room and kitchen"],
+        "office_note": "Photo: Scott.Weber Workspace / Chapman Taylor",
+        "office_map": "Map: Náměstí Republiky 7, Prague 1",
+        "office_route": "Get directions",
+        "billing": "Billing details",
+        "post": "Correspondence address",
+        "socials": "Social media",
+        "metro": "Metro B Náměstí Republiky · trams 6, 8, 15, 26",
     },
 
     # ------------------------------------------------------------------ CONTACT

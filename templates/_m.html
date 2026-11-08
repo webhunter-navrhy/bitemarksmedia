@@ -62,7 +62,7 @@
 
 {%- macro work_media(w, sizes='(min-width: 1100px) 56vw, 94vw') -%}
 {%- if w.slug == 'forbes' -%}<span class="wm wm-blue">{{ pic('r-covers', w.title, sizes) }}</span>
-{%- elif w.slug == 'socialni-site' -%}<span class="wm wm-cream">{{ pic('r-cars', w.title, sizes) }}</span>
+{%- elif w.slug == 'socialni-site' -%}<span class="wm wm-cream wm-cars">{% for k in ('car-skoda-1', 'car-gls-1', 'car-raynet-1') %}<span class="wm-car">{{ pic(k, '' if not loop.first else w.title, '(min-width: 900px) 14vw, 30vw') }}</span>{% endfor %}</span>
 {%- else -%}<span class="wm bw">{{ pic(WORK_CARD[w.slug], w.title, sizes) }}</span>{%- endif -%}
 {%- endmacro -%}
 
@@ -70,7 +70,7 @@
 <article class="case{% if i is odd %} case-rev{% endif %}">
   <a class="case-media" href="{{ href('prace/' ~ w.slug ~ '/') }}" tabindex="-1" aria-hidden="true">{{ work_media(w) }}</a>
   <div class="case-copy">
-    <p class="lbl case-meta"><span>{{ w.client }}</span><span lang="en">{{ w.disc }}</span></p>
+    <p class="lbl case-meta">{% if not w.hide_client %}<span>{{ w.client }}</span>{% endif %}<span lang="en">{{ w.disc }}</span></p>
     <h3 class="h3"><a href="{{ href('prace/' ~ w.slug ~ '/') }}">{{ w.title | acc }}</a></h3>
     <p class="case-short">{{ w.lead }}</p>
     <dl class="case-role"><dt class="lbl">{{ ui.role }}</dt><dd>{{ w.role | join(' · ') }}</dd></dl>
@@ -82,13 +82,14 @@
 {%- macro work_tile(w) -%}
 <a class="wtile" href="{{ href('prace/' ~ w.slug ~ '/') }}">
   <span class="wtile-media">{{ work_media(w, '(min-width: 900px) 44vw, 94vw') }}</span>
-  <span class="lbl case-meta"><span>{{ w.client }}</span><span lang="en">{{ w.disc }}</span></span>
+  <span class="lbl case-meta">{% if not w.hide_client %}<span>{{ w.client }}</span>{% endif %}<span lang="en">{{ w.disc }}</span></span>
   <span class="wtile-title">{{ w.title | acc }}</span>
 </a>
 {%- endmacro -%}
 
 {%- macro venture_row(v) -%}
-<li><a class="vrow" href="{{ href('built-by/' ~ v.slug ~ '/') }}"{% if v.img %} data-img="{{ base }}img/{{ v.img }}-{{ IMG[v.img].w[0] }}.webp?v={{ IMG[v.img].v }}"{% endif %}>
+{%- set pk = v.peek or v.img -%}
+<li><a class="vrow" href="{{ href('built-by/' ~ v.slug ~ '/') }}"{% if pk %} data-img="{{ base }}img/{{ pk }}-{{ IMG[pk].w[0] }}.webp?v={{ IMG[pk].v }}"{% endif %}>
   <span class="vrow-logo vl-{{ v.logo }}" role="img" aria-label="{{ v.name }}">{{ VLOGO[v.logo] | safe }}</span>
   <span class="vrow-cat lbl">{{ v.cat }}{% if v.when %}<br>{{ v.when }}{% endif %}</span>
   <span class="vrow-short">{{ v.short }}</span>
@@ -161,6 +162,62 @@
   <p class="lbl" lang="en">{{ kicker }}</p>
   <ul class="logos" role="list">{% for k in c.clients %}<li><img src="{{ base }}img/logo-{{ k }}.png?v={{ LOGOS[k].v }}" width="{{ LOGOS[k].w }}" height="{{ LOGOS[k].h }}" alt="{{ c.client_names[k] }}" loading="lazy" decoding="async"></li>{% endfor %}</ul>
 </div>
+{%- endmacro -%}
+
+{%- macro partner_wall(P) -%}
+<section class="sec pwall-sec" aria-labelledby="h-partners">
+  <div class="wrap">
+    <div class="pwall-head">
+      <p class="lbl">{{ P.partners_kicker }}</p>
+      <h2 class="h2" id="h-partners">{{ P.partners_title | acc }}</h2>
+      <p class="pwall-lead">{{ P.partners_lead }}</p>
+    </div>
+    {% for title, cats in P.partner_groups %}
+    {% set items = [] %}{% for ct in cats %}{% for x in PARTNERS.get(ct, []) %}{% do items.append(x) %}{% endfor %}{% endfor %}
+    <div class="pgroup">
+      <p class="pgroup-t"><span>{{ title }}</span><span class="pgroup-n">{{ items | length }}</span></p>
+      <ul class="pwall" role="list">
+        {% for x in items %}{% set nm = c.client_names.get(x.slug[2:], x.name) if x.slug.startswith('c-') else x.name %}<li><img src="{{ base }}img/p/{{ x.slug }}.png?v={{ x.v }}" width="{{ x.w }}" height="{{ x.h }}" style="width:{{ x.cw }}rem" alt="{{ nm }}" title="{{ nm }}" loading="lazy" decoding="async"></li>{% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{%- endmacro -%}
+
+{%- macro office(A) -%}
+<section class="sec office" aria-labelledby="h-office">
+  <div class="wrap">
+    <div class="office-head">
+      <p class="lbl">{{ A.office_kicker }}</p>
+      <h2 class="h2" id="h-office">{{ A.office_title | acc }}</h2>
+      <p class="office-lead">{{ A.office_lead }}</p>
+    </div>
+    {% set q = 'Náměstí Republiky 7, 110 00 Praha 1' %}
+    <div class="office-grid">
+      <figure class="of of-a">{{ pic('of-atrium', A.office_alts[0], '(min-width: 900px) 46vw, 94vw') }}</figure>
+      <figure class="of of-b">{{ pic('of-hall', A.office_alts[1], '(min-width: 900px) 22vw, 46vw') }}</figure>
+      <figure class="of of-c">{{ pic('of-meet', A.office_alts[2], '(min-width: 900px) 22vw, 46vw') }}</figure>
+      <a class="of-map" href="https://www.google.com/maps/dir/?api=1&destination={{ q | urlencode }}" target="_blank" rel="noopener" aria-label="{{ A.office_route }}: {{ q }}">
+        <iframe src="https://www.google.com/maps/embed?origin=mfe&amp;pb=!1m3!2m1!1s{{ q | replace(' ', '+') | urlencode | replace('%2B', '+') }}!6i16!3m1!1s{{ t.lang }}!5m1!1s{{ t.lang }}" title="{{ A.office_map }}" loading="lazy" tabindex="-1" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <span class="of-pin" aria-hidden="true"><svg viewBox="0 0 200 200" preserveAspectRatio="none"><ellipse cx="100" cy="100" rx="96" ry="94"/></svg><i></i></span>
+        <span class="of-route">{{ A.office_route }} {{ arrow() }}</span>
+      </a>
+    </div>
+    <p class="of-note">{{ A.office_note }}</p>
+    <div class="office-info">
+      <div class="oi"><p class="lbl">{{ A.post }}</p><p class="oi-big">{{ c.company }}<br>Náměstí Republiky 7<br>110 00 Praha 1</p><p class="oi-small">{{ A.metro }}</p></div>
+      <div class="oi"><p class="lbl">{{ A.billing }}</p><p>{{ c.company }}<br>{{ c.street }}<br>{{ c.zip }} {{ c.city }}</p><p class="oi-small">{{ ui.legal_ico }} {{ c.ico }}<br>{{ ui.legal_dic }} {{ c.dic }}</p></div>
+      <div class="oi"><p class="lbl">{{ A.socials }}</p><ul class="oi-soc" role="list">
+        <li><a href="{{ c.linkedin }}" target="_blank" rel="noopener"><span>LinkedIn</span>{{ ext() }}</a></li>
+        <li><a href="{{ c.instagram }}" target="_blank" rel="noopener"><span>Instagram</span>{{ ext() }}</a></li>
+        <li><a href="{{ c.facebook }}" target="_blank" rel="noopener"><span>Facebook</span>{{ ext() }}</a></li>
+        <li><a href="{{ c.journal }}" target="_blank" rel="noopener"><span>bitemarks.cz</span>{{ ext() }}</a></li>
+      </ul></div>
+      <div class="oi"><p class="lbl">{{ ui.footer_contact }}</p><p><a href="mailto:{{ c.email }}">{{ c.email }}</a><br><a href="tel:{{ c.phone_href }}">{{ c.phone }}</a></p><p class="oi-small">{{ ui.hours }}</p></div>
+    </div>
+  </div>
+</section>
 {%- endmacro -%}
 
 {%- macro next_link(label, name, url) -%}

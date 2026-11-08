@@ -24,9 +24,9 @@
 <section class="sec sec-cream" aria-labelledby="h-areas">
   <div class="wrap split">
     <div class="split-head"><p class="lbl">{{ P.areas_kicker }}</p><h2 class="h3" id="h-areas">{{ t.home.intro_big }}</h2></div>
-    <ul class="areas" role="list">
-      {% for a, d in P.areas %}<li><span class="areas-n">{{ a }}</span><span class="areas-d">{{ d }}</span></li>{% endfor %}
-    </ul>
+    <ol class="areas areas-list" role="list">
+      {% for a, d in P.areas %}<li><span class="areas-i">{{ '%02d' % loop.index }}</span><span class="areas-n">{{ a }}</span><span class="areas-d">{{ d }}</span></li>{% endfor %}
+    </ol>
   </div>
 </section>
 {{ m.cta() }}

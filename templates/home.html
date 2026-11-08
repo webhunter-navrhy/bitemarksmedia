@@ -66,14 +66,23 @@
   </div>
 </section>
 
-{# reference #}
-<section class="sec sec-tight" aria-label="{{ t.about.quotes_kicker }}">
-  <div class="wrap">
-    {% set q = t.about.quotes[0] %}
-    <figure class="bigq">
-      <blockquote><p>{{ q[0] }}</p></blockquote>
-      <figcaption><span class="bigq-name">{{ q[1] }}</span><span class="lbl">{{ q[2] }}</span></figcaption>
-    </figure>
+{# reference: karusel všech citací #}
+<section class="sec sec-tight" aria-roledescription="carousel" aria-label="{{ t.about.quotes_kicker }}">
+  <div class="wrap qcar" data-qcar>
+    <p class="lbl qcar-k">{{ t.about.quotes_kicker }}</p>
+    <div class="qcar-track">
+      {% for q in t.about.quotes %}
+      <figure class="bigq qslide{% if loop.first %} is-on{% endif %}" role="group" aria-roledescription="slide" aria-label="{{ loop.index }} / {{ loop.length }}"{% if not loop.first %} aria-hidden="true"{% endif %}>
+        <blockquote><p>{{ q[0] }}</p></blockquote>
+        <figcaption><span class="bigq-name">{{ q[1] }}</span><span class="lbl">{{ q[2] }}</span></figcaption>
+      </figure>
+      {% endfor %}
+    </div>
+    <div class="qcar-nav">
+      <button type="button" class="qcar-btn" data-dir="-1" aria-label="{{ 'Předchozí citace' if t.lang == 'cs' else 'Previous quote' }}">{{ m.arrow() }}</button>
+      <div class="qcar-dots">{% for q in t.about.quotes %}<button type="button" class="qcar-dot{% if loop.first %} is-on{% endif %}" data-i="{{ loop.index0 }}" aria-label="{{ q[1] }}"></button>{% endfor %}</div>
+      <button type="button" class="qcar-btn" data-dir="1" aria-label="{{ 'Další citace' if t.lang == 'cs' else 'Next quote' }}">{{ m.arrow() }}</button>
+    </div>
   </div>
 </section>
 

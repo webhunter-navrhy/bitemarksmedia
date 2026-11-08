@@ -74,12 +74,7 @@
   </div>
 </section>
 
-<section class="sec sec-tight" aria-labelledby="h-partners">
-  <div class="wrap split">
-    <div class="split-head"><p class="lbl" id="h-partners">{{ P.partners_kicker }}</p></div>
-    <ul class="areas" role="list">{% for n, d in P.partners %}<li><span class="areas-n">{{ n }}</span><span class="areas-d">{{ d }}</span></li>{% endfor %}</ul>
-  </div>
-  <div class="wrap">{{ m.logos(P.clients_kicker) }}</div>
-</section>
+{{ m.partner_wall(P) }}
+{{ m.office(P) }}
 {{ m.cta() }}
 {% endblock %}

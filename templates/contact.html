@@ -20,10 +20,6 @@
             {% for p in t.about.team %}<li><span class="dp-photo">{{ m.pic('p-' ~ p.key, '', '4rem') }}</span><span><b>{{ p.name }}</b><br>{{ p.role }}</span><span class="dp-links"><a href="tel:{{ p.phone | replace(' ', '') }}">{{ p.phone }}</a><a href="mailto:{{ p.email }}">{{ p.email }}</a></span></li>{% endfor %}
           </ul>
         </div>
-        <div class="where">
-          <p class="lbl">{{ P.where }}</p>
-          {{ m.meta_list([(ui.office, c.office), (ui.seat, c.street ~ ', ' ~ c.zip ~ ' ' ~ c.city), (ui.hours.split(' ')[0], ui.hours.split(' ', 1)[1]), (ui.legal_ico ~ ' / ' ~ ui.legal_dic, c.ico ~ ' / ' ~ c.dic)]) }}
-        </div>
       </div>
       <form class="cform" id="cform" data-mail="{{ c.email }}" data-subject="{{ P.f_subject }}" novalidate>
         <p class="cform-title">{{ P.form_title }}</p>
@@ -46,4 +42,5 @@
     </div>
   </div>
 </section>
+{{ m.office(t.about) }}
 {% endblock %}

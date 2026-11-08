@@ -1,0 +1,434 @@
+[
+ {
+  "name": "GRAPECARE",
+  "cat": "Soukromý sektor",
+  "file": "grapecare.png",
+  "order": 9.0
+ },
+ {
+  "name": "AITHEL",
+  "cat": "Soukromý sektor",
+  "file": "aithel.svg",
+  "order": 30.0
+ },
+ {
+  "name": "Aeroklub ČR",
+  "cat": "Soukromý sektor",
+  "file": "aeroklub-cr.webp",
+  "order": 42.0
+ },
+ {
+  "name": "AEROROZVĚDKA",
+  "cat": "Soukromý sektor",
+  "file": "aerorozvedka.png",
+  "order": 38.0
+ },
+ {
+  "name": "STUDIO W",
+  "cat": "Soukromý sektor",
+  "file": "studio-w.png",
+  "order": 39.0
+ },
+ {
+  "name": "LIFE SAVE CARDS",
+  "cat": "Soukromý sektor",
+  "file": "life-save-cards.webp",
+  "order": 40.0
+ },
+ {
+  "name": "PLEXIWEISS",
+  "cat": "Soukromý sektor",
+  "file": "plexiweiss.jpg",
+  "order": 29.0
+ },
+ {
+  "name": "EVEKTOR",
+  "cat": "Soukromý sektor",
+  "file": "evektor.png",
+  "order": 25.0
+ },
+ {
+  "name": "ESERO",
+  "cat": "S podporou",
+  "file": "esero.png",
+  "order": 7.0
+ },
+ {
+  "name": "RADIOHOUSE",
+  "cat": "Mediální partneři",
+  "file": "radiohouse.png",
+  "order": 44.0
+ },
+ {
+  "name": "ManpowerGroup",
+  "cat": "Soukromý sektor",
+  "file": "manpowergroup.png",
+  "order": 37.0
+ },
+ {
+  "name": "DUST INSTITUTE",
+  "cat": "Soukromý sektor",
+  "file": "dust-institute.png",
+  "order": 47.0
+ },
+ {
+  "name": "FAKESCAPE",
+  "cat": "Soukromý sektor",
+  "file": "fakescape.png",
+  "order": 50.0
+ },
+ {
+  "name": "Thermvisia",
+  "cat": "Soukromý sektor",
+  "file": "thermvisia.png",
+  "order": 28.0
+ },
+ {
+  "name": "Jihomoravský kraj",
+  "cat": "S podporou",
+  "file": "jihomoravsky-kraj.jpg",
+  "order": 5.0
+ },
+ {
+  "name": "Daniel Arms",
+  "cat": "Soukromý sektor",
+  "file": "daniel-arms.png",
+  "order": 35.0
+ },
+ {
+  "name": "Dassualt Systemes",
+  "cat": "Soukromý sektor",
+  "file": "dassualt-systemes.png",
+  "order": 8.0
+ },
+ {
+  "name": "Slezská univerzita",
+  "cat": "Univerzity",
+  "file": "slezska-univerzita.png",
+  "order": 74.0
+ },
+ {
+  "name": "STROJÍRENSTVÍ.CZ",
+  "cat": "Mediální partneři",
+  "file": "strojirenstvi-cz.png",
+  "order": 45.0
+ },
+ {
+  "name": "Defence Consulting",
+  "cat": "S podporou",
+  "file": "defence-consulting.png",
+  "order": 9.0
+ },
+ {
+  "name": "FORBES",
+  "cat": "Mediální partneři",
+  "file": "forbes.png",
+  "order": 36.0
+ },
+ {
+  "name": "AEROWEB",
+  "cat": "Mediální partneři",
+  "file": "aeroweb.png",
+  "order": 60.0
+ },
+ {
+  "name": "KŘÍŽ",
+  "cat": "Soukromý sektor",
+  "file": "kriz.jpg",
+  "order": 34.0
+ },
+ {
+  "name": "MESIT",
+  "cat": "Soukromý sektor",
+  "file": "mesit.png",
+  "order": 24.0
+ },
+ {
+  "name": "Omnipol Group",
+  "cat": "Soukromý sektor",
+  "file": "omnipol-group.png",
+  "order": 0
+ },
+ {
+  "name": "ERA",
+  "cat": "Soukromý sektor",
+  "file": "era.png",
+  "order": 22.0
+ },
+ {
+  "name": "Aircraft Industries",
+  "cat": "Soukromý sektor",
+  "file": "aircraft-industries.png",
+  "order": 31.0
+ },
+ {
+  "name": "Omnipol Defence",
+  "cat": "Soukromý sektor",
+  "file": "omnipol-defence.png",
+  "order": 21.0
+ },
+ {
+  "name": "Kosmonautix",
+  "cat": "Mediální partneři",
+  "file": "kosmonautix.png",
+  "order": 61.0
+ },
+ {
+  "name": "Česká zbrojovka",
+  "cat": "Soukromý sektor",
+  "file": "ceska-zbrojovka.png",
+  "order": 5.0
+ },
+ {
+  "name": "API",
+  "cat": "S podporou",
+  "file": "api.svg",
+  "order": 15.0
+ },
+ {
+  "name": "PBS",
+  "cat": "Soukromý sektor",
+  "file": "pbs.png",
+  "order": 1.0
+ },
+ {
+  "name": "Asociace obranného a bezpečnostního průmyslu",
+  "cat": "S podporou",
+  "file": "asociace-obranneho-a-bezpecnostniho-prumyslu.png",
+  "order": 2.0
+ },
+ {
+  "name": "Magistrát města Brna",
+  "cat": "S podporou",
+  "file": "magistrat-mesta-brna.png",
+  "order": 0
+ },
+ {
+  "name": "Cizinecká Policie",
+  "cat": "Státní sektor",
+  "file": "cizinecka-policie.png",
+  "order": 13.0
+ },
+ {
+  "name": "ČVUT",
+  "cat": "Univerzity",
+  "file": "cvut.webp",
+  "order": 85.0
+ },
+ {
+  "name": "HiLASE",
+  "cat": "Soukromý sektor",
+  "file": "hilase.png",
+  "order": 20.0
+ },
+ {
+  "name": "SAFRAN Group",
+  "cat": "Soukromý sektor",
+  "file": "safran-group.png",
+  "order": 19.0
+ },
+ {
+  "name": "Aerospace & Defence Meetings Brno",
+  "cat": "Mediální partneři",
+  "file": "aerospace-defence-meetings-brno.webp",
+  "order": 46.0
+ },
+ {
+  "name": "Univerzita Pardubice",
+  "cat": "Univerzity",
+  "file": "univerzita-pardubice.png",
+  "order": 83.0
+ },
+ {
+  "name": "ESA Technology Broker",
+  "cat": "S podporou",
+  "file": "esa-technology-broker.png",
+  "order": 11.0
+ },
+ {
+  "name": "Technologické Centrum Praha",
+  "cat": "S podporou",
+  "file": "technologicke-centrum-praha.png",
+  "order": 12.0
+ },
+ {
+  "name": "Univerzita Obrany",
+  "cat": "Univerzity",
+  "file": "univerzita-obrany.png",
+  "order": 49.0
+ },
+ {
+  "name": "Ostravská univerzita",
+  "cat": "Univerzity",
+  "file": "ostravska-univerzita.png",
+  "order": 84.0
+ },
+ {
+  "name": "Letecká služba PČR",
+  "cat": "Státní sektor",
+  "file": "letecka-sluzba-pcr.png",
+  "order": 11.0
+ },
+ {
+  "name": "Regionální hospodářská komora Brno",
+  "cat": "S podporou",
+  "file": "regionalni-hospodarska-komora-brno.png",
+  "order": 4.0
+ },
+ {
+  "name": "Brno Space Cluster",
+  "cat": "S podporou",
+  "file": "brno-space-cluster.png",
+  "order": 10.0
+ },
+ {
+  "name": "Outdoor survival",
+  "cat": "Soukromý sektor",
+  "file": "outdoor-survival.webp",
+  "order": 59.0
+ },
+ {
+  "name": "Corty",
+  "cat": "Soukromý sektor",
+  "file": "corty.webp",
+  "order": 58.0
+ },
+ {
+  "name": "Armáda České Republiky",
+  "cat": "Státní sektor",
+  "file": "armada-ceske-republiky.png",
+  "order": 2.0
+ },
+ {
+  "name": "Policie České republiky",
+  "cat": "Státní sektor",
+  "file": "policie-ceske-republiky.png",
+  "order": 3.0
+ },
+ {
+  "name": "Vojenská Policie",
+  "cat": "Státní sektor",
+  "file": "vojenska-policie.png",
+  "order": 12.0
+ },
+ {
+  "name": "Prepper Survival Care",
+  "cat": "Soukromý sektor",
+  "file": "prepper-survival-care.png",
+  "order": 56.0
+ },
+ {
+  "name": "BKP Institut",
+  "cat": "S podporou",
+  "file": "bkp-institut.png",
+  "order": 3.0
+ },
+ {
+  "name": "VÝZVA 43",
+  "cat": "S podporou",
+  "file": "vyzva-43.png",
+  "order": 13.0
+ },
+ {
+  "name": "Infrahex",
+  "cat": "Soukromý sektor",
+  "file": "infrahex.png",
+  "order": 33.0
+ },
+ {
+  "name": "Moravský letecký klastr",
+  "cat": "S podporou",
+  "file": "moravsky-letecky-klastr.png",
+  "order": 14.0
+ },
+ {
+  "name": "Aero Vodochody",
+  "cat": "Soukromý sektor",
+  "file": "aero-vodochody.png",
+  "order": 6.0
+ },
+ {
+  "name": "Cooper-Standard",
+  "cat": "Soukromý sektor",
+  "file": "cooper-standard.png",
+  "order": 10.0
+ },
+ {
+  "name": "Ministerstvo obrany",
+  "cat": "S podporou",
+  "file": "ministerstvo-obrany.png",
+  "order": 1.0
+ },
+ {
+  "name": "Masarykova univerzita",
+  "cat": "Univerzity",
+  "file": "masarykova-univerzita.png",
+  "order": 86.0
+ },
+ {
+  "name": "Univerzita Palackého",
+  "cat": "Univerzity",
+  "file": "univerzita-palackeho.png",
+  "order": 87.0
+ },
+ {
+  "name": "U&C UAS",
+  "cat": "Soukromý sektor",
+  "file": "u-c-uas.png",
+  "order": 18.0
+ },
+ {
+  "name": "Vojenská nemocnice Brno",
+  "cat": "Státní sektor",
+  "file": "vojenska-nemocnice-brno.png",
+  "order": 27.0
+ },
+ {
+  "name": "Vězeňská služba ČR",
+  "cat": "Státní sektor",
+  "file": "vezenska-sluzba-cr.png",
+  "order": 16.0
+ },
+ {
+  "name": "LOM PRAHA",
+  "cat": "Soukromý sektor",
+  "file": "lom-praha.png",
+  "order": 17.0
+ },
+ {
+  "name": "VUT BRNO",
+  "cat": "Univerzity",
+  "file": "vut-brno.png",
+  "order": 51.0
+ },
+ {
+  "name": "VŠB Ostrava",
+  "cat": "Univerzity",
+  "file": "vsb-ostrava.png",
+  "order": 88.0
+ },
+ {
+  "name": "Hasičský záchranný sbor ČR",
+  "cat": "Státní sektor",
+  "file": "hasicsky-zachranny-sbor-cr.png",
+  "order": 4.0
+ },
+ {
+  "name": "Svět průmyslu",
+  "cat": "Mediální partneři",
+  "file": "svet-prumyslu.png",
+  "order": 63.0
+ },
+ {
+  "name": "Ministerstvo průmyslu a obchodu",
+  "cat": "S podporou",
+  "file": "ministerstvo-prumyslu-a-obchodu.png",
+  "order": 6.0
+ },
+ {
+  "name": "Fairino",
+  "cat": "Soukromý sektor",
+  "file": "fairino.png",
+  "order": 26.0
+ }
+]

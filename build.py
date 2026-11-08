@@ -86,6 +86,13 @@ for i, src in enumerate(["Premiovy-merchandise-12", "Premiovy-merchandise-3", "P
 for s, src in {"skoda": "skoda", "gls": "GLSpdf", "raynet": "RAYNET", "arf": "ARF", "brunch": "SALES-BRUNCH"}.items():
     for n in (1, 2, 3):
         IMAGES[f"car-{s}-{n}"] = (f"{src}-{n}-1.webp", [480, 800], None)
+for f in sorted((SRC / "asd").glob("asd-*.jpg")):
+    IMAGES[f.stem] = (f"asd/{f.name}", [640, 1200, 2000], None)
+OFFICE = {"of-atrium": "ct-NR7_12.jpg", "of-atrium2": "ct-Namesti_Republiky_7_Chapman_Taylor_Architects_10.jpg",
+          "of-hall": "ct-Namesti_Republiky_7_Chapman_Taylor_Architects_30.jpg", "of-cafe": "ct-Namesti_Republiky_7_Chapman_Taylor_Architects_40.jpg",
+          "of-kitchen": "ct-NR7_5.jpg", "of-meet": "ct-NR7_6.jpg"}
+for k, f in OFFICE.items():
+    IMAGES[k] = (f"office/{f}", [640, 1200, 1800], None)
 MAGS = {"kvt": "kvt-str", "shr": "shr-str", "ci": "str", "k26": "forbes-str"}
 
 # vizuální výplň hlavní plochy u disciplín (obsahová data jsou v content.py)
@@ -106,7 +113,29 @@ SERVICE_COLLAGE = {
     "media": ["car-skoda-1", "j-compas", "car-raynet-1"],
     "experiences": ["merch-6", "merch-2", "haso-medal"],
 }
-WORK_CARD = {"forbes": "covers", "aero": "r-aero", "socialni-site": "carousels", "merchandise": "merch-1"}
+WORK_CARD = {"forbes": "covers", "aero": "aero-5", "socialni-site": "carousels", "asd-fest": "asd-022", "merchandise": "merch-1"}
+
+
+def build_partners():
+    """černé siluety log partnerů (tools/logo_mono.py) -> dist/img/p/, s opticky vyrovnanou velikostí"""
+    idx = json.loads((A / "partners" / "index.json").read_text())
+    (DIST / "img" / "p").mkdir(parents=True, exist_ok=True)
+    out = {}
+    for slug, m in idx.items():
+        f = A / "partners" / f"{slug}.png"
+        if not f.exists():
+            continue
+        shutil.copy(f, DIST / "img" / "p" / f.name)
+        r = m["w"] / m["h"]
+        area = 13.0 * min(1.6, max(.7, (.3 / max(m["ink"], .05)) ** .35))  # hustá loga menší, řídká větší
+        w = min(10.5, (area * r) ** .5)
+        hh = w / r
+        if hh > 4.2:
+            hh = 4.2; w = hh * r
+        out.setdefault(m["cat"], []).append({"slug": slug, "name": m["name"], "w": m["w"], "h": m["h"], "cw": round(w, 2), "v": h(f.read_bytes())})
+    for v in out.values():
+        v.sort(key=lambda x: x["name"].lower())
+    return out
 
 
 def h(data: bytes) -> str:
@@ -187,6 +216,7 @@ def main():
         p = A / "logos" / f"{k}.png"; shutil.copy(p, DIST / "img" / f"logo-{k}.png")
         im = Image.open(p); LOGOS[k] = {"w": im.width, "h": im.height, "v": h(p.read_bytes())}
     LOGO = (A / "bmm-logo.svg").read_text()
+    PARTNERS = build_partners()
     VLOGO = {k: venture_svg(A / f"{k}.svg") for k in ("asd", "dtp", "gryfix", "haso")}
     files = {}
     for f in ("style.css", "app.js"):
@@ -195,7 +225,7 @@ def main():
         if (A / f).exists():
             shutil.copy(A / f, DIST / (f if f.endswith("svg") else "img/" + f)); files[f] = h((A / f).read_bytes())
 
-    env = Environment(loader=FileSystemLoader(str(ROOT / "templates")), autoescape=True, trim_blocks=True, lstrip_blocks=True)
+    env = Environment(loader=FileSystemLoader(str(ROOT / "templates")), autoescape=True, trim_blocks=True, lstrip_blocks=True, extensions=["jinja2.ext.do"])
     env.filters["acc"] = acc
     c = COMMON
     langs = [(CZ, "")] + ([(EN, "en/")] if EN else [])
@@ -208,7 +238,7 @@ def main():
             alt_pre = "en/" if pre == "" else ""
             ctx = dict(t=t, ui=t["ui"], c=c, base=BASE, pre=pre, path=path, site_url=SITE_URL, IMG=IMG, VIDEO=VIDEO,
                        LOGOS=LOGOS, LOGO=LOGO, VLOGO=VLOGO, V=files, pages_v=pages_v, has_en=bool(EN),
-                       alt_url=f"{BASE}{alt_pre}{path + '/' if path else ''}", SERVICE_MEDIA=SERVICE_MEDIA, WORK_CARD=WORK_CARD, SERVICE_COLLAGE=SERVICE_COLLAGE, SERVICE_IMG=SERVICE_IMG)
+                       alt_url=f"{BASE}{alt_pre}{path + '/' if path else ''}", SERVICE_MEDIA=SERVICE_MEDIA, WORK_CARD=WORK_CARD, SERVICE_COLLAGE=SERVICE_COLLAGE, SERVICE_IMG=SERVICE_IMG, PARTNERS=PARTNERS)
             ctx.update(kw)
             html = env.get_template(tpl).render(**ctx)
             if t["lang"] == "cs":

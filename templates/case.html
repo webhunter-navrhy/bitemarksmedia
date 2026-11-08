@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% import '_m.html' as m with context %}
-{% block title %}{{ w.title }} — {{ w.client }} | Bite Marks Media{% endblock %}
+{% block title %}{{ w.title | replace('*', '') }} — {{ w.client }} | Bite Marks Media{% endblock %}
 {% block description %}{{ w.lead[:155] }}{% endblock %}
 {% block main %}
 <section class="phero">
@@ -8,14 +8,14 @@
     {{ m.crumbs([('prace/', ui.nav[1][1]), ('', w.client)]) }}
     <div class="phero-grid">
       <div>
-        <p class="lbl phero-k"><span lang="en">{{ w.disc }}</span> · {{ w.client }}</p>
+        <p class="lbl phero-k"><span lang="en">{{ w.disc }}</span>{% if not w.hide_client %} · {{ w.client }}{% endif %}</p>
         <h1 class="phero-h1">{{ w.title | acc }}</h1>
       </div>
       <div class="phero-lead">
         <p>{{ w.lead }}</p>
       </div>
     </div>
-    <div class="case-facts">{{ m.meta_list([(ui.client, w.client), (ui.year, w.year), (ui.role, w.role | join(' · '))]) }}</div>
+    <div class="case-facts">{{ m.meta_list(([] if w.hide_client else [(ui.client, w.client)]) + [(ui.year, w.year), (ui.role, w.role | join(' · '))]) }}</div>
   </div>
 </section>
 
@@ -44,6 +44,11 @@
 <section class="wrap"><figure class="media media-cream">{{ m.pic('r-cars', w.title, '(min-width: 1400px) 1320px, 94vw') }}</figure></section>
 {% elif w.slug == 'merchandise' %}
 <section class="wrap"><figure class="media">{{ m.pic('merch-1', w.title, '(min-width: 1400px) 1320px, 94vw') }}</figure></section>
+{% elif w.slug == 'asd-fest' %}
+<section class="wrap"><div class="asdhero">
+  <figure class="asdhero-main">{{ m.pic(w.gallery[0], w.alts[0], '(min-width: 900px) 64vw, 94vw') }}</figure>
+  <figure class="asdhero-side">{{ m.pic(w.gallery[1], w.alts[1], '(min-width: 900px) 30vw, 94vw') }}</figure>
+</div></section>
 {% endif %}
 
 <section class="sec" aria-label="{{ w.title }}">
@@ -70,6 +75,11 @@
   <div class="set"><p class="set-name">{{ name }}</p><div class="set-row">{% for n in (1, 2, 3) %}{% if ('car-' ~ k ~ '-' ~ n) in IMG %}<figure>{{ m.pic('car-' ~ k ~ '-' ~ n, name ~ ' – ' ~ n, '(min-width: 900px) 22vw, 70vw') }}</figure>{% endif %}{% endfor %}</div></div>
   {% endfor %}
 </div></section>
+{% elif w.slug == 'asd-fest' %}
+<section class="sec sec-tight"><div class="wrap gal gal-asd">
+  {% for k in w.gallery[2:] %}<figure>{{ m.pic(k, w.alts[loop.index0 + 2], '(min-width: 900px) 32vw, 46vw') }}</figure>{% endfor %}
+</div>
+<div class="wrap asd-more"><a class="tlink" href="{{ m.href('built-by/asd-fest/') }}"><span>{{ 'ASD Fest jako vlastní projekt' if t.lang == 'cs' else 'ASD Fest as our own venture' }}</span>{{ m.arrow() }}</a><a class="tlink" href="{{ w.link[1] }}" target="_blank" rel="noopener"><span>{{ w.link[0] }}</span>{{ m.ext() }}</a></div></section>
 {% elif w.slug == 'merchandise' %}
 <section class="sec sec-tight"><div class="wrap gal gal-masonry">
   {% for k in w.gallery[1:] %}<figure>{{ m.pic(k, w.title, '(min-width: 900px) 30vw, 46vw') }}</figure>{% endfor %}

@@ -59,7 +59,7 @@ CZ = {
         "svc_kicker": "Co děláme",
         "svc_title": "Šest disciplín, *jeden rukopis.*",
         "work_title": "Vybrané *projekty*",
-        "work_note": "méně projektů, víc péče",
+        "work_note": "zkušenost je více než tisíc slov",
         "built_title": "Nápady nejen *navrhujeme.* Stavíme je.",
         "phil_title": "The whole is built *in the details.*",
         "card_note": "otoč mě",
@@ -79,7 +79,7 @@ CZ = {
         "intro_big": "We build brands, media and experiences that people remember.",
         "intro_text": "Jsme jako dobrý fotograf. Neměníme to, kým jste — hledáme světlo a úhel, ve kterém skutečně vyniknete. A co umíme postavit pro sebe, přenášíme se stejnou péčí do značek a kampaní našich klientů.",
         "intro_link": "Poznejte studio",
-        "work_kicker": "Selected work", "work_title": "Méně projektů. Víc péče.",
+        "work_kicker": "Selected work", "work_title": "Zkušenost je více než tisíc slov.",
         "services_kicker": "What we do", "services_title": "Šest disciplín, jeden rukopis.",
         "built_kicker": "Built by Bite Marks", "built_title": "Ideas we don’t just pitch. We bring them to life.",
         "built_text": "Vlastní projekty stavíme od první myšlenky po poslední detail na místě. Stejnou péči pak přenášíme do značek našich klientů.",
@@ -100,9 +100,12 @@ CZ = {
         "areas_kicker": "Obory, kterým rozumíme",
         "areas": [
             ("HR a employer branding", "Kampaně pro talenty, kariérní přílohy, veletrhy a eventy pro studenty."),
-            ("Business a B2B", "Právo, daně, B2B služby, průmysl a technologie."),
-            ("Zdraví", "Komunikace OTC i RX značek a zdravotní projekty."),
-            ("Lifestyle", "Značky, které chtějí být blízko lidem — od merche po zážitky."),
+            ("Byznys a technologie", "B2B služby, průmysl, technologie a inovace. Přílohy, články i kampaně pro firmy, které stavějí budoucnost."),
+            ("Zážitky a eventy", "Vlastní festivaly a závody, firemní a partnerské akce, konference i zážitkové teambuildingy."),
+            ("Merchandise", "S partnerem Ellipse tvoříme oblečení a předměty, které se nosí roky a nekončí v šuplíku."),
+            ("Brand identity", "Identita, tón a vizuál značky, které drží pohromadě od webu a vizitky po fakturu a event."),
+            ("Video & creative content", "Employer brandingová videa, karusely, vizuály a obsah pro sociální sítě."),
+            ("Strategie a konzultace", "Pravidelné marketingové konzultace, mediální plán a road mapa, podle které se dá hned pracovat."),
         ],
     },
     "services": [
@@ -122,7 +125,7 @@ CZ = {
         {
             "slug": "campaigns", "name": "Campaigns", "img": "svc-campaigns",
             "h1": "Kampaně, které propojí online i offline.",
-            "short": "Vizuály, tisk, outdoor, stánky i video. Od ADHOC akce po roční spolupráci.",
+            "short": "Spolupráce ve formě online článků a komunikace na sociálních sítích. Krátkodobé i dlouhodobé custom mediální a marketingové kampaně.",
             "lead": "Připravíme koncept, vizuály, tisk, outdoor i video, spustíme je a vyhodnotíme. Klienti u nás oceňují rychlost u ADHOC akcí i dlouhodobý plán s pestrou paletou kanálů.",
             "items": [
                 ("Employer branding", "Kampaně, které zaujmou mladou generaci talentů a přivedou je k vám. Vizuály, stánky na kariérní veletrhy, tiskoviny i video."),
@@ -135,7 +138,7 @@ CZ = {
         {
             "slug": "strategies", "name": "Strategies", "img": "svc-strategies",
             "h1": "Nadhled, road mapa a jasný plán.",
-            "short": "Consulting, roční spolupráce, marketingové předplatné a firemní kultura.",
+            "short": "Pravidelné marketingové konzultace, tvorba mediálního plánu, tvorba kampaní, tvorba brand identity značky.",
             "lead": "Nastavit komunikaci se správným mixem, nápadem a dopadem není vždy tak snadné, jak se zdá. Podáme pomocnou ruku, připravíme road mapu a pohlídáme, aby značka zůstala sama sebou.",
             "items": [
                 ("Consulting", "Když potřebujete nadhled: komunikační mix, nápad a dopad, sepsané do plánu, podle kterého se dá hned pracovat."),
@@ -149,7 +152,7 @@ CZ = {
         {
             "slug": "events", "name": "Events", "img": "svc-events",
             "h1": "Eventy, které zanechají stopu.",
-            "short": "Firemní, partnerské, studentské i press eventy. Face to face, eye to eye.",
+            "short": "Pořádáme vlastní akce a veletrhy, ale také pomáháme našim klientům vytvořit akce, které zanechají stopu. Od teambuildingů a konferencí po velké projekty.",
             "lead": "Firemní, partnerské a zákaznické akce, studentské eventy, dny otevřených dveří, press eventy i výročí. Není nic lepšího než komunikace face to face, eye to eye.",
             "items": [
                 ("Eventy pro školy", "Pro studenty a čerstvé absolventy univerzit, středních i základních škol. Představíme kariérní možnosti tak, aby si je zapamatovali."),
@@ -162,7 +165,7 @@ CZ = {
         {
             "slug": "media", "name": "Media", "img": "svc-media",
             "h1": "Média, sítě a obsah, který mluví za vás.",
-            "short": "Magazín bitemarks.cz, sociální sítě, karusely, videa a podcasty.",
+            "short": "Vedeme vlastní online magazín s tím nejnovějším ze světa byznysu, kariéry a inovací. Přizpůsobený pro SEO i GEO vyhledávače.",
             "lead": "Vydáváme vlastní magazín bitemarks.cz. Články pro něj i pro partnerské weby připravujeme s ohledem na SEO i GEO, aby je našly vyhledávače i AI, a jejich dosah posilujeme přes LinkedIn a Meta.",
             "items": [
                 ("Obsah, který mluví za vás", "Články na našem specializovaném webu, na partnerských webech a v newsletterech oborových platforem."),
@@ -176,7 +179,7 @@ CZ = {
         {
             "slug": "experiences", "name": "Experiences", "img": "svc-experiences",
             "h1": "Zážitky a věci, které si lidé odnesou.",
-            "short": "Prémiový merchandise, sampling, wow momenty a teambuildingy.",
+            "short": "Jeden z našich projektů se zaměřuje na zážitkové teambuildingy pro firmy, druhý přináší edukaci v rámci společenské a individuální připravenosti a odolnosti.",
             "lead": "Merch, který neskončí v šuplíku, sampling, při kterém si zákazník produkt opravdu osahá, a zážitky, na které se nezapomíná.",
             "items": [
                 ("Prémiový merchandise", "S naším partnerem Ellipse tvoříme věci, které se nosí roky, a to nejen v práci. Nekončí v koši, zanechávají stopu."),
@@ -194,24 +197,31 @@ CZ = {
         "title": "Práce — Bite Marks Media",
         "description": "Vybrané projekty Bite Marks Media: prémiové přílohy pro Forbes a Ekonom, employer branding Aero Vodochody, obsah pro sítě a prémiový merchandise.",
         "kicker": "Selected work",
-        "h1": "Méně projektů. Víc péče.",
-        "lead": "Od malých projektů po roční kampaně. Od employer brandingu přes ESG po zdravotní projekty. Pro každého hledáme ten správný mix kanálů.",
+        "h1": "Zkušenost je více než tisíc slov.",
+        "lead": "Vše, co děláme, děláme, jako by to bylo pro nás. Do posledního detailu, s precizností a vizí do budoucna. Se zodpovědností a odvahou vystoupit z davu.",
         "more_kicker": "Další spolupráce",
+        "more_title": "Příběhy našich klientů",
         "more": [
             ("Dr. Theiss", "Roční spolupráce napříč produktovými řadami — od zubních past po doplňky na předpis. Komunikace OTC i RX značek.", "Healthcare"),
             ("Smurfit Kappa", "Kvartální B2B komunikace udržitelného lídra: články, videa, print a propojení s klíčovými experty a organizacemi.", "B2B · ESG"),
             ("Eli Beamlights", "Employer brandingové video, které firmu ukazuje tak, jak ji vidí a mají rádi její lidé.", "Video"),
             ("AKOM", "Nový web: přehledný, reprezentativní a připravený růst s firmou.", "Web"),
+            ("Škoda Group", "Karusely k online článkům o technologiích, které mění dopravu. Hlavní myšlenka spolupráce v několika slajdech pro LinkedIn.", "Media"),
+            ("Raynet", "Rozhovor o tom, jak Raynet staví zahraniční expanzi na kultuře a vztazích, a navazující karusel „Za hranice s CRM“.", "Media"),
+            ("GLS", "Obsah a karusely k článku o ambici stát se českou jedničkou v doručování.", "Media"),
+            ("TOS Varnsdorf", "Tři kariérní cesty od stipendia až po vedení vývoje. Příběhy lidí, které ukazují, jak se ve firmě dá vyrůst.", "Editorials"),
+            ("Doosan Škoda Power", "Od trainee programu k výzkumu turbín: jak začít kariéru už během studia. Článek pro řadu Kariéra v technologiích.", "Editorials"),
+            ("Rohde & Schwarz", "Příběh o investicích do růstu, ve kterém hrají hlavní roli lidé. Součást řady Česko inspiruje.", "Editorials"),
         ],
     },
     "work": [
         {
-            "slug": "forbes", "client": "Forbes · Ekonom", "year": "2025–2026", "disc": "Editorials",
-            "title": "Prémiové přílohy, které firmy opravdu čtou",
-            "short": "Čtyři specializované přílohy o kariéře, HR a českém byznysu.",
+            "slug": "forbes", "client": "Editorials", "year": "2025–2026", "disc": "Premium Magazines", "cat": "Editorials", "hide_client": True,
+            "title": "Prémiové přílohy s rozsáhlou distribuční strategií.",
+            "short": "Specializované přílohy, které žijí celé měsíce.",
             "img": "cover-k26", "card": "w-forbes",
             "role": ["Koncept", "Obsah", "Grafika", "Distribuce"],
-            "lead": "Specializované přílohy o kariéře, HR a českém byznysu, které vycházejí ve spolupráci s Forbes a Ekonomem. Připravujeme témata, rozhovory i grafiku a dostáváme je do rukou těch správných lidí.",
+            "lead": "Specializované přílohy se zaměřením na byznys, employer branding, HR, inovace, které žijí celé měsíce. Zajišťujeme distribuci příloh na eventy, veletrhy, univerzity a další relevantní místa.",
             "blocks": [
                 ("Výzva", "Firmy chtějí oslovit talenty a partnery tam, kde se o kariéře a byznysu opravdu přemýšlí. Ne bannerem, ale příběhem, který si lidé přečtou celý."),
                 ("Přístup", "Každá příloha má jasné téma a redakční linku. Firmy v ní dostávají prostor pro rozhovory, case studies a kariérní příběhy svých lidí. Grafiku držíme jednotnou, aby vydání působilo jako celek."),
@@ -242,8 +252,8 @@ CZ = {
         },
         {
             "slug": "socialni-site", "client": "Škoda Group · GLS · Raynet · ARF · Sales Brunch", "year": "2025–2026", "disc": "Media",
-            "title": "Karusely a obsah pro sociální sítě",
-            "short": "Hlavní myšlenka článku nebo akce v několika slajdech.",
+            "title": "Obsah, u kterého se *přestane scrollovat.*",
+            "short": "Karusely a obsah pro sociální sítě: hlavní myšlenka článku nebo akce v několika slajdech.",
             "img": "car-skoda-1", "card": "w-social",
             "role": ["Copywriting", "Grafika", "Distribuce"],
             "lead": "K online článkům našich partnerů tvoříme karusely a další výstupy na sociální sítě, aby se hlavní myšlenka spolupráce předala snadno a rychle. U akcí se staráme, aby se o nich vědělo před, během i po.",
@@ -252,6 +262,22 @@ CZ = {
                 ("Distribuce", "Obsah šíříme na LinkedIn a Meta s cílením a reportem. Navazuje na články publikované na bitemarks.cz."),
             ],
             "sets": [("skoda", "Škoda Group"), ("gls", "GLS"), ("raynet", "Raynet"), ("arf", "ARF"), ("brunch", "Sales Brunch")],
+        },
+        {
+            "slug": "asd-fest", "client": "ASD Fest", "year": "Říjen 2026", "disc": "Events",
+            "title": "První kariérní festival aerospace & defence v Česku",
+            "short": "Vlastní festival od nápadu po poslední stánek. Výstaviště Brno, 27. 10. 2026.",
+            "img": "asd-022", "card": "w-asd",
+            "role": ["Koncept", "Produkce", "Partneři", "Program", "Komunikace"],
+            "lead": "Aerospace & Defence Career Fest jsme vymysleli, postavili a vyprodukovali sami. Na jednom místě propojil státní i soukromý sektor z vojenského, leteckého, vědeckého a technologického prostředí s mladou generací, která o kariéře v oboru teprve přemýšlí.",
+            "blocks": [
+                ("Výzva", "Obor, který hledá tisíce lidí, ale mladí o něm skoro nic nevědí. Firmy, armáda, policie i univerzity se s nimi potkávaly odděleně a každý zvlášť."),
+                ("Přístup", "Jeden den, jedna hala a čtyři zóny: Main stage s panely, Second stage s lidmi z praxe, Business lounge a Krize nanečisto. Secret mission provedla návštěvníky všemi stánky."),
+                ("Výsledek", "Pavilon G1 na brněnském výstavišti plný studentů, ukázky letecké techniky i zásahů, desítky vystavovatelů a partnerů. Generálním partnerem byla OMNIPOL GROUP."),
+            ],
+            "gallery": ["asd-022", "asd-008", "asd-066", "asd-026", "asd-052", "asd-059", "asd-098", "asd-019", "asd-021", "asd-095", "asd-053", "asd-063"],
+            "alts": ["Pavilon G1 plný návštěvníků ASD Festu", "Organizátorky na hlavním pódiu", "Banner ASD FEST v hale", "Ukázka letecké techniky před davem", "Panelová diskuze Chci létat", "Expozice OMNIPOL", "Letecký simulátor", "Vrtulník v expozici", "Stánek Aero Vodochody", "Ukázka zásahu policejního psa", "Brandované tašky ASD Festu", "Výstaviště Brno za soumraku"],
+            "link": ("asdfest.cz", "https://asdfest.cz/"),
         },
         {
             "slug": "merchandise", "client": "S partnerem Ellipse", "year": "2025–2026", "disc": "Experiences",
@@ -278,9 +304,9 @@ CZ = {
     },
     "ventures": [
         {
-            "slug": "asd-fest", "name": "ASD Fest", "logo": "asd", "cat": "Kariérní veletrh", "url": "https://asdfest.cz/",
+            "slug": "asd-fest", "name": "ASD Fest", "logo": "asd", "cat": "Kariérní festival", "peek": "asd-022", "url": "https://asdfest.cz/",
             "img": "v-asd", "card": "asd-web", "when": "27. 10. 2026", "where": "Výstaviště Brno, pavilon G1",
-            "short": "První kariérní veletrh aerospace & defence v Česku.",
+            "short": "První kariérní festival aerospace & defence v Česku.",
             "lead": "Aerospace & Defence Career Fest je historicky první veletrh svého druhu v ČR. Propojuje státní i soukromý sektor z vojenského, leteckého, vědeckého a technologického prostředí a nadchne mladou generaci pro kariéru v oboru.",
             "facts": [("Kdy", "27. 10. 2026"), ("Kde", "Výstaviště Brno, pavilon G1"), ("Vstup", "Zdarma"), ("Generální partner", "OMNIPOL GROUP")],
             "blocks": [
@@ -320,7 +346,7 @@ CZ = {
         {
             "slug": "gryfix", "name": "Gryfix Experience", "logo": "gryfix", "cat": "Teambuildingy", "url": "",
             "img": "", "when": "", "where": "",
-            "short": "Zážitkové teambuildingy pod tlakem.",
+            "short": "Zážitkové teambuildingy pro firmy.",
             "lead": "Zážitkové teambuildingy zaměřené na kooperaci v náročných situacích, fungování pod tlakem, psychodiagnostiku a rozvoj jednotlivců i týmů.",
             "facts": [("Formát", "Zážitkový teambuilding"), ("Zaměření", "Kooperace a fungování pod tlakem"), ("Výstup", "Psychodiagnostika a rozvoj týmu")],
             "blocks": [
@@ -332,11 +358,11 @@ CZ = {
 
     # ------------------------------------------------------------------ JOURNAL
     "journal_page": {
-        "title": "Bite Marks Journal — magazín o kariéře, byznysu a zdraví",
-        "description": "Bite Marks Journal: vlastní magazín Bite Marks Media na bitemarks.cz. Kariéra, byznys, technologie a zdraví.",
+        "title": "Bite Marks Journal — magazín o kariéře, byznysu a inovacích",
+        "description": "Bite Marks Journal: vlastní magazín Bite Marks Media na bitemarks.cz. Kariéra, byznys, technologie a inovace.",
         "kicker": "Bite Marks Journal",
         "h1": "Média, která sami vydáváme.",
-        "lead": "Magazín o kariéře, byznysu a zdraví na bitemarks.cz. Tady denně děláme to, co pak nabízíme klientům: obsah, který lidé čtou a který najdou vyhledávače i AI.",
+        "lead": "Magazín o kariéře, byznysu a inovacích na bitemarks.cz. Tady denně děláme to, co pak nabízíme klientům: obsah, který lidé čtou a který najdou vyhledávače i AI.",
         "cta": "Celý magazín na bitemarks.cz",
     },
     "posts": [
@@ -402,8 +428,26 @@ CZ = {
             ("Spolupráce s Valérií je vždy jasná, profesionální a spolehlivá, přitom vedená v přátelském duchu. Moc doporučuji.", "Zuzana Jírů", "Svaz personalistů ČR"),
         ],
         "partners_kicker": "Partneři",
-        "partners": [("Forbes a Ekonom", "Prémiové přílohy"), ("Ellipse", "Prémiový merchandise"), ("Institut firemní kultury", "Firemní kultura")],
+        "partners_title": "Značky, se kterými *tvoříme.*",
+        "partners_lead": "Klienti, pro které připravujeme kampaně, přílohy a obsah, a partneři, se kterými stavíme vlastní projekty, jako je ASD Fest.",
+        "partner_groups": [
+            ("Klienti", ["Klienti"]),
+            ("Partneři a vystavovatelé ASD Festu", ["Soukromý sektor", "Státní sektor", "S podporou"]),
+            ("Univerzity", ["Univerzity"]),
+            ("Mediální partneři", ["Mediální partneři"]),
+        ],
         "clients_kicker": "Důvěřují nám",
+        "office_kicker": "Kde nás najdete",
+        "office_title": "Náměstí Republiky 7, *v srdci Prahy.*",
+        "office_lead": "Pracujeme z historické budovy na Náměstí Republiky, pár kroků od Obecního domu. Domluvte si schůzku a zastavte se u nás na kávu.",
+        "office_alts": ["Atrium se skleněnou střechou v budově Náměstí Republiky 7", "Vstupní hala se schodištěm", "Zasedací místnost a kuchyňka"],
+        "office_note": "Foto: Scott.Weber Workspace / Chapman Taylor",
+        "office_map": "Mapa: Náměstí Republiky 7, Praha 1",
+        "office_route": "Naplánovat cestu",
+        "billing": "Fakturační údaje",
+        "post": "Korespondenční adresa",
+        "socials": "Sociální sítě",
+        "metro": "Metro B Náměstí Republiky · tramvaje 6, 8, 15, 26",
     },
 
     # ------------------------------------------------------------------ KONTAKT
