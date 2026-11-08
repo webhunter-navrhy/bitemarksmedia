@@ -210,7 +210,7 @@ a:hover > .wm.bw img, .wtile:hover .wm.bw img { filter: none; }
 .case-role { display: grid; gap: .35rem; padding-top: 1.1rem; border-top: 1px solid var(--line); width: 100%; }
 .case-role dd { font-size: .95rem; }
 .case .h3 a:hover { color: var(--ink); }
-.wtiles { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 3vw, 3rem); }
+.wtiles { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 3rem); }
 .wtile { display: grid; gap: 1.1rem; align-content: start; }
 .wtile-title { font: 400 clamp(1.7rem, 2.3vw, 2.3rem)/1.06 var(--serif); color: var(--maroon); letter-spacing: -.012em; }
 
@@ -683,8 +683,8 @@ button.cov:hover { transform: translateY(-10px) rotate(0deg); box-shadow: 0 40px
 
 /* ===== 8. 11. úpravy podle klientky ===== */
 /* Selected work: karusely jako skutečné slajdy, rovně */
-.wm-cars { display: flex; align-items: center; justify-content: center; padding: 0 3%; }
-.wm-car { flex: none; height: 58%; aspect-ratio: 4 / 5; overflow: hidden; box-shadow: 0 24px 50px -24px rgba(40, 20, 20, .5); transition: transform .9s var(--ease); position: relative; }
+.wm-cars { display: flex; align-items: center; justify-content: center; padding: 0 3%; min-width: 0; }
+.wm-car { flex: none; width: 31%; height: auto; aspect-ratio: 4 / 5; overflow: hidden; box-shadow: 0 24px 50px -24px rgba(40, 20, 20, .5); transition: transform .9s var(--ease); position: relative; }
 .wm-car + .wm-car { margin-left: -6%; }
 .wm-cars .wm-car:nth-child(2) { z-index: 2; }
 .wm-car img { width: 100%; height: 100%; object-fit: cover; }
@@ -806,3 +806,7 @@ button.cov:hover { transform: translateY(-10px) rotate(0deg); box-shadow: 0 40px
   .vrow-logo.vl-asd { --lh: 1.6rem; } .vrow-logo.vl-dtp { --lh: 2rem; } .vrow-logo.vl-gryfix { --lh: 2.1rem; } .vrow-logo.vl-haso { --lh: 2.1rem; }
 }
 @media (prefers-reduced-motion: reduce) { .of-pin svg { animation: none; } .qslide { transition: none; } }
+
+/* fieldset má min-width: min-content -> volby přetékaly formulář */
+.cform { grid-template-columns: minmax(0, 1fr); }
+.cform .chips { min-width: 0; min-inline-size: 0; }
