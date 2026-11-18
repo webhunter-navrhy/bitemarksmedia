@@ -3,9 +3,12 @@
 {% set H = t.home %}
 {% block title %}{{ H.title }}{% endblock %}
 {% block description %}{{ H.description }}{% endblock %}
-{% block bodyclass %}home{% endblock %}
+{% block bodyclass %}home{% if hero %} hv-pg hv-pg-{{ hero }}{% endif %}{% endblock %}
+{% block head %}{% if hero %}<link rel="stylesheet" href="{{ base }}uvod.css?v={{ V['uvod.css'] }}">{% endif %}{% endblock %}
+{% block scripts %}{% if hero %}<script src="{{ base }}uvod.js?v={{ V['uvod.js'] }}" defer></script>{% endif %}{% endblock %}
 {% block main %}
 
+{% if hero %}{% import '_uvod.html' as u with context %}{{ u.hero(hero) }}{% else %}
 {# 01 HERO: klidná powder blue plocha, jeden lesklý maroon objekt, dominantní titulek #}
 <section class="hero" aria-labelledby="h-hero">
   <div class="hero-bg" aria-hidden="true">
@@ -29,6 +32,7 @@
     {% for s in t.services %}<a href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}" lang="en">{{ s.name }}</a>{% endfor %}
   </nav>
 </section>
+{% endif %}
 
 {# studio: supporting line #}
 <section class="intro" aria-labelledby="h-intro">

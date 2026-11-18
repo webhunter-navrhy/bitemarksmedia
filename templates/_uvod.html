@@ -1,0 +1,130 @@
+{# Alternativní úvody „leave a mark“ (11/2026) – samostatné stránky /uvod-a|b|c/, živý úvod se nemění #}
+{% import '_m.html' as m with context %}
+{% set H = t.home %}
+
+{%- macro cta() -%}
+<div class="hero-cta"><a class="btn btn-gloss" href="{{ m.href('kontakt/') }}"><span>{{ ui.cta_button }}</span>{{ m.arrow() }}</a><a class="tlink" href="{{ m.href('prace/') }}"><span>{{ ui.all_work }}</span>{{ m.arrow() }}</a></div>
+{%- endmacro -%}
+
+{%- macro copy(ring=True) -%}
+<div class="wrap hero-in hv-in">
+  <p class="lbl hero-k">{{ H.kicker }}</p>
+  {% if ring %}
+  <h1 class="hero-h1" id="h-hero" lang="en"><span class="hero-l1">{{ H.line1 }}</span> <span class="hero-l2">{{ m.ring(H.line2) }}</span></h1>
+  {% else %}
+  <h1 class="hero-h1 hvc-h1" id="h-hero" lang="en"><span class="hero-l1"><span class="hvc-deb">{{ H.line1 }}</span></span> <span class="hero-l2"><span class="hvc-foil" data-t="{{ H.line2 }}">{{ H.line2 }}</span></span></h1>
+  {% endif %}
+  <div class="hero-foot"><p class="hero-lead">{{ H.lead }}</p>{{ cta() }}</div>
+</div>
+{%- endmacro -%}
+
+{%- macro disc(cls, idx=False) -%}
+<nav class="{{ cls }}" aria-label="{{ H.services_kicker }}">{% for s in t.services %}<a href="{{ m.href('sluzby/' ~ s.slug ~ '/') }}" lang="en"{% if idx %} style="--i:{{ loop.index0 }}"{% endif %}>{{ s.name }}</a>{% endfor %}</nav>
+{%- endmacro -%}
+
+{%- macro switch(k) -%}
+<nav class="hv-switch" aria-label="Varianty úvodu">
+  <span>Varianty úvodu</span>
+  <a href="{{ base }}">Původní</a>
+  <a href="{{ base }}uvod-a/"{% if k == 'a' %} aria-current="page"{% endif %}><b>A</b>Růžek</a>
+  <a href="{{ base }}uvod-b/"{% if k == 'b' %} aria-current="page"{% endif %}><b>B</b>Razítko</a>
+  <a href="{{ base }}uvod-c/"{% if k == 'c' %} aria-current="page"{% endif %}><b>C</b>Podpis</a>
+</nav>
+{%- endmacro -%}
+
+{%- macro hero(k) -%}
+
+{% if k == 'a' %}
+{# A: odtrhnutý růžek – powder blue list papíru, roh je utržený a pod ním lesklý maroon s logem #}
+<section class="hero hv hva" data-hv="a" aria-labelledby="h-hero">
+  <div class="hva-under" aria-hidden="true"></div>
+  <div class="hva-logo" aria-hidden="true">{{ LOGO|safe }}</div>
+  {{ disc('hva-disc', idx=True) }}
+  <svg class="hva-sheet" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="hva-pg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="900">
+        <stop offset="0" stop-color="#C9DFEC"/><stop offset=".55" stop-color="#C2DAEA"/><stop offset="1" stop-color="#BFD8E8"/>
+      </linearGradient>
+      <filter id="hva-fray" x="-2%" y="-2%" width="104%" height="104%">
+        <feTurbulence type="fractalNoise" baseFrequency=".55 .9" numOctaves="2" seed="4" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="hva-sh" x="-5%" y="-5%" width="110%" height="110%">
+        <feDropShadow dx="5" dy="9" stdDeviation="9" flood-color="#1c0205" flood-opacity=".55"/>
+      </filter>
+      <pattern id="hva-grain" patternUnits="userSpaceOnUse" width="256" height="256"><image class="hv-grain-img" width="256" height="256"/></pattern>
+    </defs>
+    <g filter="url(#hva-sh)"><path class="hva-rim" filter="url(#hva-fray)"/><path class="hva-paper" fill="url(#hva-pg)"/></g>
+    <path class="hva-paper hva-grain" fill="url(#hva-grain)"/>
+  </svg>
+  {{ copy() }}
+  <svg class="hva-piece" aria-hidden="true" focusable="false">
+    <g><path class="hva-rim2" filter="url(#hva-fray)"/><path class="hva-paper2" fill="url(#hva-pg)"/><path class="hva-paper2 hva-grain" fill="url(#hva-grain)"/></g>
+  </svg>
+</section>
+
+{% elif k == 'b' %}
+{# B: razítko na tiskovinách – skutečné obálky na stole, razítko BMM, klik = další otisk #}
+<section class="hero hv hvb" data-hv="b" aria-labelledby="h-hero">
+  {{ copy() }}
+  <div class="hvb-stage" aria-hidden="true">
+    <figure class="hvb-cover" style="--r:-9deg;--x:0%;--y:16%;--d:.15s">{{ m.pic('cover-ci', '', '(min-width: 700px) 20vw, 44vw') }}</figure>
+    <figure class="hvb-cover" style="--r:5deg;--x:25%;--y:1%;--d:.3s">{{ m.pic('cover-shr', '', '(min-width: 700px) 20vw, 44vw') }}</figure>
+    <figure class="hvb-cover" style="--r:11deg;--x:53%;--y:14%;--d:.45s">{{ m.pic('cover-kvt', '', '(min-width: 700px) 20vw, 44vw') }}</figure>
+    <figure class="hvb-cover hvb-front" style="--r:-3deg;--x:27%;--y:30%;--d:.6s">{{ m.pic('cover-k26', '', '(min-width: 700px) 20vw, 44vw', eager=True) }}</figure>
+    <div class="hvb-stamps"></div>
+    <span class="hvb-ghost"></span>
+    <p class="lbl hvb-hint"><span class="hvb-hint-ico"></span><span class="hvb-hint-t">Klikněte · leave a mark</span></p>
+  </div>
+  {{ disc('hero-disc wrap') }}
+  <template id="hvb-tpl">
+    <svg class="hvb-stamp" viewBox="0 0 320 210" aria-hidden="true" focusable="false">
+      <g class="hvb-ink">
+        <ellipse cx="160" cy="105" rx="150" ry="95" fill="none" stroke="currentColor" stroke-width="7"/>
+        <ellipse cx="160" cy="105" rx="139" ry="84" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <text fill="currentColor" font-family="Geist, Helvetica Neue, Arial, sans-serif" font-weight="600" font-size="13" letter-spacing="0"><textPath href="#hvb-arc" textLength="636" lengthAdjust="spacing">LEAVE A MARK · CREATIVE MEDIA STUDIO · PRAHA · </textPath></text>
+        <line x1="44" y1="105" x2="96" y2="105" stroke="currentColor" stroke-width="1.6"/><line x1="224" y1="105" x2="276" y2="105" stroke="currentColor" stroke-width="1.6"/>
+        {{ LOGO|replace('<svg ', '<svg x="108" y="54" width="104" height="104" ')|replace(' role="img"', '')|safe }}
+      </g>
+    </svg>
+  </template>
+  <svg class="hv-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <path id="hvb-arc" d="M32 105a128 73 0 1 1 256 0a128 73 0 1 1-256 0"/>
+      {% for s in [3, 11, 23] %}
+      <filter id="ink{{ loop.index0 }}" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="{{ s }}" result="w"/>
+        <feDisplacementMap in="SourceGraphic" in2="w" scale="4.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" seed="{{ s + 40 }}" result="n"/>
+        <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.6 0 0 0 2.25" result="sp"/>
+        <feTurbulence type="fractalNoise" baseFrequency=".012" numOctaves="1" seed="{{ s + 7 }}" result="p"/>
+        <feColorMatrix in="p" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.2 0 0 0 -.05" result="pr"/>
+        <feComposite in="sp" in2="pr" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="mask"/>
+        <feComposite in="d" in2="mask" operator="in"/>
+      </filter>
+      {% endfor %}
+    </defs>
+  </svg>
+</section>
+
+{% elif k == 'c' %}
+{# C: slepotisk + podpis – „Leave a“ vytlačené do papíru, „mark.“ lesklá fólie, čárkovaná stopa z vizitky obtočí slovo #}
+<section class="hero hv hvc" data-hv="c" aria-labelledby="h-hero">
+  <svg class="hvc-trail" aria-hidden="true" focusable="false">
+    <defs><mask id="hvc-mask" maskUnits="userSpaceOnUse"><path class="hvc-mpath"/></mask></defs>
+    <path class="hvc-path" mask="url(#hvc-mask)"/>
+  </svg>
+  {{ copy(ring=False) }}
+  <a class="hvc-card" href="{{ m.href('built-by/') }}" aria-label="Built by Bite Marks">
+    <span class="hvc-card-in">
+      <span class="hvc-card-top"><span class="hvc-card-k">Built by</span><span class="hvc-card-logo" aria-hidden="true">{{ LOGO|replace(' role="img"', '')|safe }}</span></span>
+      <span class="hvc-card-t">Bite Marks</span>
+      <span class="hvc-card-v" aria-hidden="true">{% for v in ('asd', 'dtp', 'gryfix', 'haso') %}<i>{{ VLOGO[v]|safe }}</i>{% endfor %}</span>
+      <span class="hvc-card-p" lang="en">{{ H.pillars|join(' · ') }}</span>
+    </span>
+  </a>
+  {{ disc('hero-disc wrap') }}
+</section>
+{% endif %}
+{{ switch(k) }}
+{%- endmacro -%}

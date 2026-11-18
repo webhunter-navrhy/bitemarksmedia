@@ -296,7 +296,7 @@ def main():
     PARTNERS = build_partners()
     VLOGO = {k: venture_svg(A / f"{k}.svg") for k in ("asd", "dtp", "gryfix", "haso")}
     files = {}
-    for f in ("style.css", "app.js"):
+    for f in ("style.css", "app.js", "uvod.css", "uvod.js"):
         b = (ROOT / f).read_bytes(); (DIST / f).write_bytes(b); files[f] = h(b)
     for f in ("favicon.svg", "og.jpg"):
         if (A / f).exists():
@@ -322,6 +322,10 @@ def main():
                 html = nbsp(html)
             out.write_text(html); count += 1
         page("home.html", "")
+        if pre == "":
+            # alternativní úvody „leave a mark“ k výběru (jen CZ, přepínač dole na stránce)
+            for k in ("a", "b", "c"):
+                page("home.html", f"uvod-{k}", hero=k, alt_url=f"{BASE}en/")
         if os.environ.get("JEN_HOME"):
             continue
         page("services.html", "sluzby")
