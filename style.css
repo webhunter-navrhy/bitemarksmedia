@@ -72,9 +72,6 @@ em { font-style: normal; }
 .btn-gloss:hover::after { transform: translateX(130%); }
 .btn-sm { height: 2.75rem; padding: 0 1.25rem; font-size: .68rem; }
 .btn-cream { background: var(--cream); color: var(--maroon); }
-.hdr-cta.btn-gloss { color: var(--maroon); background: radial-gradient(130% 160% at 28% -10%, #FFFFFF 0%, var(--cream) 42%, #E2D8C6 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -8px 14px rgba(107, 15, 26, .07), 0 0 0 1px rgba(107, 15, 26, .12), 0 12px 24px -14px rgba(74, 10, 18, .45); }
-.hdr-cta.btn-gloss:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -8px 14px rgba(107, 15, 26, .09), 0 0 0 1px rgba(107, 15, 26, .2), 0 16px 30px -14px rgba(74, 10, 18, .55); }
-.hdr-cta.btn-gloss::after { background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, .8) 48%, transparent 64%); }
 .btn-cream:hover { background: var(--blue); }
 
 .tlink {
@@ -162,9 +159,9 @@ em { font-style: normal; }
 .hero-cta .tlink { padding: .95rem 1.3rem; border: 0; border-radius: 999px; background: rgba(236, 243, 249, .62); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 10px 24px -16px rgba(30, 60, 90, .5); transition: background .4s, color .3s; }
 .hero-cta .tlink::before { inset: -6px; }
 .hero-cta .tlink:hover { background: rgba(244, 240, 232, .9); }
-/* služby jako skleněná karta vpravo dole (podle varianty L) */
+/* služby jako skleněná karta vpravo nahoře, hned pod Let's talk */
 .hero-disc {
-  position: absolute; z-index: 1; right: max(var(--pad), (100% - 1480px) / 2 + var(--pad)); bottom: var(--hb);
+  position: absolute; z-index: 1; right: var(--pad); top: 5.9rem;
   width: auto; max-width: none; margin: 0; display: flex; flex-direction: column; padding: 1.1rem 1.4rem;
   background: rgba(236, 243, 249, .62); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 4px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 18px 40px -24px rgba(30, 60, 90, .55); animation: rise 1.3s .45s var(--ease) both;
