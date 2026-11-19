@@ -63,6 +63,7 @@ IMAGES = {
     "j-doosan": ("CR_STROJE_ENERGIE_FIRMY_DOOSAN_SKODA_POWER_PLZEN_10_575.webp", [640, 1200], None),
     # vlastní art-direction rendery (vygenerované pro web, ne z moodboardu) a produktové kompozice
     "r-cherry": ("r/cherry.jpg", [960, 1440, 1920], None),
+    "r-stuha": ("r/stuha.jpg", [800, 1200, 1600], None),  # stuha od klientky, nahoře dokreslená obloha
     "r-cherry-m": ("r/cherry-m.jpg", [600, 900], None),
     "r-suede": ("r/suede.jpg", [800, 1200, 1600], None),
     "r-suede-p": ("r/suede-p.jpg", [600, 870], None),

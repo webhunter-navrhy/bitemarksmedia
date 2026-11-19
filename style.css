@@ -72,6 +72,9 @@ em { font-style: normal; }
 .btn-gloss:hover::after { transform: translateX(130%); }
 .btn-sm { height: 2.75rem; padding: 0 1.25rem; font-size: .68rem; }
 .btn-cream { background: var(--cream); color: var(--maroon); }
+.hdr-cta.btn-gloss { color: var(--maroon); background: radial-gradient(130% 160% at 28% -10%, #FFFFFF 0%, var(--cream) 42%, #E2D8C6 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -8px 14px rgba(107, 15, 26, .07), 0 0 0 1px rgba(107, 15, 26, .12), 0 12px 24px -14px rgba(74, 10, 18, .45); }
+.hdr-cta.btn-gloss:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -8px 14px rgba(107, 15, 26, .09), 0 0 0 1px rgba(107, 15, 26, .2), 0 16px 30px -14px rgba(74, 10, 18, .55); }
+.hdr-cta.btn-gloss::after { background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, .8) 48%, transparent 64%); }
 .btn-cream:hover { background: var(--blue); }
 
 .tlink {
@@ -133,10 +136,17 @@ em { font-style: normal; }
 
 /* ------------------------------------------------------------------ HERO */
 .hero { position: relative; min-height: max(660px, 100svh); display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; color: var(--maroon); }
-.hero-bg { position: absolute; inset: 0; }
-.hero-bg picture, .hero-img { width: 100%; height: 100%; }
-.hero-img { object-fit: cover; object-position: 62% 62%; animation: hero-img 2.4s var(--ease) both; }
-.hero-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(191, 216, 232, .5) 0%, rgba(191, 216, 232, 0) 52%), linear-gradient(0deg, var(--blue) 0%, rgba(191, 216, 232, .7) 9%, rgba(191, 216, 232, 0) 30%); }
+/* stuha od klientky (1600×1421, nahoře dokreslená obloha): hrana kamene (y 980) sedí na 74 % výšky hera, nejvýš 205 px nad spodkem (pod „mark.“),
+   konec stuhy (x 1470) přesně na pravém okraji, takže stuha vždy vbíhá zprava a kámen je pod titulkem */
+.hero-bg { position: absolute; inset: 0; overflow: hidden; container-type: size; background: #A6CBEE; }
+.hero-img {
+  --t: max(74cqh, 100cqh - 205px);
+  --s: max(100cqw / 1470, (100cqh - var(--t)) / 441, var(--t) / 980);
+  position: absolute; max-width: none; width: calc(var(--s) * 1600); height: calc(var(--s) * 1421);
+  left: calc(100cqw - var(--s) * 1470); top: calc(var(--t) - var(--s) * 980);
+  animation: hero-img 2.4s var(--ease) both; transform-origin: 70% 70%;
+}
+.hero-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(214, 232, 246, .38) 0%, rgba(214, 232, 246, 0) 46%); }
 @keyframes hero-img { from { transform: scale(1.06); opacity: .4; } }
 .hero-in { position: relative; padding-top: 8rem; padding-bottom: clamp(2rem, 3.6vw, 3.2rem); }
 .hero-k { color: var(--ink-2); margin-bottom: clamp(1rem, 2vw, 1.6rem); animation: rise 1.2s .1s var(--ease) both; }
@@ -148,10 +158,18 @@ em { font-style: normal; }
 .hero-foot { display: flex; flex-direction: column; align-items: flex-start; gap: 2rem; margin-top: clamp(2rem, 3.6vw, 3.2rem); animation: rise 1.3s .3s var(--ease) both; }
 .hero-lead { max-width: 29ch; font-size: clamp(1.1rem, 1.35vw, 1.3rem); line-height: 1.5; color: var(--ink); }
 .hero-cta { display: flex; align-items: center; gap: 2rem; }
-.hero-disc { position: relative; display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.25rem 1.5rem; }
-.hero-disc::before { content: ""; position: absolute; top: 0; left: var(--pad); right: var(--pad); height: 1px; background: var(--line); }
-.hero-disc a { font: 500 .72rem/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--ink-2); padding-block: .85rem; transition: color .3s; }
-.hero-disc a:hover { color: var(--maroon); }
+.hero-cta .tlink { padding: .95rem 1.3rem; border: 0; border-radius: 999px; background: rgba(236, 243, 249, .62); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 10px 24px -16px rgba(30, 60, 90, .5); transition: background .4s, color .3s; }
+.hero-cta .tlink::before { inset: -6px; }
+.hero-cta .tlink:hover { background: rgba(244, 240, 232, .9); }
+/* služby jako skleněná karta vpravo dole (podle varianty L) */
+.hero-disc {
+  position: absolute; z-index: 1; right: max(var(--pad), (100% - 1480px) / 2 + var(--pad)); bottom: clamp(2rem, 3.6vw, 3.2rem);
+  width: auto; max-width: none; margin: 0; display: flex; flex-direction: column; padding: 1.1rem 1.4rem;
+  background: rgba(236, 243, 249, .62); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 18px 40px -24px rgba(30, 60, 90, .55); animation: rise 1.3s .45s var(--ease) both;
+}
+.hero-disc a { font: 500 .7rem/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--maroon); padding-block: .62rem; transition: color .3s, transform .4s var(--ease); }
+.hero-disc a:hover { color: var(--maroon-l); transform: translateX(.2rem); }
 
 /* ------------------------------------------------------------------ sekce */
 .sec { padding-block: var(--sec); }
@@ -633,15 +651,15 @@ button.cov:hover { transform: translateY(-10px) rotate(0deg); box-shadow: 0 40px
   .hdr { height: 4.6rem; }
   .hdr-logo { width: 3.4rem; }
   .hero { min-height: 0; justify-content: flex-start; }
-  .hero-bg { position: relative; order: 2; aspect-ratio: 9 / 10; margin-top: 1.5rem; }
-  .hero-bg::after { background: linear-gradient(180deg, var(--blue) 0%, rgba(191, 216, 232, 0) 22%); }
-  .hero-img { object-position: 50% 60%; }
+  .hero-bg { position: relative; inset: auto; order: 2; aspect-ratio: 9 / 10; margin-top: 1.5rem; }
+  .hero-bg::after { background: linear-gradient(180deg, var(--blue) 0%, rgba(191, 216, 232, 0) 18%); }
+  .hero-img { --s: calc(100cqh / 880); left: calc(50cqw - var(--s) * 1000); top: calc(100cqh - var(--s) * 1421); }
   .hero-in { order: 1; padding-top: 7.5rem; padding-bottom: 0; }
   .hero-h1 { font-size: clamp(4rem, 21vw, 6.4rem); }
   .hero-h1 > .hero-l2 { margin-left: .3em; }
   .hero-foot { flex-direction: column; align-items: flex-start; gap: 1.6rem; }
   .hero-cta { flex-wrap: wrap; gap: 1.2rem 1.6rem; }
-  .hero-disc { order: 3; flex-wrap: wrap; justify-content: flex-start; gap: .2rem 1.4rem; }
+  .hero-disc { position: relative; inset: auto; order: 3; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; gap: .2rem 1.4rem; margin: -2.6rem var(--pad) 1.5rem; padding: .9rem 1.2rem; }
   .shead { grid-template-columns: 1fr; }
   .shead .tlink { justify-self: start; }
   .logos { grid-template-columns: repeat(4, 1fr); gap: 1.6rem 1rem; }

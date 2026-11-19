@@ -12,10 +12,7 @@
 {# 01 HERO: klidná powder blue plocha, jeden lesklý maroon objekt, dominantní titulek #}
 <section class="hero" aria-labelledby="h-hero">
   <div class="hero-bg" aria-hidden="true">
-    <picture>
-      <source media="(max-width: 699px)" srcset="{% for w in IMG['r-cherry-m'].w %}{{ base }}img/r-cherry-m-{{ w }}.webp?v={{ IMG['r-cherry-m'].v }} {{ w }}w{% if not loop.last %}, {% endif %}{% endfor %}" sizes="100vw">
-      {{ m.pic('r-cherry', '', '100vw', 'hero-img', eager=True) }}
-    </picture>
+    {{ m.pic('r-stuha', '', '(max-width: 699px) 200vw, 112vw', 'hero-img', eager=True) }}
   </div>
   <div class="wrap hero-in">
     <p class="lbl hero-k">{{ H.kicker }}</p>
